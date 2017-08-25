@@ -1,0 +1,32 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/me/index"
+  ],
+  "window": {
+    "navigationBarBackgroundColor": "#ef5b45",
+    "navigationBarTextStyle": "white",
+    "navigationBarTitleText": "U视问答"
+  },
+  "tabBar": {
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "iconPath": "images/home.png",
+        "selectedIconPath": "images/home_selected.png",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/me/index",
+        "iconPath": "images/me.png",
+        "selectedIconPath": "images/me_selected.png",
+        "text": "我的"
+      }
+    ]
+  },
+  "networkTimeout": {
+    "request": 10000,
+    "downloadFile": 10000
+  },
+  "debug": true
+}
