@@ -1,10 +1,49 @@
 <!--index.wxml-->
-<view class="container">
-  <view class="userinfo">
-    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
-    <block wx:else>
-      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
-      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
-    </block>
+<view class="l-page-group">
+  <!-- 用户首页 -->
+  <view class="l-page-user">
+    <!-- banner -->
+    <view class="banner">
+      <view class="l-margin-t"></view>
+      <text>logo及品牌名称\nSlogan</text>
+      <view class="l-margin-b"></view>
+    </view>
+    <!-- 搜索 -->
+    <view class="l-sticky l-search-input">
+      <navigator class="l-flex-hvc" url="/pages/search/index">
+        <text class="l-rest l-text-gray">搜索感兴趣的问题</text>
+        <icon type="search" size="20"></icon>
+      </navigator>
+    </view>
+    <!-- 提问 -->
+    <view class="l-margin-b l-text-center l-bg-white l-padding-xl">
+      <view class="l-fs-11">权威认证三甲医院医生</view>
+      <view class="l-fs-14">为您解答视力健康问题</view>
+      <navigator class="l-text-center l-margin-t l-btn-w60" url="/pages/ask/index">
+        <button type="primary">去提问</button>
+      </navigator>
+    </view>
+    <!-- 已回答 -->
+    <view class="l-text-center l-bg-white l-padding-t">
+      <text class="l-text-blod l-fs-11">已解答</text>
+    </view>
+    <navigator url="/pages/ask-info/index" class="l-problem-item l-bg-white" wx:for="{{[1,2,3]}}" wx:key="index">
+      <view class="_hd l-flex-hc">
+        <text class="l-rest l-text-gray">匿名用户</text>
+        <text class="l-text-theme">¥10</text>
+      </view>
+      <view class="_bd l-text-wrap2">
+        <text>小孩5岁，左眼近视度数100，右眼近视度数70，能否有什么方法，比如通过调理的方式，可以不佩戴眼镜可以不佩戴眼镜</text>
+      </view>
+      <view class="_ft l-flex-hc l-text-gray">
+        <text class="l-rest">胡杨树|U视一号眼科专家</text>
+        <text>2016-12-12</text>
+      </view>
+    </navigator>
+  </view>
+
+  <!-- 医生首页 -->
+  <view class="l-page-doctor">
+  
   </view>
 </view>

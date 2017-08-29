@@ -1,0 +1,74 @@
+/* index.wxss */
+.l-answer{
+  padding: 30rpx;
+}
+
+.l-answer ._avatar{
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 50%;
+  overflow: hidden;
+  border:1rpx solid #ccc;
+}
+
+.l-answer ._answer{
+  background: #27adf6;
+  border-radius: 30rpx 30rpx 30rpx 0;
+  color: #fff;
+  padding: 20rpx 30rpx;
+  display: inline-block;
+  max-width: 80%;
+}
+
+.l-evaluate{
+  padding: 30rpx;
+}
+
+.l-evaluate ._avatar{
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 50%;
+  overflow: hidden;
+  border:1rpx solid #ccc;
+}
+
+.l-doctor-card{
+  background: #fff;
+  padding: 50rpx;
+  text-align: center
+}
+.l-doctor-card ._inner{
+  background: #eee;
+  padding-bottom: 30rpx;
+}
+.l-doctor-card ._avatar{
+  display: inline-block;
+  vertical-align: top;
+  box-sizing: border-box;
+  margin: -30rpx auto 0;
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 50%;
+  background: #eee;
+  padding: 10rpx;
+  overflow: hidden;
+}
+.l-doctor-card ._avatar image{
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+.l-doctor-card ._zan{
+  background: #fff;
+  margin: 30rpx auto 0;
+  display: inline-block;
+  vertical-align: top;
+  padding: 20rpx 30rpx;
+  border-radius: 15rpx;
+  color: #999;
+  text-align: center;
+  min-width: 100rpx;
+}
+.l-doctor-card ._zan._ed{
+  color: #ef5b45;
+}

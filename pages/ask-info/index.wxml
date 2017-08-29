@@ -1,0 +1,85 @@
+<!--index.wxml-->
+<view class="l-page">
+  <!-- 问题详情 -->
+  <view class="l-problem-item l-bg-white l-margin-b">
+    <view class="_hd l-flex-hc">
+      <text class="l-rest l-text-gray">匿名用户</text>
+      <text class="l-text-theme">¥10</text>
+    </view>
+    <view class="_bd">
+      小孩5岁，左眼近视度数100，右眼近视度数70，能否有什么方法，比如通过调理的方式，可以不佩戴眼镜可以不佩戴眼镜小孩5岁，左眼近视度数100，右眼近视度数70，能否有什么方法，比如通过调理的方式，可以不佩戴眼镜可以不佩戴眼镜
+    </view>
+    <view class="_ft l-flex-hc l-text-gray">
+      <text>答案评价</text>
+      <text class="l-rest l-text-theme l-margin-l-s">满意</text>
+      <text>2016-12-12</text>
+    </view>
+  </view>
+  
+  <!-- 医生答案 -->
+  <block wx:if="{{true}}">
+    <view class="l-answer l-bg-white l-flex-h l-margin-b">
+      <image class="_avatar" src="/images/avatar.jpg"></image>
+      <view class="l-rest l-margin-l">
+        <view class="l-text-gray">胡杨树|U视一号眼科专家</view>
+        <view class="_answer l-margin-tb-m">
+          <text class="l-icon-638"></text>
+          <text space="true" decode="true">&nbsp;&nbsp;1元偷偷查看答案</text>
+        </view>
+        <view class="l-text-gray">999+人听过</view>
+      </view>
+    </view>
+  </block>
+
+  <!-- 答案记录 -->
+  <view class="l-chat-window">
+    <scroll-view scroll-y class="l-chat-record">
+      <view class="_tip">医生的回答只能作为咨询建议，不能作为诊断和治疗的依据，咨询建议不能代替医生面诊。</view>
+      <view class="l-chat-item {{index % 2 === 0 ? '_self' : ''}}" wx:for="{{[1,2,3,4,5,6,7,8]}}" wx:key="index">
+        <view class="_who">
+          <image src="/images/avatar.jpg"></image>
+        </view>
+        <view class="_msg">
+          医生的回答只能作为咨询建议，不能作为诊断和治疗的依据，咨询建议不能代替医生面诊。医生的回答只能作为咨询建议，不能作为诊断和治疗的依据，咨询建议不能代替医生面诊。
+        </view>
+        <view class="_state">
+          <!-- <button loading="{{true}}"></button> -->
+          <!-- <icon type="warn" /> -->
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+
+  <!-- 用户评价 -->
+  <block wx:if="{{true}}">
+    <view class="l-text-center l-bg-white l-padding-t">
+      <text class="l-text-blod l-fs-11">用户评价</text>
+    </view>
+    <view class="l-evaluate l-bg-white l-flex-h l-margin-b">
+      <image class="_avatar" src="/images/avatar.jpg"></image>
+      <view class="l-rest l-margin-l">
+        <view class="l-text-gray"><text class="l-fr">2017-12-12</text>用户名称</view>
+        <view class="l-margin-tb-m">
+          非常感谢，经过调理，孩子的视力已经恢复正常水平，不用带眼镜，真的很感谢医生。
+        </view>
+      </view>
+    </view>
+  </block>
+
+  <!-- 医生名片 -->
+  <view class="l-doctor-card" wx:if="{{true}}">
+    <view class="_inner">
+      <view class="_avatar">
+        <image src="/images/avatar.jpg"></image>
+      </view>
+      <view class="l-margin-tb-m">胡医生</view>
+      <view class="l-margin-tb-m l-text-gray">第二军医大学附属长征医院</view>
+      <view class="l-margin-tb-m">专注眼科调理，近视预防，10年临床经验</view>
+      <view class="_zan">
+        <text class="l-icon-600 l-margin-r-s"></text>
+        <text>有用</text>
+      </view>
+    </view>
+    <view class="l-margin-t-m">4800人看过，1515人觉得有用</view>
+  </view>
+</view>

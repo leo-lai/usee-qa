@@ -1,0 +1,17 @@
+.l-page-search{
+  height: 99.9%;
+}
+.l-search-bar{
+  background: #ef5b45;
+  padding: 20rpx;
+}
+.l-search-bar .l-flex-hvc{
+  background: #fff;
+  padding: 15rpx 30rpx;
+  border-radius: 15rpx;
+}
+
+.l-search-none{
+  height: calc(99.9% - 90px);
+  background: #fff;
+}

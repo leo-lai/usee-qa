@@ -1,14 +1,19 @@
 {
   "pages": [
     "pages/index/index",
+    "pages/search/index",
+    "pages/ask/index",
+    "pages/ask-info/index",
     "pages/me/index"
   ],
   "window": {
+    "backgroundColor": "#eeeeee",
     "navigationBarBackgroundColor": "#ef5b45",
     "navigationBarTextStyle": "white",
     "navigationBarTitleText": "U视问答"
   },
   "tabBar": {
+    "selectedColor": "#ef5b45",
     "list": [
       {
         "pagePath": "pages/index/index",

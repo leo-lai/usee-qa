@@ -1,35 +1,245 @@
 @import 'style/weui.wxss';
+@font-face {
+  font-family: 'l-iconfont';  /* project id 189309 */
+  src: url('https://at.alicdn.com/t/font_189309_v17efkcnvr6bt9.eot');
+  src: url('https://at.alicdn.com/t/font_189309_v17efkcnvr6bt9.eot?#iefix') format('embedded-opentype'),
+  url('https://at.alicdn.com/t/font_189309_v17efkcnvr6bt9.woff') format('woff'),
+  url('https://at.alicdn.com/t/font_189309_v17efkcnvr6bt9.ttf') format('truetype'),
+  url('https://at.alicdn.com/t/font_189309_v17efkcnvr6bt9.svg#l-iconfont') format('svg');
+}
+[class*='l-icon']{
+  font-family: 'l-iconfont' !important;
+  font-size: 14pt;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+}
+.l-icon-601::before{ content: '\e601';}
+.l-icon-638::before{ content: '\e638';}
+.l-icon-699::before{ content: '\e699';}
+.l-icon-600::before{ content: '\e600';}
+.l-icon-60d::before{ content: '\e60d';}
 
-page{
-    background-color: #F8F8F8;
-    font-size: 16px;
-    font-family: -apple-system-font,Helvetica Neue,Helvetica,sans-serif;
+/*
+  http://www.css88.com/book/css/ 
+  弹性布局===================
+  .l-flex-h  横向布局不换行，子项将会同等高度
+  .l-flex-hc 横向布局不换行，子项将垂直居中
+  .vux-center .vux-center-h .vux-center-v
+*/
+.l-flex-h,
+.l-flex-hc,
+.l-flex-hvc,
+.l-flex-v,
+.l-flex-vc,
+.l-flex-vhc,
+.l-flex-wrap {
+  /*应用于父元素 */
+  display: flex;
 }
-.page__hd {
-    padding: 40px;
+/*
+  flex-flow: <' flex-direction '> || <' flex-wrap '>
+  flex-direction: row | row-reverse | column | column-reverse
+  flex-wrap: nowrap | wrap | wrap-reverse
+*/
+.l-flex-h,
+.l-flex-hc,
+.l-flex-hvc {
+  /*横向布局*/
+  flex-flow: row nowrap;
 }
-.page__bd {
-    padding-bottom: 40px;
+.l-flex-v,
+.l-flex-vc,
+.l-flex-vhc {
+  /*纵向布局*/
+  flex-flow: column nowrap;
 }
-.page__bd_spacing {
-    padding-left: 15px;
-    padding-right: 15px;
+/*
+  justify-content: flex-start | flex-end | center | space-between | space-around 用于不换行的弹性盒模型容器
+  align-items: flex-start | flex-end | center | baseline | stretch 用于不换行的弹性盒模型容器
+*/
+.l-flex-h {
+  /*同等高度*/
+  align-items: strecth;
+}
+.l-flex-hc,
+.l-flex-hvc {
+  /*水平排列的垂直居中*/
+  align-items: center;
+}
+.l-flex-hvc {
+  /*水平排列的水平居中*/
+  justify-content: center;
+}
+.l-flex-vc,
+.l-flex-vhc{
+  /*垂直排列的垂直居中*/
+  justify-content: center;
+}
+.l-flex-vhc {
+  /*垂直排列的水平居中*/
+  align-items: center;
+}
+/*
+  用于换行的弹性盒模型容器
+  align-content: flex-start | flex-end | center | space-between | space-around | stretch 
+*/
+.l-flex-wrap {
+  /*水平排列换行布局*/
+  flex-flow: row wrap;
+  /*align-content: flex-start;*/
+  /*justify-content: space-between;*/
+}
+/*
+  设置子项
+  flex: none | <' flex-grow '> <' flex-shrink >'? || <' flex-basis '>
+  flex-grow: <number> 剩余空间扩展比例
+  flex-shrink: <number>  不足空间收缩比例
+  flex-basis: <length> | <percentage> | auto | content   // 基准值
+  align-self: auto | flex-start | flex-end | center | baseline | stretch
+*/
+[class*='l-flex-'] .l-rest {
+  /*如果只有设置其中一个子项，其将霸占剩余部分*/
+  display: block;
+  flex: 1;
 }
 
-.page__ft{
-    padding-bottom: 10px;
-    text-align: center;
+/* text style */
+.l-fs-20{font-size: 20pt !important;}
+.l-fs-18{font-size: 18pt !important;}
+.l-fs-17{font-size: 17pt !important;}
+.l-fs-16{font-size: 16pt !important;}
+.l-fs-14{font-size: 14pt !important;}
+.l-fs-13{font-size: 13pt !important;}
+.l-fs-11{font-size: 11pt !important;}
+.l-text-center{text-align: center;}
+.l-text-link{color: #576b95;}
+.l-text-gray{color: #999;}
+.l-text-theme{color: #ef5b45;}
+.l-text-blod{font-weight: 500;}
+.l-text-wrap1, .l-text-wrap2{
+  text-overflow: ellipsis;
+  overflow: hidden;
+  word-break: break-all;
+  word-wrap: break-word;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+}
+.l-text-wrap2 {-webkit-line-clamp: 2;}
+
+/* button style */
+.l-btn-w60{width: 50%; margin: 0 auto;}
+button[type="primary"] {background-color:#ef5b45;}
+.button-hover[type="primary"] {
+  color:rgba(255, 255, 255, 0.6);
+  background-color:#ce4d39;
 }
 
-.page__title {
-    text-align: left;
-    font-size: 20px;
-    font-weight: 400;
+/* margin padding style */
+.l-margin-tb{margin-top: 30rpx; margin-bottom: 30rpx;}
+.l-margin-tb-m{margin-top: 20rpx; margin-bottom: 20rpx;}
+.l-margin-tb-s{margin-top: 15rpx; margin-bottom: 15rpx;}
+.l-margin-b{margin-bottom: 30rpx;}
+.l-margin-t-m{margin-top: 20rpx;}
+.l-margin-t{margin-top: 30rpx;}
+.l-margin-t-xl{margin-top: 50rpx;}
+.l-margin-r{margin-right: 30rpx;}
+.l-margin-r-s{margin-right: 15rpx;}
+.l-margin-l{margin-left: 30rpx;}
+.l-margin-l-s{margin-left: 15rpx;}
+.l-padding{padding: 30rpx;}
+.l-padding-xl{padding: 50rpx;}
+.l-padding-t{padding-top: 30rpx;}
+.l-padding-t-s{padding-top: 15rpx;}
+.l-padding-tb{padding-top: 30rpx; padding-bottom: 30rpx;}
+.l-padding-tb-s{padding-top: 15rpx; padding-bottom: 15rpx;}
+.l-padding-tb-xs{padding-top: 10rpx; padding-bottom: 10rpx;}
+
+/* other style */
+.l-sticky{position: -webkit-sticky; position: sticky; top: 0; z-index: 20;}
+.l-bg-white{background-color: #fff;}
+.l-fr{float: right;}
+page{background-color: #eee; color: #555; height: 100%;margin:0;padding:0;font-size: 11pt;}
+image{max-width: 100%;}
+page::after{
+  content: "";
+  display: block;
+  height: 1rpx;
+  font-size: 0;
+  visibility: hidden;
+  clear: both;
 }
 
-.page__desc {
-    margin-top: 5px;
-    color: #888888;
-    text-align: left;
-    font-size: 14px;
+/* 问题列表 */
+.l-problem-item{padding: 20rpx 30rpx; margin-bottom: 30rpx;}
+.l-problem-item ._bd{margin: 20rpx 0;}
+
+/* 聊天对话框 */
+.l-chat-record{
+  width: 100%;
+  box-sizing: border-box;
+  padding:0 30rpx;
 }
+.l-chat-record ._tip{
+  font-size: 10pt; 
+  color: #999; 
+  line-height: 1.4;
+  margin-bottom: 30rpx;
+}
+.l-chat-item{
+  display: flex;
+   align-items: center;
+  margin-bottom: 30rpx;
+}
+.l-chat-item ._who{
+  display: none;
+  margin-left: 0;
+  margin-right: 20rpx;
+  align-self: flex-start;
+}
+.l-chat-item ._who image{
+  display: block;
+  width: 80rpx;
+  height: 80rpx;
+  border: 1rpx soldi #ccc;
+}
+.l-chat-item ._who text{
+  font-size: 11px;
+  color: #999;
+}
+.l-chat-item ._msg{
+  border-radius: 30rpx 30rpx 30rpx 0;
+  padding: 20rpx 30rpx;
+  background: #fff;
+  max-width: 70%;
+  word-break: break-all;
+}
+.l-chat-item ._state{
+  margin-left: 20rpx;
+  margin-right: 0;
+}
+.l-chat-item ._state button{
+  border:none;
+  padding: 5rpx;
+  background: transparent;
+}
+.l-chat-item ._state button::after{
+  display: none;
+}
+.l-chat-item._self{
+  flex-direction: row-reverse;
+}
+.l-chat-item._self ._who{
+  margin-left: 20rpx;
+  margin-right: 0;
+}
+.l-chat-item._self ._msg{
+  background: #27adf6;
+  border-radius: 30rpx 30rpx 0 30rpx;
+  color: #fff;
+}
+.l-chat-item._self ._state{
+  margin-left: 0;
+  margin-right: 20rpx;
+}
+
