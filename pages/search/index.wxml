@@ -1,4 +1,4 @@
-<view class="l-page-search">
+<view class="l-page-full">
   <!-- 搜索框 -->
   <view class="l-search-bar l-sticky">
     <view class="l-flex-hvc">
@@ -10,8 +10,8 @@
   </view>
 
   <!-- 没有搜索结果 -->
-  <view class="l-search-none l-text-center l-padding-tb" wx:if="{{true}}">
-    <image src="/images/sorryNonePic.png" mode="aspectFit"></image>
+  <view class="l-list-none l-text-center l-padding-tb" wx:if="{{true}}">
+    <image src="https://static.ushiyihao.com/xcx/sorryNonePic.png" mode="aspectFit"></image>
     <view>抱歉，暂时没有找到您要找的问题！</view>
     <navigator class="l-text-center l-btn-w60 l-margin-t-xl" url="/pages/ask/index">
       <button type="primary">去提问</button>

@@ -1,0 +1,20 @@
+<!--index.wxml-->
+<view class="l-page">
+  <navigator class="l-flex-h l-padding l-bg-white l-margin-tb" url="/pages/doctor-info/index" wx:for="{{[1,2,3,4]}}" wx:key=""index>
+    <view class="l-margin-r">
+      <image class="l-avatar" src=""></image>
+    </view>
+    <view class="l-rest">
+      <view>胡杨树 | 副主任医生</view>
+      <view class="l-text-gray l-margin-tb-s">第二军医大学附属长征医院</view>
+      <view class="l-doctor-skill" style="margin-top: -10rpx;">
+        <text class="_item">视力矫正</text>
+        <text class="_item">结膜炎</text>
+        <text class="_item">视疲劳</text>
+        <text class="_item">视疲劳</text>
+      </view>
+      <view class="l-text-gray">812个回答</view>
+    </view>
+    <text class="l-text-theme l-margin-l">¥10</text>
+  </navigator>
+</view>

@@ -1,2 +1,101 @@
 <!--index.wxml-->
-<text>index.wxml</text>
+<view class="l-chat-window l-flex-v">
+  <view class="l-rest _scroll">
+    <scroll-view scroll-y class="l-chat-record">
+      <view class="_inner">
+        <view class="_tip">医生的回答只能作为咨询建议，不能作为诊断和治疗的依据，咨询建议不能代替医生面诊。</view>
+
+        <!-- 对话列表 -->
+        <view class="l-chat-item {{index % 2 === 0 ? '_self' : ''}}" wx:for="{{[1,2,3,4,5,6,7,8]}}" wx:key="index">
+          <view class="_who">
+            <image src="/images/avatar.jpg"></image>
+          </view>
+          <view class="_msg">
+            医生的回答只能作为咨询建议，不能作为诊断和治疗的依据，咨询建议不能代替医生面诊。医生的回答只能作为咨询建议，不能作为诊断和治疗的依据，咨询建议不能代替医生面诊。
+          </view>
+          <view class="_state">
+            <button loading="{{true}}"></button> 
+            <icon type="warn" /> 
+          </view>
+        </view>
+
+        <!-- 推荐医生列表 -->
+        <view class="l-doctor-recommend">
+          <view class="_hd">快速咨询 | 由认证医生抢答</view>
+          <view class="_list">
+            <navigator class="_item l-flex-hc" url="/pages/ask-pay/index">
+              <image class="l-avatar l-margin-r" src=""></image>
+              <view class="l-rest">平台认证专业医生抢答</view>
+              <text class="l-text-theme l-margin-l">¥5</text>
+            </navigator>
+          </view>
+        </view>
+        <view class="l-doctor-recommend">
+          <view class="_hd">指定医生回答 | 指定专业医生1对1答复</view>
+          <view class="_list">
+            <navigator class="_item l-flex-hc" url="/pages/doctor-info/index" wx:for="{{[1,2,3]}}" wx:key="index">
+              <image class="l-avatar l-margin-r" src=""></image>
+              <view class="l-rest">
+                <view>平台认证专业医生抢答</view>
+                <view class="l-text-gray">第二军医大学附属长征医院</view>
+              </view>
+              <text class="l-text-theme l-margin-l">¥5</text>
+            </navigator>
+          </view>
+          <navigator class="l-text-center l-padding-btn l-text-gray" url="/pages/doctor-list/index">更多专业医生</navigator>
+        </view>
+
+        <!-- 医生评价 -->
+        <view class="l-doctor-evaluate">
+          <view class="l-text-center l-margin">
+            <view class="l-avatar">
+              <image  src="/images/avatar.jpg"></image>
+            </view>
+            <view class="l-margin-tb-m">胡医生</view>
+            <view class="l-text-gray l-margin-tb-m">第二军医大学附属长征医院|副主任医师</view>
+            <view class="l-margin-tb-m">专注眼科调理，近视预防，10年临床经验</view>
+          </view>
+          <view class="l-flex-hc _score">
+            <view class="l-rest _slted">
+              <text class="l-icon-638 l-margin-r-s"></text>
+              <text decode="true">满意&nbsp;&nbsp;</text>
+            </view>
+            <view class="l-rest l-text-center">
+              <text class="l-icon-601 l-margin-r-s"></text>
+              <text decode="true">一般&nbsp;&nbsp;</text>
+            </view>
+            <view class="l-rest l-text-right">
+              <text class="l-icon-699 l-margin-r-s"></text>
+              <text>有待提高</text>
+            </view>
+          </view>
+          <view class="_textarea">
+            <textarea maxlength="{{1000}}" />
+          </view>
+          <view class="_ft" hover-class="_hover">提交</view>
+        </view>
+        
+      </view>
+    </scroll-view> 
+  </view>
+  <view class="l-chat-bar">
+    <view class="l-flex-hc l-chat-input">
+      <view class="l-rest">
+        <view class="_ipt">
+          <textarea maxlength="500" auto-height="true" focus="{{chat.inputFocus}}" />
+        </view>
+      </view>
+      <text class="l-icon-63c l-fs-18 l-margin-l-s l-text-gray" bindtap="bindHideChatMenu"></text>
+    </view>
+    <view class="l-chat-menu" hidden="{{chat.hideMenu}}">
+      <view class="_item" hover-class="_hover">
+        <view class="l-icon-6c9"></view>
+        <text>照片</text>
+      </view>
+      <view class="_item" hover-class="_hover">
+        <view class="l-icon-6aa"></view>
+        <text>结束服务</text>
+      </view>
+    </view>
+  </view>
+</view>

@@ -1,1 +1,67 @@
 /* index.wxss */
+.l-chat-window{
+  height: 99.9%;
+}
+.l-chat-record{
+  height: 100%;
+}
+/* 医生推荐 */
+.l-doctor-recommend{
+  border-radius: 30rpx 30rpx 30rpx 0;
+  background: #fff;
+  overflow: hidden;
+  margin: 30rpx 0;
+}
+.l-doctor-recommend ._hd{
+  background: #27adf6;
+  color: #fff;
+  padding: 20rpx 30rpx;
+}
+.l-doctor-recommend ._item{
+  padding: 30rpx;
+  border-bottom: 1rpx solid #efefef;
+}
+.l-doctor-recommend ._item::last-child{
+  border-bottom: none;
+}
+/* 医生评价 */
+.l-doctor-evaluate{
+  background: #fff;
+  border-radius: 30rpx;
+  margin: 60rpx 0 30rpx;
+}
+.l-doctor-evaluate .l-avatar{
+  width: 120rpx;
+  height: 120rpx;
+  padding: 15rpx;
+  background: #fff;
+  margin: -30rpx auto 0;
+}
+.l-doctor-evaluate ._score{
+  margin: 30rpx 30rpx 0 30rpx;
+}
+.l-doctor-evaluate ._score ._slted{
+  color: #ef5b45;
+}
+.l-doctor-evaluate ._ft{
+  padding: 20rpx 30rpx;
+  text-align: center;
+  color: #fff;
+  background: #27adf6;
+  border-radius: 0 0 30rpx 30rpx;
+}
+.l-doctor-evaluate ._ft._hover{
+  background: #259fe2;
+}
+.l-doctor-evaluate ._textarea{
+  margin: 15rpx 30rpx 30rpx 30rpx;
+  padding: 10rpx 20rpx;
+  box-sizing: border-box;
+  border: 1rpx solid #eee;
+}
+.l-doctor-evaluate ._textarea textarea{
+  position: relative;
+  width: 100%;
+  max-height: 200rpx;
+}
+

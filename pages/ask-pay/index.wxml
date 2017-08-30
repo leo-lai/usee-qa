@@ -1,0 +1,27 @@
+<!--index.wxml-->
+<view class="l-page">
+  <view class="l-padding l-bg-white l-margin-tb">
+    <text class="l-fr l-text-theme">¥5</text>
+    <text>平台认证专业医生抢答</text>
+  </view>
+
+  <view class="l-padding l-bg-white l-margin-tb">
+    <view>问答说明</view>
+    <view class="l-margin-t-m">1. 支付成功后，根据您选择的答题方式，您的问题将由指定医生或其他认证医生抢答；</view>
+    <view class="l-margin-t-s">2. 若48小时内无人作答，则您支付的费用将全额退回微信；</view>
+    <view class="l-margin-t-s">3. 作答结束动作由医生方发起，医生时间宝贵，请尽量详细全面的描述症状；</view>
+  </view>
+
+  <view class="l-padding l-bg-white l-margin-tb">
+    <view>支付方式</view>
+    <view class="l-margin-t-m">
+      <text class="l-icon-70d l-text-green l-margin-r"></text>
+      <text>微信支付</text>
+    </view>
+  </view>
+
+  <view class="l-margin" style="margin-top: 60rpx;">
+    <button type="primary">支付</button>
+  </view>
+  <view class="l-text-center l-text-gray">支付则视为同意《线上咨询协议》</view>
+</view>

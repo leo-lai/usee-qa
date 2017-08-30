@@ -1,0 +1,5 @@
+/* index.wxss */
+.l-page{
+  height: 99.9%;
+  background: #fff;
+}

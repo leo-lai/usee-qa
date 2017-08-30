@@ -1,0 +1,28 @@
+<!--index.wxml-->
+<view class="l-page-full">
+  <!-- 没有提问 -->
+  <view class="l-list-none" wx:if="{{true}}">
+    <image mode="widthFix" src="https://static.ushiyihao.com/xcx/withoutAsk.jpg"></image>
+    <view class="l-margin-t">您还没有提问过任何问题</view>
+    <navigator class="l-margin-t-xl l-btn-w60" url="/pages/ask/index">
+      <button type="primary">去提问</button>
+    </navigator>
+  </view>
+
+  <view class="l-problem-list" wx:if="{{false}}">
+    <navigator url="/pages/ask-info/index" class="l-problem-item l-bg-white" wx:for="{{[1,2,3,4,5,6]}}" wx:key="index">
+      <view class="_hd l-flex-hc">
+        <text class="l-rest">进度状态</text>
+        <text class="l-text-theme">¥10</text>
+      </view>
+      <view class="_bd l-text-wrap2">
+        <text>小孩5岁，左眼近视度数100，右眼近视度数70，能否有什么方法，比如通过调理的方式，可以不佩戴眼镜可以不佩戴眼镜</text>
+      </view>
+      <view class="_ft l-flex-hc l-text-gray">
+        <text class="l-rest">胡杨树 | U视一号眼科专家</text>
+        <text>2016-12-12</text>
+      </view>
+    </navigator>
+  </view>
+</view>
+

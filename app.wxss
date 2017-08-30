@@ -1,11 +1,12 @@
 @import 'style/weui.wxss';
 @font-face {
-  font-family: 'l-iconfont';  /* project id 189309 */
-  src: url('https://at.alicdn.com/t/font_189309_v17efkcnvr6bt9.eot');
-  src: url('https://at.alicdn.com/t/font_189309_v17efkcnvr6bt9.eot?#iefix') format('embedded-opentype'),
-  url('https://at.alicdn.com/t/font_189309_v17efkcnvr6bt9.woff') format('woff'),
-  url('https://at.alicdn.com/t/font_189309_v17efkcnvr6bt9.ttf') format('truetype'),
-  url('https://at.alicdn.com/t/font_189309_v17efkcnvr6bt9.svg#l-iconfont') format('svg');
+  /* http://www.iconfont.cn/manage/index?manage_type=myprojects&projectId=189309 */
+  font-family: 'l-iconfont'; 
+  src: url('https://at.alicdn.com/t/font_189309_rie4web712pxecdi.eot');
+  src: url('https://at.alicdn.com/t/font_189309_rie4web712pxecdi.eot?#iefix') format('embedded-opentype'),
+  url('https://at.alicdn.com/t/font_189309_rie4web712pxecdi.woff') format('woff'),
+  url('https://at.alicdn.com/t/font_189309_rie4web712pxecdi.ttf') format('truetype'),
+  url('https://at.alicdn.com/t/font_189309_rie4web712pxecdi.svg#l-iconfont') format('svg');
 }
 [class*='l-icon']{
   font-family: 'l-iconfont' !important;
@@ -18,6 +19,15 @@
 .l-icon-699::before{ content: '\e699';}
 .l-icon-600::before{ content: '\e600';}
 .l-icon-60d::before{ content: '\e60d';}
+.l-icon-63c::before{ content: '\e63c';}
+.l-icon-6c9::before{ content: '\e6c9';}
+.l-icon-6aa::before{ content: '\e6aa';}
+.l-icon-70d::before{ content: '\e70d';}
+.l-icon-793::before{ content: '\e793';}
+.l-icon-60a::before{ content: '\e60a';}
+.l-icon-6b4::before{ content: '\e6b4';}
+.l-icon-612::before{ content: '\e612';}
+.l-icon-611::before{ content: '\e611';}
 
 /*
   http://www.css88.com/book/css/ 
@@ -111,11 +121,20 @@
 .l-fs-14{font-size: 14pt !important;}
 .l-fs-13{font-size: 13pt !important;}
 .l-fs-11{font-size: 11pt !important;}
+.l-fs-s{font-size: 12px;}
+.l-fs-xs{font-size: 11px;}
+.l-h1{font-size: 20pt; color: #333;}
+.l-h2{font-size: 17pt; color: #333;}
+.l-h3{font-size: 14pt; color: #333;}
+.l-h4{font-size: 11pt; color: #333;}
 .l-text-center{text-align: center;}
+.l-text-right{text-align: right;}
+.l-text-green{color: #09bb07;}
 .l-text-link{color: #576b95;}
 .l-text-gray{color: #999;}
 .l-text-theme{color: #ef5b45;}
 .l-text-blod{font-weight: 500;}
+.l-text-justify{text-align:justify; text-justify: inter-word;}
 .l-text-wrap1, .l-text-wrap2{
   text-overflow: ellipsis;
   overflow: hidden;
@@ -128,18 +147,26 @@
 .l-text-wrap2 {-webkit-line-clamp: 2;}
 
 /* button style */
-.l-btn-w60{width: 50%; margin: 0 auto;}
+.l-btn-w60{width: 50%; margin: 0 auto; text-align: center;}
 button[type="primary"] {background-color:#ef5b45;}
-.button-hover[type="primary"] {
+button.button-hover[type="primary"] {
   color:rgba(255, 255, 255, 0.6);
   background-color:#ce4d39;
 }
 
+/* border style */
+.l-border-t{border-top: 1rpx solid #dadadc;}
+.l-border-b{border-bottom: 1rpx solid #dadadc;}
+.l-border-tb{border-top: 1rpx solid #dadadc; border-bottom: 1rpx solid #dadadc;}
+
 /* margin padding style */
+.l-margin{margin: 30rpx;}
 .l-margin-tb{margin-top: 30rpx; margin-bottom: 30rpx;}
 .l-margin-tb-m{margin-top: 20rpx; margin-bottom: 20rpx;}
 .l-margin-tb-s{margin-top: 15rpx; margin-bottom: 15rpx;}
 .l-margin-b{margin-bottom: 30rpx;}
+.l-margin-t-xs{margin-top: 10rpx;}
+.l-margin-t-s{margin-top: 15rpx;}
 .l-margin-t-m{margin-top: 20rpx;}
 .l-margin-t{margin-top: 30rpx;}
 .l-margin-t-xl{margin-top: 50rpx;}
@@ -154,42 +181,57 @@ button[type="primary"] {background-color:#ef5b45;}
 .l-padding-tb{padding-top: 30rpx; padding-bottom: 30rpx;}
 .l-padding-tb-s{padding-top: 15rpx; padding-bottom: 15rpx;}
 .l-padding-tb-xs{padding-top: 10rpx; padding-bottom: 10rpx;}
+.l-padding-btn{padding: 20rpx 30rpx;}
 
 /* other style */
+page{background-color: #eee; color: #555; height: 100%;margin:0;padding:0;font-size: 11pt;}
+page::after{content: ""; display: block; height: 1rpx; font-size: 0; visibility: hidden; clear: both;}
+image{max-width: 100%;}
+.l-page-full{height: 99.9%;}
+
+.l-layer{position: fixed; background-color: rgba(0, 0, 0, 0.8); top:0; left:0; right:0; bottom:0;}
+.l-layer ._inner{background-color: #fff; border-radius: 30rpx; max-width: 70%; max-height: 80%;}
 .l-sticky{position: -webkit-sticky; position: sticky; top: 0; z-index: 20;}
 .l-bg-white{background-color: #fff;}
 .l-fr{float: right;}
-page{background-color: #eee; color: #555; height: 100%;margin:0;padding:0;font-size: 11pt;}
-image{max-width: 100%;}
-page::after{
-  content: "";
-  display: block;
-  height: 1rpx;
-  font-size: 0;
-  visibility: hidden;
-  clear: both;
-}
+.l-fixed-bottom{position: fixed; left:0; right: 0; bottom: 0;}
+.l-fixed-bottom button{border-radius: 0;}
+.l-hover{opacity: 0.8; background-color: #eee !important;}
+.l-banner-image image{width: 100%;}
+.l-avatar{display: inline-block; vertical-align: top; width: 80rpx; height: 80rpx; border-radius: 50%; overflow: hidden;}
+.l-avatar image{width: 100%; height: 100%; border-radius: 50%;}
+.l-avatar[src=""]{background: url("/images/avatar.jpg") 50% 50% no-repeat;background-size: contain;}
+.l-list-none{height: 100%; background: #fff; text-align: center;}
+
 
 /* 问题列表 */
 .l-problem-item{padding: 20rpx 30rpx; margin-bottom: 30rpx;}
 .l-problem-item ._bd{margin: 20rpx 0;}
 
 /* 聊天对话框 */
+.l-chat-window ._scroll, .l-scroll{
+  overflow-x: hidden;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
 .l-chat-record{
   width: 100%;
   box-sizing: border-box;
-  padding:0 30rpx;
 }
+.l-chat-record ._inner{
+  padding: 0 30rpx;
+}
+
 .l-chat-record ._tip{
   font-size: 10pt; 
   color: #999; 
   line-height: 1.4;
-  margin-bottom: 30rpx;
+  margin: 30rpx 0;
 }
 .l-chat-item{
   display: flex;
-   align-items: center;
-  margin-bottom: 30rpx;
+  align-items: center;
+  margin: 30rpx 0;
 }
 .l-chat-item ._who{
   display: none;
@@ -241,5 +283,121 @@ page::after{
 .l-chat-item._self ._state{
   margin-left: 0;
   margin-right: 20rpx;
+}
+
+.l-chat-bar{
+  border-top: 1rpx solid #dadadc;
+  background: #f5f5f7;
+}
+.l-chat-input{
+  padding: 15rpx;
+}
+.l-chat-input ._ipt{
+  border:1px solid #dadadc;
+  background: #fff;
+  border-radius: 10rpx;
+}
+.l-chat-input ._ipt textarea{
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  box-sizing: border-box;
+  line-height: 100%;
+  max-height: 200rpx;
+  min-height: 70rpx;
+}
+.l-chat-menu{
+  border-top: 1rpx solid #dadadc;
+  overflow: hidden;
+  padding: 0 50rpx 30rpx 0;
+}
+.l-chat-menu ._item{
+  float: left;
+  text-align: center;
+  margin: 30rpx 0 0 50rpx;
+}
+.l-chat-menu ._item [class^="l-icon"]{
+  border-radius: 15rpx;
+  border: 1rpx solid #ccc;
+  width: 100rpx;
+  height: 100rpx;
+  line-height: 100rpx;
+  margin: auto;
+  background: #fff;
+  font-size: 17pt;
+}
+.l-chat-menu ._item text{
+  font-size: 12px;
+  color: #999;
+}
+.l-chat-menu ._hover [class^="l-icon"]{
+  background: #eee;
+}
+
+/* 医生卡片 */
+.l-doctor-card{
+  background: #fff;
+  padding: 50rpx;
+  text-align: center
+}
+.l-doctor-card ._inner{
+  background: #eee;
+  padding-bottom: 30rpx;
+}
+.l-doctor-card ._avatar{
+  display: inline-block;
+  vertical-align: top;
+  box-sizing: border-box;
+  margin: -30rpx auto 0;
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 50%;
+  background: #eee;
+  padding: 10rpx;
+  overflow: hidden;
+}
+.l-doctor-card ._avatar image{
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+.l-doctor-card ._zan{
+  background: #fff;
+  margin: 30rpx auto 0;
+  display: inline-block;
+  vertical-align: top;
+  padding: 20rpx 30rpx;
+  border-radius: 15rpx;
+  color: #999;
+  text-align: center;
+  min-width: 100rpx;
+}
+.l-doctor-card ._zan._ed{
+  color: #ef5b45;
+}
+.l-doctor-skill{
+  overflow: hidden;
+  padding: 0 0 20rpx 0;
+  font-size: 0;
+}
+.l-doctor-skill ._item{
+  display: inline-block;
+  border: 1rpx solid #ef5b45;
+  border-radius: 30rpx;
+  padding: 5rpx 15rpx;
+  font-size: 11px;
+  margin: 20rpx 20rpx 0 0;
+}
+
+/* 用户评价 */
+.l-evaluate{
+  padding: 30rpx;
+}
+.l-evaluate ._avatar{
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 50%;
+  overflow: hidden;
+  border:1rpx solid #ccc;
 }
 

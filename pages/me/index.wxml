@@ -1,0 +1,49 @@
+<view class="l-page-group">
+  <view class="l-page-user">
+    <view class="l-flex-hc l-padding-xl">
+      <view class="l-avatar l-margin-r" style="width: 120rpx; height: 120rpx;">
+        <image src="/images/avatar.jpg"></image>
+      </view>
+      <text class="l-fs-16">胡杨树</text>
+    </view>
+
+    <view class="l-menu-group">
+      <navigator class="l-flex-h _item" url="/pages/wallet/user/index">
+        <text class="l-icon-793 _icon"></text>
+        <view class="l-rest">
+          <view>我的钱包</view>
+          <view class="_desc">当您的问题被别人查看时候，您可以获得收益</view>
+        </view>
+      </navigator>
+      <navigator class="l-flex-h _item" url="/pages/asked/ask/index">
+        <text class="l-icon-612 _icon"></text>
+        <view class="l-rest">
+          <view>我的提问</view>
+          <view class="_desc">您提问过的问题都可以在这里查看</view>
+        </view>
+      </navigator>
+      <navigator class="l-flex-h _item" url="/pages/asked/see/index">
+        <text class="l-icon-6b4 _icon"></text>
+        <view class="l-rest">
+          <view>我看过的</view>
+          <view class="_desc">您看过的问题都可以在这里查看</view>
+        </view>
+      </navigator>
+      <button class="l-flex-h _item" open-type="contact" hover-class="l-hover">
+        <text class="l-icon-60a _icon"></text>
+        <view class="l-rest">
+          <view>我要反馈</view>
+          <view class="_desc">或许你可以帮助我们做的更好</view>
+        </view>
+      </button>
+      <navigator class="l-flex-h _item" url="/pages/about/index">
+        <text class="l-icon-611 _icon"></text>
+        <view class="l-rest">
+          <view>关于我们</view>
+          <view class="_desc">查看关于U视一号的公司介绍</view>
+        </view>
+      </navigator>
+    </view>
+  </view>
+  <view class="l-page-doctor"></view>
+</view>

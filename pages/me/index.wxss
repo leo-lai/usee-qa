@@ -1,1 +1,36 @@
-/* pages/logs/index.wxss */
+.l-page-group{
+  height: 99.9%;
+}
+.l-page-user{
+  height: 100%;
+  background: #fff;
+}
+
+.l-menu-group{
+  margin: 30rpx 50rpx;
+}
+.l-menu-group ._item{
+  margin: 10rpx 0;
+  padding: 20rpx;
+  border-radius: 10rpx;
+}
+.l-menu-group button._item{
+  text-align: left;
+  border: none;
+  background: transparent;
+  color: inherit;
+  line-height: inherit;
+  font-size: inherit;
+}
+.l-menu-group button._item::after{
+  display: none;
+}
+.l-menu-group ._item ._desc{
+  color: #999;
+  font-size: 12px;
+}
+.l-menu-group ._item ._icon{
+  margin-top: -12rpx;
+  margin-right: 50rpx;
+  font-size: 22pt;
+}

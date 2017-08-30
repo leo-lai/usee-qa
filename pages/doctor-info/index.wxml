@@ -1,0 +1,55 @@
+<view class="l-page">
+  <view class="l-doctor-card l-margin-b">
+    <view class="_inner">
+      <view class="_avatar">
+        <image src="/images/avatar.jpg"></image>
+      </view>
+      <view class="l-margin-tb-m">胡医生</view>
+      <view class="l-margin-tb-m l-text-gray">第二军医大学附属长征医院</view>
+      <view class="l-margin-tb-m">专注眼科调理，近视预防，10年临床经验</view>
+    </view>
+    <view class="l-doctor-skill l-text-center">
+      <text class="_item">视力矫正</text>
+      <text class="_item">结膜炎</text>
+      <text class="_item">视疲劳</text>
+      <text class="_item">视疲劳</text>
+    </view>
+    <view class="weui-flex l-text-center l-margin-t">
+      <view class="weui-flex__item">
+        <view class="l-text-theme l-fs-20">100</view>
+        <view class="l-text-gray l-fs-s">已回答的</view>
+      </view>
+      <view class="weui-flex__item">
+        <view class="l-text-theme l-fs-20">95%</view>
+        <view class="l-text-gray l-fs-s">好评率</view>
+      </view>
+    </view>
+  </view>
+  <!-- 用户评价 -->
+  <block wx:if="{{true}}">
+    <view class="l-text-center l-bg-white l-padding-t">
+      <text class="l-h4">用户评价</text>
+    </view>
+    <view class="l-evaluate l-bg-white l-flex-h l-margin-b">
+      <image class="_avatar" src="/images/avatar.jpg"></image>
+      <view class="l-rest l-margin-l">
+        <view class="l-text-gray"><text class="l-fr">2017-12-12</text>用户名称</view>
+        <view class="l-margin-tb-m">
+          非常感谢，经过调理，孩子的视力已经恢复正常水平，不用带眼镜，真的很感谢医生。
+        </view>
+      </view>
+    </view>
+  </block>
+
+  <view class="l-fixed-bottom l-flex-hc l-bg-white">
+    <view class="l-rest l-margin-l l-fs-14">
+      <text class="l-text-green l-icon-70d l-margin-r-s"></text>
+      <text class="l-text-theme">¥10</text>
+    </view>
+    <view class="l-rest">
+      <button type="primary">支付</button>
+    </view>
+  </view>
+</view>
+
+  

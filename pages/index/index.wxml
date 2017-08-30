@@ -17,7 +17,7 @@
     </view>
     <!-- 提问 -->
     <view class="l-margin-b l-text-center l-bg-white l-padding-xl">
-      <view class="l-fs-11">权威认证三甲医院医生</view>
+      <view>权威认证三甲医院医生</view>
       <view class="l-fs-14">为您解答视力健康问题</view>
       <navigator class="l-text-center l-margin-t l-btn-w60" url="/pages/ask/index">
         <button type="primary">去提问</button>
@@ -25,7 +25,7 @@
     </view>
     <!-- 已回答 -->
     <view class="l-text-center l-bg-white l-padding-t">
-      <text class="l-text-blod l-fs-11">已解答</text>
+      <text class="l-h4">已解答</text>
     </view>
     <navigator url="/pages/ask-info/index" class="l-problem-item l-bg-white" wx:for="{{[1,2,3]}}" wx:key="index">
       <view class="_hd l-flex-hc">

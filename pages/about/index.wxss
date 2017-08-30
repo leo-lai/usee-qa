@@ -1,0 +1,6 @@
+/* index.wxss */
+.l-page-about{
+  height: 99.9%;
+  background: #fff;
+  word-break: break-all;
+}

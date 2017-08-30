@@ -32,19 +32,21 @@
   </block>
 
   <!-- 答案记录 -->
-  <view class="l-chat-window">
+  <view class="l-chat-window" style="margin-top: -30rpx;">
     <scroll-view scroll-y class="l-chat-record">
-      <view class="_tip">医生的回答只能作为咨询建议，不能作为诊断和治疗的依据，咨询建议不能代替医生面诊。</view>
-      <view class="l-chat-item {{index % 2 === 0 ? '_self' : ''}}" wx:for="{{[1,2,3,4,5,6,7,8]}}" wx:key="index">
-        <view class="_who">
-          <image src="/images/avatar.jpg"></image>
-        </view>
-        <view class="_msg">
-          医生的回答只能作为咨询建议，不能作为诊断和治疗的依据，咨询建议不能代替医生面诊。医生的回答只能作为咨询建议，不能作为诊断和治疗的依据，咨询建议不能代替医生面诊。
-        </view>
-        <view class="_state">
-          <!-- <button loading="{{true}}"></button> -->
-          <!-- <icon type="warn" /> -->
+      <view class="_inner">
+        <view class="_tip">医生的回答只能作为咨询建议，不能作为诊断和治疗的依据，咨询建议不能代替医生面诊。</view>
+        <view class="l-chat-item {{index % 2 === 0 ? '_self' : ''}}" wx:for="{{[1,2,3,4,5,6,7,8]}}" wx:key="index">
+          <view class="_who">
+            <image src="/images/avatar.jpg"></image>
+          </view>
+          <view class="_msg">
+            医生的回答只能作为咨询建议，不能作为诊断和治疗的依据，咨询建议不能代替医生面诊。医生的回答只能作为咨询建议，不能作为诊断和治疗的依据，咨询建议不能代替医生面诊。
+          </view>
+          <view class="_state">
+            <!-- <button loading="{{true}}"></button> -->
+            <!-- <icon type="warn" /> -->
+          </view>
         </view>
       </view>
     </scroll-view>
@@ -53,7 +55,7 @@
   <!-- 用户评价 -->
   <block wx:if="{{true}}">
     <view class="l-text-center l-bg-white l-padding-t">
-      <text class="l-text-blod l-fs-11">用户评价</text>
+      <text class="l-h4">用户评价</text>
     </view>
     <view class="l-evaluate l-bg-white l-flex-h l-margin-b">
       <image class="_avatar" src="/images/avatar.jpg"></image>

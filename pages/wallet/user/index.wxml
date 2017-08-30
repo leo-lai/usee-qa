@@ -1,0 +1,36 @@
+<!--index.wxml-->
+<view class="l-page">
+  <view class="l-banner-image">
+    <image bindtap="bindShowWallerRules" mode="widthFix" src="https://static.ushiyihao.com/xcx/wallet-banner.jpg"></image>
+  </view>
+  <view class="l-padding-xl l-flex-h l-border-b">
+    <view class="l-rest">
+      <view>钱包余额</view>
+      <text class="l-fs-20 l-margin-r-s">100</text>
+      <text>元</text>
+    </view>
+    <view>
+      <button type="primary" style="min-width: 200rpx;">提现</button>
+    </view>
+  </view>
+  <view class="l-padding-xl l-flex-hc l-border-b">
+    <view class="l-rest">
+      <text class="l-fs-14 l-margin-r-s">余额明细</text>
+    </view>
+    <view>
+      <button type="default" style="min-width: 200rpx;">查看</button>
+    </view>
+  </view>
+
+  <!-- 收益规则 -->
+  <view class="l-layer l-flex-vhc" hidden="{{hideWalletRules}}">
+    <view class="_inner l-scroll l-padding-xl">
+      <view class="l-h3">收益规则</view>
+      <view class="l-text-justify l-margin-t">当你咨询完一个问题后，他人可以支付一元查看您的问题及医生专业回复，您的个人信息和图片系统会自动屏蔽，无需担心泄露个人隐私。他人成功支付一元后，您可以对应获得这1元里面的5毛钱，即假设你的问题被查看1000次，您的账户就会有500块钱余额可用于提现。</view>
+      <view class="l-text-justify l-margin-t">问题描述尽量详细可以让更多人搜索到，被查看次数越多，在首页显示的位置越靠前</view>
+      <view class="l-btn-w60 l-margin-t-xl">
+        <button type="primary" size="mini" bindtap="bindShowWallerRules">知道了</button>
+      </view>
+    </view>
+  </view>
+</view>

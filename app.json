@@ -1,15 +1,24 @@
 {
   "pages": [
+    
+    "pages/me/index",
     "pages/index/index",
     "pages/search/index",
+    "pages/doctor-list/index",
+    "pages/doctor-info/index",
     "pages/ask/index",
     "pages/ask-info/index",
-    "pages/me/index"
+    "pages/ask-pay/index",
+    "pages/about/index",
+    "pages/wallet/user/index",
+    "pages/wallet/doctor/index",
+    "pages/asked/ask/index",
+    "pages/asked/see/index"
   ],
   "window": {
     "backgroundColor": "#eeeeee",
-    "navigationBarBackgroundColor": "#ef5b45",
-    "navigationBarTextStyle": "white",
+    "navigationBarBackgroundColor": "#ffffff",
+    "navigationBarTextStyle": "black",
     "navigationBarTitleText": "U视问答"
   },
   "tabBar": {

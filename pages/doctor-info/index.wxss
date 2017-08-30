@@ -1,0 +1,4 @@
+/* index.wxss */
+.l-page{
+  padding-bottom: 92rpx;
+}
