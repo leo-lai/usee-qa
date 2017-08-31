@@ -3,14 +3,15 @@
   <view class="l-search-bar l-sticky">
     <view class="l-flex-hvc">
       <view class="l-rest">
-        <input focus="true" confirm-type="搜索" bindconfirm="search" placeholder="搜索问题/答案关键字" />
+        <input focus="true" bindinput="bindKeyInput" confirm-type="search" bindconfirm="search" placeholder="搜索问题/答案关键字" value="{{searchKey}}"/>
       </view>
-      <icon type="search" size="20"></icon>
+      <icon hidden="{{searchKey === ''}}" type="clear" class="l-margin-r-m" size="18" bindtap="clearInput"></icon>
+      <icon type="search" size="20" bindtap="search"></icon>
     </view>
   </view>
 
   <!-- 没有搜索结果 -->
-  <view class="l-list-none l-text-center l-padding-tb" wx:if="{{true}}">
+  <view class="l-list-none l-padding-tb" wx:if="{{result.ajax && result.data.length === 0}}">
     <image src="https://static.ushiyihao.com/xcx/sorryNonePic.png" mode="aspectFit"></image>
     <view>抱歉，暂时没有找到您要找的问题！</view>
     <navigator class="l-text-center l-btn-w60 l-margin-t-xl" url="/pages/ask/index">
@@ -19,40 +20,31 @@
   </view>
 
   <!-- 搜索结果 -->
-  <view class="l-search-result" wx:if="{{false}}">
-    <view class="l-problem-item l-bg-white" wx:for="{{[1,2]}}" wx:key="index">
+  <view class="l-search-result" wx:if="{{result.data.length > 0}}">
+    <navigator url="/pages/ask-info/index" class="l-problem-item l-bg-white" wx:for="{{result.data}}" wx:key="{{item.problemId}}">
       <view class="_hd l-flex-hc">
         <text class="l-rest l-text-gray">匿名用户</text>
-        <text class="l-text-theme">¥10</text>
+        <text class="l-text-theme">¥{{item.amount}}</text>
       </view>
       <view class="_bd l-text-wrap2">
-        <text>小孩5岁，左眼近视度数100，右眼近视度数70，能否有什么方法，比如通过调理的方式，可以不佩戴眼镜可以不佩戴眼镜</text>
+        <text>{{item.problemRemarks}}</text>
       </view>
       <view class="_ft l-flex-hc l-text-gray">
-        <text class="l-rest">胡杨树|U视一号眼科专家</text>
-        <text>2016-12-12</text>
+        <text class="l-rest">{{item.doctorName}} | {{item.hospital}}</text>
+        <text>{{item.createDate}}</text>
       </view>
-    </view>
+    </navigator>
   </view>
 
   <!-- 历史记录 -->
-  <view class="l-search-history" wx:if="{{false}}">
+  <view class="l-search-history" wx:if="{{searchKey === '' && history.data.length > 0}}">
     <view class="weui-cells__title">
       <text class="l-fr l-text-link" bindtap="clear">清除</text>
       <text>历史记录</text>
     </view>
     <view class="weui-cells weui-cells_after-title">
-      <view class="weui-cell">
-        <view class="weui-cell__bd">历史记录1</view>
-      </view>
-      <view class="weui-cell">
-        <view class="weui-cell__bd">历史记录1</view>
-      </view>
-      <view class="weui-cell">
-        <view class="weui-cell__bd">历史记录1</view>
-      </view>
-      <view class="weui-cell">
-        <view class="weui-cell__bd">历史记录1</view>
+      <view class="weui-cell" wx:for="{{history.data}}" wx:key="{{index}}">
+        <view class="weui-cell__bd">{{item}}</view>
       </view>
     </view>
   </view>

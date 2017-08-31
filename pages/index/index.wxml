@@ -24,26 +24,38 @@
       </navigator>
     </view>
     <!-- 已回答 -->
-    <view class="l-text-center l-bg-white l-padding-t">
+    <view class="l-text-center l-bg-white l-padding-tb-s">
       <text class="l-h4">已解答</text>
     </view>
-    <navigator url="/pages/ask-info/index" class="l-problem-item l-bg-white" wx:for="{{[1,2,3]}}" wx:key="index">
+
+    <navigator url="/pages/ask-info/index" class="l-problem-item l-bg-white" wx:for="{{problem.data}}" wx:key="{{item.problemId}}">
       <view class="_hd l-flex-hc">
         <text class="l-rest l-text-gray">匿名用户</text>
-        <text class="l-text-theme">¥10</text>
+        <text class="l-text-theme">¥{{item.amount}}</text>
       </view>
       <view class="_bd l-text-wrap2">
-        <text>小孩5岁，左眼近视度数100，右眼近视度数70，能否有什么方法，比如通过调理的方式，可以不佩戴眼镜可以不佩戴眼镜</text>
+        <text>{{item.problemRemarks}}</text>
       </view>
       <view class="_ft l-flex-hc l-text-gray">
-        <text class="l-rest">胡杨树|U视一号眼科专家</text>
-        <text>2016-12-12</text>
+        <text class="l-rest">{{item.doctorName}} | {{item.hospital}}</text>
+        <text>{{item.createDate}}</text>
       </view>
     </navigator>
+    
+    <view class="weui-loadmore" hidden="{{!problem.more || !problem.loading}}">
+      <view class="weui-loading"></view>
+      <view class="weui-loadmore__tips">正在加载</view>
+    </view>
+    <view class="weui-loadmore weui-loadmore_line" hidden="{{ !(problem.data.length === 0 && !problem.more) }}">
+      <view class="weui-loadmore__tips weui-loadmore__tips_in-line" >暂无数据</view>
+    </view>
+    <view class="weui-loadmore weui-loadmore_line" hidden="{{ problem.more }}">
+      <view class="weui-loadmore__tips weui-loadmore__tips_in-line" >我是有底线的</view>
+    </view>
   </view>
 
   <!-- 医生首页 -->
   <view class="l-page-doctor">
-  
+    
   </view>
 </view>

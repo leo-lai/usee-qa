@@ -1,50 +1,176 @@
 //app.js
 import config from 'config'
+import utils from '/script/utils'
 
+const storage = {
+  setItem: (key, value) => {
+    try {
+      wx.setStorageSync(key, value)
+    } catch (err) {
+      console.error('本地存储信息失败' + err)
+    }
+  },
+  getItem: (key) => {
+    return new Promise((resolve, reject) => {
+      try {
+        let value = wx.getStorageSync(key)
+        resolve(value)
+      } catch (err) {
+        console.error('本地存储信息失败' + err)
+        reject()
+      }
+    })
+  },
+  removeItem: (key) => {
+    try {
+      wx.removeStorageSync(key)
+    } catch (err) {
+      console.error('本地存储信息失败' + err)
+    }
+  }
+}
+
+let _ReadyCbs = []
 App({
+  config,
+  storage,
   onLaunch: function () {
     // 获取用户信息
-    this.login()
+    storage.getItem('userInfo').then((value) => {
+      if (!value) {
+        this.login()
+      } else {
+        this.globalData.userInfo = value
+        this.runReady(value)
+      }
+    }).catch(() => {
+      this.login()
+    })
   },
-  post: function(url = '', data = {}) {
+  onError: function (msg) {
+    // wx.showModal({
+    //   showCancel: false,
+    //   content: msg
+    // })
+  },
+  post: function (url = '', data = {}) {
     return new Promise((resolve, reject) => {
+      data.sessionId = this.globalData.userInfo ? this.globalData.userInfo.sessionId : ''
       wx.request({
+        url,
+        data,
         method: 'POST',
         header: {
           'content-type': 'application/x-www-form-urlencoded'
         },
-        url,
-        data,
-        success: resolve,
-        fail: reject
+        success: ({ data }) => {
+          if (data.resultCode === 200) {
+            resolve(data)
+            return
+          }
+
+          if (data.resultCode === 4002) {
+            storage.removeItem('userInfo')
+            wx.showModal({
+              showCancel: false,
+              content: '登录信息失效，请重新进入小程序。'
+            })
+            // resolve(this.login())
+            reject(data)
+            return
+          }
+          
+          // 其他错误码处理
+          // switch (data.resultCode) {
+          //   case 4008:
+          //   case 4004:
+          //   case 4005:
+          //     break
+          // }
+
+          wx.showModal({
+            showCancel: false,
+            content: data.message
+          })
+          reject(data)
+        },
+        fail: (err) => {
+          wx.showModal({
+            showCancel: false,
+            content: err.errMsg || '接口请求出错'
+          })
+          reject(err)
+        }
       })
     })
   },
   login: function () {
     // 登录, 获取用户信息
-    wx.login({
-      success: loginRes => {
-        // 发送 loginRes.code 到后台换取 openId, sessionKey, unionId
-        wx.getUserInfo({
-          withCredentials: true,
-          success: userInfoRes => {
-            // 可以将 userInfoRes 发送给后台解码出 unionId
-            userInfoRes.code = loginRes.code
-            this.post(config.userInfo, userInfoRes).then((apiRes) => {
-              this.globalData.userInfo = apiRes.data
+    return new Promise((resolve, reject) => {
+      wx.showLoading({ mask: true })
+      wx.login({
+        success: loginRes => { // 获取授权code，可以到后台换取 openId, sessionKey, unionId
+          wx.getUserInfo({ // 小程序授权获取用户信息（头像，昵称等）
+            withCredentials: true,
+            success: userInfoRes => { // 可以将 userInfoRes 发送给后台解码出 unionId
+              userInfoRes.code = loginRes.code
+              this.post(config.userInfo, userInfoRes).then((apiRes) => {
+                wx.hideLoading()
+                this.globalData.userInfo = apiRes.data
 
-              // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-              // 所以此处加入 callback 以防止这种情况
-              if (this.userInfoReadyCallback) {
-                this.userInfoReadyCallback(apiRes.data)
-              }
-            }).catch((err) => {
-              console.log('获取用户信息失败！' + err)
-            })
-          }
-        })
-      }
+                // 由于获取用户信息是网络请求，可能会在 Page.onLoad 之后才返回
+                // 所以此处触发回调函数
+                this.runReady.call(this, apiRes.data)
+
+                storage.setItem('userInfo', apiRes.data)
+
+                resolve(apiRes)
+              }).catch((err) => {
+                wx.hideLoading()
+              })
+            },
+            fail: (err) => {
+              wx.hideLoading()
+              console.error(err.errMsg)
+              reject(err)
+            }
+          })
+        },
+        fail: (err) => {
+          wx.hideLoading()
+          console.error(err.errMsg)
+          reject(err)
+        }
+      })
     })
+    
+  },
+  getAuthFunc: function (funcName = 'getUserInfo') {
+    // wx.openSetting({
+    //   success: (res) => {
+    //     console.info(res.authSetting)
+    //   }
+    // })
+
+    // wx.getSetting({
+    //   success: (res) => {
+    //     console.info(res.authSetting)
+    //   }
+    // })
+  },
+  runReady: function (userInfo) {
+    _ReadyCbs.forEach((cb) => {
+      cb.call(this, userInfo)
+    })
+  },
+  onReady: function (callback) {
+    if (typeof callback === 'function') {
+      if (this.globalData.userInfo) {
+        callback.call(this, this.globalData.userInfo)
+      } else {
+        _ReadyCbs.push(callback)
+      }
+    }
   },
   globalData: {
     userInfo: null

@@ -1,53 +1,80 @@
-//index.js
-//获取应用实例
+//index/index.js
 const app = getApp()
 
 Page({
   data: {
     problem: {
       loading: false,
+      more: true,
+      page: 1,
       data: []
     },
-    hasUserInfo: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo')
+    userInfo: null
   },
   onLoad: function () {
-    // if (app.globalData.userInfo) {
-    //   this.setData({
-    //     userInfo: app.globalData.userInfo,
-    //     hasUserInfo: true
-    //   })
-    // } else if (this.data.canIUse){
-    //   // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-    //   // 所以此处加入 callback 以防止这种情况
-    //   app.userInfoReadyCallback = res => {
-    //     console.log('getUserInfo3')
-    //     console.log(res)
-    //     this.setData({
-    //       userInfo: res.userInfo,
-    //       hasUserInfo: true
-    //     })
-    //   }
-    // } else {
-    //   // 在没有 open-type=getUserInfo 版本的兼容处理
-    //   wx.getUserInfo({
-    //     success: res => {
-    //       console.log('getUserInfo2')
-    //       console.log(res)
-    //       app.globalData.userInfo = res.userInfo
-    //       this.setData({
-    //         userInfo: res.userInfo,
-    //         hasUserInfo: true
-    //       })
-    //     }
-    //   })
-    // }
+    app.onReady(userInfo => {
+      this.setData({
+        userInfo: userInfo
+      })
+
+      if (userInfo.isDoctor === 0) { // 用户
+        this.getProblemList(1)
+      } else if (userInfo.isDoctor === 1) { // 医生
+
+      }
+    })
   },
-  getUserInfo: function(e) {
-    app.globalData.userInfo = e.detail.userInfo
+  onReachBottom: function () { // 加载更多
+    if (this.data.userInfo) {
+      if (this.data.userInfo.isDoctor === 0) { // 用户
+        this.getProblemList(this.data.problem.page + 1)
+      } else if (this.data.userInfo.isDoctor === 1) { // 医生
+
+      }
+    }
+  },
+  onPullDownRefresh: function () { // 下拉刷新
+    if (this.data.userInfo) {
+      if (this.data.userInfo.isDoctor === 0) { // 用户
+        this.setData({
+          'problem.more': true
+        })
+        this.getProblemList(1, () => {
+          wx.stopPullDownRefresh()
+        })
+      } else if (this.data.userInfo.isDoctor === 1) { // 医生
+
+      }
+    } else {
+      wx.stopPullDownRefresh()
+    }
+  },
+  getProblemList: function (page = 1, callback = function(){}) {
+    if (!this.data.problem.more || this.data.problem.loading) {
+      callback(this.data.problem.data)
+      return
+    }
+
     this.setData({
-      userInfo: e.detail.userInfo,
-      hasUserInfo: true
+      'problem.loading': true
+    })
+
+    app.post(app.config.problemList, {
+      page,
+      problemState: 2
+    }).then(({ data }) => {
+      if (data.problems.length > 0) {
+        this.setData({
+          'problem.more': data.problems.length >= data.rows,
+          'problem.page': data.page,
+          'problem.data': data.page === 1 ? data.problems : this.data.problem.data.concat(data.problems)
+        })
+      }
+    }).finally(() => {
+      this.setData({
+        'problem.loading': false
+      })
+      callback(this.data.problem.data)
     })
   }
 })

@@ -829,7 +829,7 @@ icon {
 
 .weui-loadmore {
   width: 65%;
-  margin: 1.5em auto;
+  margin: 30rpx auto 15rpx;
   line-height: 1.6em;
   font-size: 14px;
   text-align: center
@@ -842,21 +842,21 @@ icon {
 
 .weui-loadmore_line {
   border-top: 1px solid #e5e5e5;
-  margin-top: 2.4em
+  margin-top: 60rpx;
 }
 
 .weui-loadmore__tips_in-line {
   position: relative;
-  top: -.9em;
+  top: -26rpx;
   padding: 0 .55em;
-  background-color: #fff;
+  background-color: #eee;
   color: #999
 }
 
 .weui-loadmore__tips_in-dot {
   position: relative;
   padding: 0 .16em;
-  width: 4px;
+  width: 8rpx;
   height: 1.6em
 }
 

@@ -171,6 +171,7 @@ button.button-hover[type="primary"] {
 .l-margin-t{margin-top: 30rpx;}
 .l-margin-t-xl{margin-top: 50rpx;}
 .l-margin-r{margin-right: 30rpx;}
+.l-margin-r-m{margin-right: 20rpx;}
 .l-margin-r-s{margin-right: 15rpx;}
 .l-margin-l{margin-left: 30rpx;}
 .l-margin-l-s{margin-left: 15rpx;}

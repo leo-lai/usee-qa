@@ -1,8 +1,7 @@
 {
   "pages": [
-    
-    "pages/me/index",
     "pages/index/index",
+    "pages/me/index",
     "pages/search/index",
     "pages/doctor-list/index",
     "pages/doctor-info/index",

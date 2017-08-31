@@ -9,11 +9,14 @@ var baseUrl = "http://api.usee1.com.cn/useeproject/eyeinterface"
 
 var config = {
 
-    // 下面的地址配合云端 Server 工作
-    baseUrl,
-
     // 注册/登录 返回用户信息
-    userInfo: `${baseUrl}/diagnose/login`
+    userInfo: `${baseUrl}/diagnose/login`,
+    // 问题列表，搜索
+    problemList: `${baseUrl}/diagnose/problemList`,
+
+
+    // 下面的地址配合云端 Server 工作
+    baseUrl
 };
 
 module.exports = config
