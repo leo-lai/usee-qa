@@ -7,7 +7,7 @@ Page({
     history: {
       data: []
     },
-    result: {
+    problem: {
       ajax: false,
       more: true,
       loading: false,
@@ -23,15 +23,31 @@ Page({
       })
     })
   },
+  onReachBottom: function () { // 加载更多
+    this.getProblemList(this.data.problem.page + 1)
+  },
   clearInput: function () {
     this.setData({
       searchKey: ''
     })
   },
   bindKeyInput: function (e) {
+    if (e.detail.value === '') {
+      this.setData({
+        'problem.ajax': false
+      })
+    }
     this.setData({
       searchKey: e.detail.value
     })
+  },
+  historySearch: function (e) {
+    this.setData({
+      'searchKey': e.target.dataset.val,
+      'problem.more': true
+    })
+
+    this.getProblemList(1)
   },
   // 清除搜索历史记录
   clear: function () {
@@ -51,5 +67,37 @@ Page({
       app.storage.setItem('search_history', historyData)
     }
     
+    this.setData({
+      'problem.more': true
+    })
+    this.getProblemList(1)
+  },
+  getProblemList: function (page = 1, callback = function () { }) {
+    if (!this.data.problem.more || this.data.problem.loading) {
+      callback(this.data.problem.data)
+      return
+    }
+
+    this.setData({
+      'problem.loading': true
+    })
+
+    app.post(app.config.problemList, {
+      page,
+      problemState: '',
+      problemRemarks: this.data.searchKey
+    }).then(({ data }) => {
+      this.setData({
+        'problem.more': data.problems.length >= data.rows,
+        'problem.page': data.page,
+        'problem.data': data.page === 1 ? data.problems : this.data.problem.data.concat(data.problems)
+      })
+    }).finally(() => {
+      this.setData({
+        'problem.ajax': true,
+        'problem.loading': false
+      })
+      callback(this.data.problem.data)
+    })
   }
 });

@@ -63,13 +63,11 @@ Page({
       page,
       problemState: 2
     }).then(({ data }) => {
-      if (data.problems.length > 0) {
-        this.setData({
-          'problem.more': data.problems.length >= data.rows,
-          'problem.page': data.page,
-          'problem.data': data.page === 1 ? data.problems : this.data.problem.data.concat(data.problems)
-        })
-      }
+      this.setData({
+        'problem.more': data.problems.length >= data.rows,
+        'problem.page': data.page,
+        'problem.data': data.page === 1 ? data.problems : this.data.problem.data.concat(data.problems)
+      })
     }).finally(() => {
       this.setData({
         'problem.loading': false

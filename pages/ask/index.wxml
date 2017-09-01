@@ -3,50 +3,59 @@
   <view class="l-rest _scroll">
     <scroll-view scroll-y class="l-chat-record">
       <view class="_inner">
-        <view class="_tip">医生的回答只能作为咨询建议，不能作为诊断和治疗的依据，咨询建议不能代替医生面诊。</view>
+        <!-- <view class="_tip">医生的回答只能作为咨询建议，不能作为诊断和治疗的依据，咨询建议不能代替医生面诊。</view> -->
 
         <!-- 对话列表 -->
-        <view class="l-chat-item {{index % 2 === 0 ? '_self' : ''}}" wx:for="{{[1,2,3,4,5,6,7,8]}}" wx:key="index">
-          <view class="_who">
-            <image src="/images/avatar.jpg"></image>
+        <block wx:if="{{userInfo}}">
+          <view class="l-chat-item {{item.fromUserId == userInfo.userId ? '_self' : ''}}" wx:for="{{chat.data}}" wx:key="index">
+            <!-- <view class="_who">
+               <image src="{{item.fromUserId == userInfo.userId ? item.fromUserAvatar : item.toUserAvatar}}"></image> 
+            </view> -->
+            <view class="_msg">
+              <view wx:if="{{item.msgType == 1}}">{{item.msgContent}}</view>
+              <image wx:if="{{item.msgType == 2}}" src="{{item.msgContent}}"></image> 
+            </view>
+            <view class="_state">
+              <button loading="{{item.msgState === 0}}"></button> 
+              <icon type="warn" wx:if="{{item.msgState === -1}}" /> 
+            </view>
           </view>
-          <view class="_msg">
-            医生的回答只能作为咨询建议，不能作为诊断和治疗的依据，咨询建议不能代替医生面诊。医生的回答只能作为咨询建议，不能作为诊断和治疗的依据，咨询建议不能代替医生面诊。
-          </view>
-          <view class="_state">
-            <button loading="{{true}}"></button> 
-            <icon type="warn" /> 
-          </view>
-        </view>
+        </block>
 
         <!-- 推荐医生列表 -->
-        <view class="l-doctor-recommend">
-          <view class="_hd">快速咨询 | 由认证医生抢答</view>
-          <view class="_list">
-            <navigator class="_item l-flex-hc" url="/pages/ask-pay/index">
-              <image class="l-avatar l-margin-r" src=""></image>
-              <view class="l-rest">平台认证专业医生抢答</view>
-              <text class="l-text-theme l-margin-l">¥5</text>
-            </navigator>
+        <block wx:if="{{false}}">
+          <view class="l-doctor-recommend">
+            <view class="_hd">快速咨询 | 由认证医生抢答</view>
+            <view class="_list">
+              <navigator class="_item l-flex-hc" url="/pages/ask-pay/index">
+                <view class="l-avatar l-margin-r">
+                  <image src="/images/avatar.jpg"></image>
+                </view>
+                <view class="l-rest">平台认证专业医生抢答</view>
+                <text class="l-text-theme l-margin-l">¥5</text>
+              </navigator>
+            </view>
           </view>
-        </view>
-        <view class="l-doctor-recommend">
-          <view class="_hd">指定医生回答 | 指定专业医生1对1答复</view>
-          <view class="_list">
-            <navigator class="_item l-flex-hc" url="/pages/doctor-info/index" wx:for="{{[1,2,3]}}" wx:key="index">
-              <image class="l-avatar l-margin-r" src=""></image>
-              <view class="l-rest">
-                <view>平台认证专业医生抢答</view>
-                <view class="l-text-gray">第二军医大学附属长征医院</view>
-              </view>
-              <text class="l-text-theme l-margin-l">¥5</text>
-            </navigator>
+          <view class="l-doctor-recommend">
+            <view class="_hd">指定医生回答 | 指定专业医生1对1答复</view>
+            <view class="_list">
+              <navigator class="_item l-flex-hc" url="/pages/doctor-info/index" wx:for="{{[1,2,3]}}" wx:key="index">
+                <view class="l-avatar l-margin-r">
+                  <image src="/images/avatar.jpg"></image>
+                </view>
+                <view class="l-rest">
+                  <view>平台认证专业医生抢答</view>
+                  <view class="l-text-gray">第二军医大学附属长征医院</view>
+                </view>
+                <text class="l-text-theme l-margin-l">¥5</text>
+              </navigator>
+            </view>
+            <navigator class="l-text-center l-padding-btn l-text-gray" url="/pages/doctor-list/index">更多专业医生</navigator>
           </view>
-          <navigator class="l-text-center l-padding-btn l-text-gray" url="/pages/doctor-list/index">更多专业医生</navigator>
-        </view>
+        </block>
 
         <!-- 医生评价 -->
-        <view class="l-doctor-evaluate">
+        <view class="l-doctor-evaluate" wx:if="{{false}}">
           <view class="l-text-center l-margin">
             <view class="l-avatar">
               <image  src="/images/avatar.jpg"></image>
@@ -82,7 +91,8 @@
     <view class="l-flex-hc l-chat-input">
       <view class="l-rest">
         <view class="_ipt">
-          <textarea maxlength="500" auto-height="true" focus="{{chat.inputFocus}}" />
+          <input value="{{send.content}}" confirm-type="send" auto-height="true" focus="{{chat.inputFocus}}" bindfocus="bindInputFocus" bindblur="bindInputBlur"></input>
+          <!-- <textarea maxlength="500" auto-height="true" focus="{{chat.inputFocus}}" bindfocus="bindInputFocus" bindblur="bindInputBlur" /> -->
         </view>
       </view>
       <text class="l-icon-63c l-fs-18 l-margin-l-s l-text-gray" bindtap="bindHideChatMenu"></text>
@@ -93,9 +103,13 @@
         <text>照片</text>
       </view>
       <view class="_item" hover-class="_hover">
+        <view class="l-icon-626"></view>
+        <text>拍摄</text>
+      </view>
+      <!-- <view class="_item" hover-class="_hover">
         <view class="l-icon-6aa"></view>
         <text>结束服务</text>
-      </view>
+      </view> -->
     </view>
   </view>
 </view>

@@ -1,12 +1,11 @@
 @import 'style/weui.wxss';
 @font-face {
-  /* http://www.iconfont.cn/manage/index?manage_type=myprojects&projectId=189309 */
-  font-family: 'l-iconfont'; 
-  src: url('https://at.alicdn.com/t/font_189309_rie4web712pxecdi.eot');
-  src: url('https://at.alicdn.com/t/font_189309_rie4web712pxecdi.eot?#iefix') format('embedded-opentype'),
-  url('https://at.alicdn.com/t/font_189309_rie4web712pxecdi.woff') format('woff'),
-  url('https://at.alicdn.com/t/font_189309_rie4web712pxecdi.ttf') format('truetype'),
-  url('https://at.alicdn.com/t/font_189309_rie4web712pxecdi.svg#l-iconfont') format('svg');
+  font-family: 'l-iconfont';  /* project id 189309 */
+  src: url('https://at.alicdn.com/t/font_189309_tmxh58u7xjuzyqfr.eot');
+  src: url('https://at.alicdn.com/t/font_189309_tmxh58u7xjuzyqfr.eot?#iefix') format('embedded-opentype'),
+  url('https://at.alicdn.com/t/font_189309_tmxh58u7xjuzyqfr.woff') format('woff'),
+  url('https://at.alicdn.com/t/font_189309_tmxh58u7xjuzyqfr.ttf') format('truetype'),
+  url('https://at.alicdn.com/t/font_189309_tmxh58u7xjuzyqfr.svg#l-iconfont') format('svg');
 }
 [class*='l-icon']{
   font-family: 'l-iconfont' !important;
@@ -28,6 +27,8 @@
 .l-icon-6b4::before{ content: '\e6b4';}
 .l-icon-612::before{ content: '\e612';}
 .l-icon-611::before{ content: '\e611';}
+.l-icon-627::before{ content: '\e627';}
+.l-icon-626::before{ content: '\e626';}
 
 /*
   http://www.css88.com/book/css/ 
@@ -121,6 +122,7 @@
 .l-fs-14{font-size: 14pt !important;}
 .l-fs-13{font-size: 13pt !important;}
 .l-fs-11{font-size: 11pt !important;}
+.l-fs-m{font-size: 14px;}
 .l-fs-s{font-size: 12px;}
 .l-fs-xs{font-size: 11px;}
 .l-h1{font-size: 20pt; color: #333;}
@@ -135,6 +137,7 @@
 .l-text-theme{color: #ef5b45;}
 .l-text-blod{font-weight: 500;}
 .l-text-justify{text-align:justify; text-justify: inter-word;}
+.l-text-wrap{word-break: break-all;text-align:justify; text-justify: inter-word;}
 .l-text-wrap1, .l-text-wrap2{
   text-overflow: ellipsis;
   overflow: hidden;
@@ -201,7 +204,6 @@ image{max-width: 100%;}
 .l-banner-image image{width: 100%;}
 .l-avatar{display: inline-block; vertical-align: top; width: 80rpx; height: 80rpx; border-radius: 50%; overflow: hidden;}
 .l-avatar image{width: 100%; height: 100%; border-radius: 50%;}
-.l-avatar[src=""]{background: url("/images/avatar.jpg") 50% 50% no-repeat;background-size: contain;}
 .l-list-none{height: 100%; background: #fff; text-align: center;}
 
 
@@ -257,6 +259,9 @@ image{max-width: 100%;}
   max-width: 70%;
   word-break: break-all;
 }
+.l-chat-item ._msg image{
+  max-width: 30%;
+}
 .l-chat-item ._state{
   margin-left: 20rpx;
   margin-right: 0;
@@ -289,6 +294,10 @@ image{max-width: 100%;}
 .l-chat-bar{
   border-top: 1rpx solid #dadadc;
   background: #f5f5f7;
+  /* position: fixed;
+  bottom:0;
+  left:0;
+  right: 0; */
 }
 .l-chat-input{
   padding: 15rpx;
@@ -298,7 +307,7 @@ image{max-width: 100%;}
   background: #fff;
   border-radius: 10rpx;
 }
-.l-chat-input ._ipt textarea{
+.l-chat-input ._ipt textarea {
   margin: 0;
   padding: 0;
   width: 100%;
@@ -307,10 +316,14 @@ image{max-width: 100%;}
   max-height: 200rpx;
   min-height: 70rpx;
 }
+.l-chat-input ._ipt input {
+  padding: 15rpx;
+}
 .l-chat-menu{
   border-top: 1rpx solid #dadadc;
   overflow: hidden;
   padding: 0 50rpx 30rpx 0;
+  min-height: 400rpx;
 }
 .l-chat-menu ._item{
   float: left;
