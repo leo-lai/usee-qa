@@ -4,8 +4,8 @@
   <view class="l-page-user">
     <!-- banner -->
     <view class="banner">
-      <view class="l-margin-t"></view>
-      <text>logo及品牌名称\nSlogan</text>
+      <view class="l-margin-t l-fs-20">U视问答</view>
+      <text>专业视力健康问答平台</text>
       <view class="l-margin-b"></view>
     </view>
     <!-- 搜索 -->
@@ -28,7 +28,7 @@
       <text class="l-h4">已解答</text>
     </view>
 
-    <navigator url="/pages/ask-info/index" class="l-problem-item l-bg-white" wx:for="{{problem.data}}" wx:key="{{item.problemId}}">
+    <navigator url="/pages/ask-info/index?pbid={{item.problemId}}" class="l-problem-item l-bg-white" wx:for="{{problem.data}}" wx:key="{{item.problemId}}">
       <view class="_hd l-flex-hc">
         <text class="l-rest l-text-gray">匿名用户</text>
         <text class="l-text-theme">¥{{item.amount}}</text>

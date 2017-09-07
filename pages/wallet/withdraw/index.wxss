@@ -1,0 +1,15 @@
+/* pages/wallet/withdraw/index.wxss */
+.l-page-withdraw{
+  min-height: 99.9%;
+  background: #fff;
+}
+.l-withdraw-input{
+  border-bottom: 1rpx solid #dadadc;
+  padding: 30rpx 0;
+}
+
+.l-withdraw-input input{
+  width: 100%;
+  font-size: 20pt;
+  color: #333;
+}

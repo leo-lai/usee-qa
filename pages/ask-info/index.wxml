@@ -4,15 +4,15 @@
   <view class="l-problem-item l-bg-white l-margin-b">
     <view class="_hd l-flex-hc">
       <text class="l-rest l-text-gray">匿名用户</text>
-      <text class="l-text-theme">¥10</text>
+      <text class="l-text-theme">¥{{problemInfo.amount}}</text>
     </view>
     <view class="_bd">
-      小孩5岁，左眼近视度数100，右眼近视度数70，能否有什么方法，比如通过调理的方式，可以不佩戴眼镜可以不佩戴眼镜小孩5岁，左眼近视度数100，右眼近视度数70，能否有什么方法，比如通过调理的方式，可以不佩戴眼镜可以不佩戴眼镜
+      {{problemInfo.problemRemarks}}
     </view>
     <view class="_ft l-flex-hc l-text-gray">
       <text>答案评价</text>
       <text class="l-rest l-text-theme l-margin-l-s">满意</text>
-      <text>2016-12-12</text>
+      <text>{{problemInfo.createDate}}</text>
     </view>
   </view>
   
@@ -32,7 +32,7 @@
   </block>
 
   <!-- 答案记录 -->
-  <view class="l-chat-window" style="margin-top: -30rpx;">
+  <view class="l-chat-window" style="margin-top: -30rpx;" wx:if="{{false}}">
     <scroll-view scroll-y class="l-chat-record">
       <view class="_inner">
         <view class="_tip">医生的回答只能作为咨询建议，不能作为诊断和治疗的依据，咨询建议不能代替医生面诊。</view>
@@ -53,7 +53,7 @@
   </view>
 
   <!-- 用户评价 -->
-  <block wx:if="{{true}}">
+  <block wx:if="{{false}}">
     <view class="l-text-center l-bg-white l-padding-t">
       <text class="l-h4">用户评价</text>
     </view>
@@ -69,7 +69,7 @@
   </block>
 
   <!-- 医生名片 -->
-  <view class="l-doctor-card" wx:if="{{true}}">
+  <view class="l-doctor-card" wx:if="{{false}}">
     <view class="_inner">
       <view class="_avatar">
         <image src="/images/avatar.jpg"></image>

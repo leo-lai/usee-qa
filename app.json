@@ -1,6 +1,5 @@
 {
   "pages": [
-    
     "pages/index/index",
     "pages/me/index",
     "pages/search/index",
@@ -13,7 +12,9 @@
     "pages/wallet/user/index",
     "pages/wallet/doctor/index",
     "pages/asked/ask/index",
-    "pages/asked/see/index"
+    "pages/asked/see/index",
+    "pages/wallet/withdraw/index",
+    "pages/wallet/bill/index"
   ],
   "window": {
     "backgroundColor": "#eeeeee",

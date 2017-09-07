@@ -116,6 +116,8 @@ App({
               userInfoRes.code = loginRes.code
               this.post(config.userInfo, userInfoRes).then((apiRes) => {
                 wx.hideLoading()
+
+                apiRes.data.avatarThumb = utils.formatHead(apiRes.data.avatarUrl)
                 this.globalData.userInfo = apiRes.data
 
                 // 由于获取用户信息是网络请求，可能会在 Page.onLoad 之后才返回

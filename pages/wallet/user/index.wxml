@@ -3,23 +3,23 @@
   <view class="l-banner-image">
     <image bindtap="bindShowWallerRules" mode="widthFix" src="https://static.ushiyihao.com/xcx/wallet-banner.jpg"></image>
   </view>
-  <view class="l-padding-xl l-flex-h l-border-b">
+  <view class="l-padding-xl l-flex-hc l-border-b">
     <view class="l-rest">
       <view>钱包余额</view>
-      <text class="l-fs-20 l-margin-r-s">100</text>
+      <text class="l-fs-20 l-margin-r-s">{{userInfo ? userInfo.amount : 0}}</text>
       <text>元</text>
     </view>
-    <view>
+    <navigator url="/pages/wallet/withdraw/index">
       <button type="primary" style="min-width: 200rpx;">提现</button>
-    </view>
+    </navigator>
   </view>
   <view class="l-padding-xl l-flex-hc l-border-b">
     <view class="l-rest">
       <text class="l-fs-14 l-margin-r-s">余额明细</text>
     </view>
-    <view>
+    <navigator url="/pages/wallet/bill/index">
       <button type="default" style="min-width: 200rpx;">查看</button>
-    </view>
+    </navigator>
   </view>
 
   <!-- 收益规则 -->

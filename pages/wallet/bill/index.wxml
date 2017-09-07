@@ -1,0 +1,2 @@
+<!--pages/wallet/details/index.wxml-->
+<text>{{page}}.wxml</text>

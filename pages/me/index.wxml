@@ -1,10 +1,10 @@
 <view class="l-page-group">
   <view class="l-page-user">
-    <view class="l-flex-hc l-padding-xl">
+    <view class="l-flex-hc l-padding-xl" wx:if="userInfo">
       <view class="l-avatar l-margin-r" style="width: 120rpx; height: 120rpx;">
-        <image src="/images/avatar.jpg"></image>
+        <image src="{{userInfo.avatarUrl || 'https://static.ushiyihao.com/xcx/avatar.jpg'}}"></image>
       </view>
-      <text class="l-fs-16">胡杨树</text>
+      <text class="l-fs-16">{{userInfo.userName}}</text>
     </view>
 
     <view class="l-menu-group">

@@ -47,6 +47,19 @@ const formatNumber = n => {
   return n[1] ? n : '0' + n
 }
 
+const formatHead = (src, size = 132) => {
+  if (!src) {
+    return `https://placeholdit.imgix.net/~text?txtsize=16&bg=999&txtclr=fff&txt=%E5%9B%BE%E7%89%87%E7%BC%BA%E5%A4%B1&w=${size}&h=${size}`
+  }
+  if (src.indexOf('wx.qlogo.cn') === -1) {
+    return src
+  }
+  // 有0、46、64、96、132数值可选，0代表640*640正方形头像
+  return src.replace(/\/0$/, '/' + size)
+}
+
 module.exports = {
-  formatTime: formatTime
+  formatTime,
+  formatNumber,
+  formatHead
 }

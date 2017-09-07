@@ -1,0 +1,22 @@
+<!--pages/wallet/withdraw/index.wxml-->
+<view class="l-page-withdraw">
+  <view class="l-padding-xl">
+    <view class="l-h2">提现金额</view>
+    <view class="l-flex-hc l-margin-tb l-withdraw-input">
+      <text class="l-h2">¥</text>
+      <view class="l-rest l-margin-l">
+        <input type="digit" />
+      </view>
+    </view>
+    <view class="l-margin-tb">
+      <text class="l-text-gray">最多可提现余额为￥200，</text>
+      <text class="l-text-link">全部提现</text>
+    </view>
+    <view class="l-br"></view>
+    <view class="l-margin-tb">
+      <button type="primary">提现</button>
+    </view>
+    
+    <view class="l-text-gray l-margin-tb l-fs-s">申请通过后，提现的金额将进入您的微信钱包，审核时间一般为1-3个工作日，如有疑问请联系客服：400-1806900</view>
+  </view>
+</view>

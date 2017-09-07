@@ -1,66 +1,62 @@
-// index.js
+// ask-pay/index.js
+const app = getApp()
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-  
+    isAllowPay: false,
+    orderInfo: {
+      orderId: '',
+      amount: 0
+    }
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-  
+    this.createOrder({
+      problemId: options.pbid,
+      doctorId: '',
+      amount: 5
+    })
   },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-  
+  // 创建问题订单
+  createOrder: function (formData = {}) {
+    wx.showLoading({
+      mask: true
+    })
+    app.post(app.config.createOrder, formData).then(({ data }) => {
+      this.setData({
+        isAllowPay: true, 
+        'orderInfo.orderId': data.orderId,
+        'orderInfo.amount': data.amount
+      })
+    }).finally(() => {
+      wx.hideLoading()
+    })
   },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-  
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-  
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-  
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-  
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-  
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-  
+  // 支付
+  payOrder: function () {
+    wx.showLoading({ mask: true })
+    app.post(app.config.payConfig, this.data.orderInfo).then(({ data }) => {
+      wx.requestPayment({
+        timeStamp: data.timeStamp,
+        nonceStr: data.nonceStr,
+        package: data.package,
+        signType: 'MD5',
+        paySign: data.paySign,
+        success: function (res) {
+          console.log('pay success', res)
+        },
+        fail: function (res) {
+          console.log('pay fail', res)
+        }
+      })
+    }).finally(() => {
+      wx.hideLoading()
+    })
   }
 })
