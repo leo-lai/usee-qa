@@ -6,7 +6,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    isNeedPay: false,
+    score: ['有待提高', '一般', '满意'],
+    isNeedPay: true,
     problemInfo: {},
     evaluate: {},
     doctor: {},

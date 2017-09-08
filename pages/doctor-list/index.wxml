@@ -1,20 +1,30 @@
-<!--index.wxml-->
+<!--doctor-list/index.wxml-->
 <view class="l-page">
-  <navigator class="l-flex-h l-padding l-bg-white l-margin-tb" url="/pages/doctor-info/index" wx:for="{{[1,2,3,4]}}" wx:key=""index>
+  <navigator class="l-flex-h l-padding l-bg-white l-margin-tb" url="/pages/doctor-info/index?dcid={{item.doctorId}}" wx:for="{{doctor.data}}" wx:key="{{index}}">
     <view class="l-margin-r">
-      <image class="l-avatar" src=""></image>
+      <view class="l-avatar">
+        <image src="{{item.headPortrait || 'https://static.ushiyihao.com/xcx/avatar.jpg'}}"></image>
+      </view>
     </view>
     <view class="l-rest">
-      <view>胡杨树 | 副主任医生</view>
-      <view class="l-text-gray l-margin-tb-s">第二军医大学附属长征医院</view>
-      <view class="l-doctor-skill" style="margin-top: -10rpx;">
-        <text class="_item">视力矫正</text>
-        <text class="_item">结膜炎</text>
-        <text class="_item">视疲劳</text>
-        <text class="_item">视疲劳</text>
+      <view>{{item.doctorName}} | {{item.academicTitle}}</view>
+      <view class="l-text-gray l-margin-tb-s">{{item.hospital}}</view>
+      <view class="l-doctor-skill" style="margin-top: -10rpx;" wx:if="{{item.labelName}}">
+        <text class="_item" wx:for="{{item.labelName.split(',')}}" wx:for-item="label" wx:for-index="labelIndex" wx:key="labelIndex">{{label}}</text>
       </view>
-      <view class="l-text-gray">812个回答</view>
+      <view class="l-text-gray">{{item.problemCount}}个回答</view>
     </view>
-    <text class="l-text-theme l-margin-l">¥10</text>
+    <text class="l-text-theme l-margin-l">¥{{item.collectFees}}</text>
   </navigator>
+
+  <view class="weui-loadmore" hidden="{{!doctor.more || !doctor.loading}}">
+    <view class="weui-loading"></view>
+    <view class="weui-loadmore__tips">正在加载</view>
+  </view>
+  <view class="weui-loadmore weui-loadmore_line" hidden="{{ !(doctor.data.length === 0 && !doctor.more) }}">
+    <view class="weui-loadmore__tips weui-loadmore__tips_in-line" >暂无数据</view>
+  </view>
+  <view class="weui-loadmore weui-loadmore_line" hidden="{{ doctor.more }}">
+    <view class="weui-loadmore__tips weui-loadmore__tips_in-line" >我是有底线的</view>
+  </view>
 </view>

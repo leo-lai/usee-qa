@@ -41,7 +41,7 @@
     </view>
   </block>
 
-  <view class="l-fixed-bottom l-flex-hc l-bg-white">
+  <view class="l-fixed-bottom l-flex-hc l-bg-white" wx:if="{{problemId !== ''}}">
     <view class="l-rest l-margin-l l-fs-14">
       <text class="l-text-green l-icon-70d l-margin-r-s"></text>
       <text class="l-text-theme">¥10</text>

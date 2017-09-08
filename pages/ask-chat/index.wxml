@@ -1,0 +1,2 @@
+<!--pages/ask-chat/index.wxml-->
+<text>{{page}}.wxml</text>

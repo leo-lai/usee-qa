@@ -10,10 +10,12 @@ let formData = {
 
 Page({
   data: {
+    scrollIntoView: 'scroll-bottom',
+    scrollHeight: 999,
     chat: {
       data: [],
-      scrollTop: 9999,
       hideMenu: true,
+      disabled: false,
       inputFocus: false
     },
     send: {
@@ -27,12 +29,34 @@ Page({
     },
     userInfo: null
   },
-  onReady: function () {
+  // 滚动区域高度修正
+  scrollHeightFix: function () {
+    wx.createSelectorQuery()
+      .select('#chat-scroll').boundingClientRect()
+      .select('#chat-bar').boundingClientRect()
+      .exec((res) => {
+        this.setData({
+          scrollHeight: res[0].height
+        })
+      })
+  },
+  // 滚动到底部
+  scrollToBottom: function () {
+    clearTimeout(this.scrollTimeId)
+    this.scrollTimeId = setTimeout(() => {
+      this.setData({
+        scrollIntoView: 'scroll-bottom'
+      })
+    }, 50)
+  },
+  onLoad: function () {
+    this.scrollHeightFix()
+
     app.onReady(userInfo => {
+      console.warn(userInfo)
       this.setData({
         userInfo: userInfo
       })
-
 
       problemRemarks = []
       setTimeout(() => {
@@ -108,23 +132,21 @@ Page({
         break
       case 2:
         if (msgContent.trim() == 1){
-          systemSendTimes = 0
-          formData.problemRemarks = problemRemarks.join(',')
-          this.submitProblem()
+          if (problemRemarks.length === 0){
+            this.systemSend('请详细描述病症，回复数字【1】确认完成描述', 2)
+          } else {
+            systemSendTimes = 0
+            formData.problemRemarks = problemRemarks.join(',')
+            this.submitProblem()
+          }
         } else {
           problemRemarks.push(msgContent)
           systemSendTimeId = setTimeout(() => {
-            this.systemSend('还有其他要补充说明吗？回复数字【1】描述完毕', 2)
+            this.systemSend('还有其他要补充说明吗？回复数字【1】确认完成描述', 2)
           }, ++systemSendTimes * 500 + 5000)
         }
         break
     }
-  },
-  // 滚动到底部
-  scrollToBottom: function () {
-    this.setData({
-      'chat.scrollTop': this.data.chat.scrollTop + 1
-    })
   },
   // 监听聊天内容输入
   bindInputChange: function (e) {
@@ -152,18 +174,27 @@ Page({
   },
   bindInputFocus: function () {
     this.setData({
+      'chat.disabled': false,
+      'chat.inputFocus': true,
       'chat.hideMenu': true
     })
+
+    // setTimeout(() => {
+    //   let systemInfo  = wx.getSystemInfoSync()
+    //   this.setData({
+    //     scrollHeight: systemInfo.windowHeight - 200
+    //   })
+    // }, 500)
   },
   bindInputBlur: function () {
-    // this.setData({
-    //   'chat.inputFocus': false
-    // })
+    // setTimeout(this.scrollHeightFix, 500)
   },
+  // 隐藏功能菜单
   bindHideChatMenu: function() {
     this.setData({
       'chat.hideMenu': !this.data.chat.hideMenu,
-      'chat.inputFocus': !this.data.chat.hideMenu
+      'chat.inputFocus': !this.data.chat.hideMenu,
+      'chat.disabled': this.data.chat.hideMenu,
     })
   }
 })

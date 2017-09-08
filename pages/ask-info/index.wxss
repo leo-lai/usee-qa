@@ -17,3 +17,8 @@
   display: inline-block;
   max-width: 80%;
 }
+
+.l-evaluate ._avatar{
+  width: 40rpx;
+  height: 40rpx;
+}

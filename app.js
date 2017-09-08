@@ -69,14 +69,19 @@ App({
             return
           }
 
+          // session失效
           if (data.resultCode === 4002) {
             storage.removeItem('userInfo')
-            wx.showModal({
-              showCancel: false,
-              content: '登录信息失效，请重新进入小程序。'
-            })
-            // resolve(this.login())
-            reject(data)
+            let loginPromise = this.login()
+            if (url.lastIndexOf('/login') === 0) {
+              resolve(loginPromise)
+            } else {
+              wx.showModal({
+                showCancel: false,
+                content: '登录信息失效，请重新进入小程序'
+              })
+              reject(data)
+            }
             return
           }
           
@@ -115,19 +120,18 @@ App({
             success: userInfoRes => { // 可以将 userInfoRes 发送给后台解码出 unionId
               userInfoRes.code = loginRes.code
               this.post(config.userInfo, userInfoRes).then((apiRes) => {
-                wx.hideLoading()
-
-                apiRes.data.avatarThumb = utils.formatHead(apiRes.data.avatarUrl)
-                this.globalData.userInfo = apiRes.data
-
-                // 由于获取用户信息是网络请求，可能会在 Page.onLoad 之后才返回
-                // 所以此处触发回调函数
-                this.runReady.call(this, apiRes.data)
-
-                storage.setItem('userInfo', apiRes.data)
-
                 resolve(apiRes)
-              }).catch((err) => {
+
+                if (apiRes.data) {
+                  apiRes.data.avatarThumb = utils.formatHead(apiRes.data.avatarUrl)
+                  this.globalData.userInfo = apiRes.data
+                  storage.setItem('userInfo', apiRes.data)
+
+                  // 由于获取用户信息是网络请求，可能会在 Page.onLoad 之后才返回
+                  // 所以此处触发回调函数
+                  this.runReady.call(this, apiRes.data)
+                }
+              }).finally(() => {
                 wx.hideLoading()
               })
             },

@@ -1,2 +1,37 @@
 <!--pages/wallet/details/index.wxml-->
-<text>{{page}}.wxml</text>
+<view class="l-page-full">
+  <view class="weui-tab">
+    <view class="weui-navbar">
+      <block wx:for="{{tabs}}" wx:key="*this">
+          <view id="{{index}}" class="weui-navbar__item {{activeIndex == index ? 'weui-bar__item_on' : ''}}" bindtap="tabClick">
+              <view class="weui-navbar__title">{{item}}</view>
+          </view>
+      </block>
+      <view class="weui-navbar__slider" style="left: {{sliderLeft}}px; transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px);"></view>
+    </view>
+    <view class="weui-tab__panel">
+      <view class="weui-tab__content" hidden="{{activeIndex != 0}}">
+        <view class="l-flex-hc l-padding l-border-t" wx:for="{{5}}" wx:key="{{index}}">
+          <view class="l-rest">
+            <view class="l-h4">答题所得</view>
+            <view class="l-text-gray">2019-12-12 12:12:12</view>
+          </view>
+          <view class="l-margin-l">
+            <text class="l-h3 l-text-green">+10000</text>          
+          </view>
+        </view>
+      </view>
+      <view class="weui-tab__content" hidden="{{activeIndex != 1}}">
+        <view class="l-flex-hc l-padding l-border-t" wx:for="{{20}}" wx:key="{{index}}">
+          <view class="l-rest">
+            <view class="l-h4">提现</view>
+            <view class="l-text-gray">2019-12-12 12:12:12</view>
+          </view>
+          <view class="l-margin-l">
+            <text class="l-h3">-10000</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

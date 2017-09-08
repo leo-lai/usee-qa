@@ -25,6 +25,10 @@ var config = {
     createOrder: `${baseUrl}/diagnose/createOrder`,
     // 支付配置信息
     payConfig: `${baseUrl}/eyeAppPay/pay/prepare`,
+    // 医生列表
+    doctorList: `${baseUrl}/diagnose/doctorList`,
+    // 医生详情
+    doctorInfo: `${baseUrl}/diagnose/doctorInfo`,
 
 
     // 下面的地址配合云端 Server 工作
