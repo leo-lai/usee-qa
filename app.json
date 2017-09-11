@@ -2,10 +2,11 @@
   "pages": [
     
     "pages/index/index",
-    "pages/me/index",
-    "pages/search/index",
+    "pages/test/index",
     "pages/doctor-list/index",
     "pages/doctor-info/index",
+    "pages/me/index",
+    "pages/search/index",
     "pages/ask/index",
     "pages/ask-info/index",
     "pages/ask-pay/index",
@@ -16,6 +17,7 @@
     "pages/asked/see/index",
     "pages/wallet/withdraw/index",
     "pages/wallet/bill/index",
+    "pages/doctor-apply/index",
     "pages/ask-chat/index"
   ],
   "window": {

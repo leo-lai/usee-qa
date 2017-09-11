@@ -46,10 +46,14 @@ Page({
     app.post(app.config.doctorList, {
       page
     }).then(({data}) => {
+      data.list = data.list.map((item) => {
+        item.labelArr = item.labelName.split(',')
+        return item
+      })
       this.setData({
-        'doctor.more': data.problems.length >= data.rows,
+        'doctor.more': data.list.length >= data.rows,
         'doctor.page': data.page,
-        'doctor.data': data.page === 1 ? data.problems : this.data.doctor.data.concat(data.problems)
+        'doctor.data': data.page === 1 ? data.list : this.data.doctor.data.concat(data.list)
       })
     }).finally(() => {
       this.setData({

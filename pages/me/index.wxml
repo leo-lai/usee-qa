@@ -36,6 +36,13 @@
           <view class="_desc">或许你可以帮助我们做的更好</view>
         </view>
       </button>
+      <navigator class="l-flex-h _item" url="/pages/doctor-apply/index">
+        <text class="l-icon-698 _icon"></text>
+        <view class="l-rest">
+          <view>申请成为医生</view>
+          <view class="_desc">点击这里成为医生帮助更多患者</view>
+        </view>
+      </navigator>
       <navigator class="l-flex-h _item" url="/pages/about/index">
         <text class="l-icon-611 _icon"></text>
         <view class="l-rest">

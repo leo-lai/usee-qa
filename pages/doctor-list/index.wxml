@@ -1,6 +1,6 @@
 <!--doctor-list/index.wxml-->
 <view class="l-page">
-  <navigator class="l-flex-h l-padding l-bg-white l-margin-tb" url="/pages/doctor-info/index?dcid={{item.doctorId}}" wx:for="{{doctor.data}}" wx:key="{{index}}">
+  <navigator class="l-flex-h l-padding l-bg-white l-margin-tb" url="/pages/doctor-info/index?dcid={{item.doctorId}}" wx:for="{{doctor.data}}" wx:key="{{item.doctorId}}">
     <view class="l-margin-r">
       <view class="l-avatar">
         <image src="{{item.headPortrait || 'https://static.ushiyihao.com/xcx/avatar.jpg'}}"></image>
@@ -9,8 +9,8 @@
     <view class="l-rest">
       <view>{{item.doctorName}} | {{item.academicTitle}}</view>
       <view class="l-text-gray l-margin-tb-s">{{item.hospital}}</view>
-      <view class="l-doctor-skill" style="margin-top: -10rpx;" wx:if="{{item.labelName}}">
-        <text class="_item" wx:for="{{item.labelName.split(',')}}" wx:for-item="label" wx:for-index="labelIndex" wx:key="labelIndex">{{label}}</text>
+      <view class="l-doctor-skill" style="margin-top: -10rpx;">
+        <text class="_item" wx:for="{{item.labelArr}}" wx:for-item="label" wx:for-index="labelIndex" wx:key="labelIndex">{{label}}</text>
       </view>
       <view class="l-text-gray">{{item.problemCount}}个回答</view>
     </view>

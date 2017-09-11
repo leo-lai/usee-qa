@@ -1,0 +1,13 @@
+/* pages/test/index.wxss */
+page{
+  background: red;
+  height: auto;
+}
+.l-fixed-input{
+  position: fixed;
+  bottom:0;
+  left: 0;
+  right: 0;
+  background: #fff;
+  padding: 20rpx;
+}

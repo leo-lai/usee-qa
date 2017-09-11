@@ -1,7 +1,7 @@
 <!--index.wxml-->
 <view class="l-page-full l-flex-v">
   <view id="chat-scroll" class="l-rest l-scroll" >
-    <scroll-view scroll-y scroll-into-view="{{scrollIntoView}}" style="height: {{scrollHeight}}px;">
+    <scroll-view scroll-y scroll-into-view="{{scrollIntoView}}" style="height: {{scrollHeight}}px;"> 
       <view class="l-chat-record">
         <!-- <view class="_tip">医生的回答只能作为咨询建议，不能作为诊断和治疗的依据，咨询建议不能代替医生面诊。</view> -->
 
@@ -84,7 +84,7 @@
         
       </view>
       <view id="scroll-bottom"></view>
-    </scroll-view> 
+    </scroll-view>  
   </view>
   <view id="chat-bar" class="l-chat-bar">
     <view class="l-flex-hc l-chat-input">
@@ -92,7 +92,7 @@
         <view class="_ipt">
           <input value="{{send.content}}"
             disabled="{{chat.disabled}}"
-            cursor-spacing="50"
+            cursor-spacing="20"
             confirm-type="send" 
             confirm-hold="{{true}}" 
             auto-height="{{true}}" 

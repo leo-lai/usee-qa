@@ -1,0 +1,79 @@
+<!--pages/doctor-apply/index.wxml-->
+<view class="l-bg-white">
+  <view class="l-banner-image">
+    <image mode="widthFix" src="https://static.ushiyihao.com/xcx/applyBanner.jpg"></image>
+  </view>
+  <view class="l-apply-form">
+    <view class="l-padding-tb l-border-b">
+      <input placeholder="请输入真实姓名" />
+    </view>
+    <view class="l-padding-tb l-border-b l-flex-hc">
+      <view class="l-rest">
+        <input placeholder="请输入手机号码" type="number" maxlength="11"/>
+      </view>
+      <view class="l-margin-l">
+        <text class="l-text-theme">获取验证码</text>
+      </view>
+    </view>
+    <view class="l-padding-tb l-border-b">
+      <input placeholder="请输入验证码" type="number" maxlength="6"/>
+    </view>
+    <view class="l-padding-tb l-border-b">
+      <input placeholder="所在医院" />
+    </view>
+    <view class="l-padding-tb l-border-b">
+      <input placeholder="职务" />
+    </view>
+
+    <view class="l-br"></view>
+    <view class="l-margin-t l-h4">最擅长领域<text class="l-text-theme"> * </text>(帮助系统更好地为您推荐问题)</view>
+    <view class="l-doctor-skill">
+      <text class="_item _slted">视力矫正</text>
+      <text class="_item">结膜炎</text>
+      <text class="_item">视疲劳</text>
+      <text class="_item">视疲劳</text>
+    </view>
+
+    <view class="l-margin-t l-h4">简洁的自我介绍<text class="l-text-theme"> * </text></view>
+    <view class="l-padding-tb l-border-b">
+      <textarea class="weui-textarea" placeholder="好的自我介绍可以让患者更好地了解你和信任你" auto-height/>
+    </view>
+
+    <view class="l-margin-t l-h4">咨询费<text class="l-text-theme"> * </text>(患者线上咨询单次收费)</view>
+    <view class="l-padding-tb l-border-b l-flex-hc">
+      <text class="l-margin-r">¥</text>
+      <view class="l-rest">
+        <input class="l-h3" type="digit" />
+      </view>
+    </view>
+
+    <view class="l-margin-t l-h4">上传身份凭证<text class="l-text-theme"> * </text>(身份证、医生资格证、工作证)</view>
+    <view class="weui-uploader__bd l-padding-tb">
+      <view class="weui-uploader__files" id="uploaderFiles">
+        <block wx:for="{{files}}" wx:key="*this">
+          <view class="weui-uploader__file" bindtap="previewImage" id="{{item}}">
+            <image class="weui-uploader__img" src="{{item}}" mode="aspectFill" />
+          </view>
+        </block>
+        <!-- <view class="weui-uploader__file weui-uploader__file_status">
+          <image class="weui-uploader__img" src="../images/pic_160.png" mode="aspectFill" />
+          <view class="weui-uploader__file-content">
+            <icon type="warn" size="23" color="#F43530"></icon>
+          </view>
+        </view>
+        <view class="weui-uploader__file weui-uploader__file_status">
+          <image class="weui-uploader__img" src="../images/pic_160.png" mode="aspectFill" />
+          <view class="weui-uploader__file-content">50%</view>
+        </view> -->
+      </view>
+      <view class="weui-uploader__input-box">
+        <view class="weui-uploader__input" bindtap="chooseImage"></view>
+      </view>
+    </view>
+
+    <view class="l-padding-tb l-text-center">
+      <button type="primary">提交申请</button>
+      <view class="l-margin-t l-text-gray">提交申请视为同意《平台入驻规则》</view>
+    </view>
+  </view>
+</view>

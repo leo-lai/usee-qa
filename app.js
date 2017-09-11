@@ -112,7 +112,7 @@ App({
   login: function () {
     // 登录, 获取用户信息
     return new Promise((resolve, reject) => {
-      wx.showLoading({ mask: true })
+      wx.showLoading()
       wx.login({
         success: loginRes => { // 获取授权code，可以到后台换取 openId, sessionKey, unionId
           wx.getUserInfo({ // 小程序授权获取用户信息（头像，昵称等）

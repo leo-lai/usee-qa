@@ -1,0 +1,11 @@
+<!--pages/test/index.wxml-->
+<view>
+  <view>1111</view>
+  <view>1111</view>
+  <view>1111</view>
+
+  <view class="l-fixed-input">
+    <input />
+  </view>
+</view>
+
