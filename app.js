@@ -121,14 +121,14 @@ App({
             withCredentials: true,
             success: userInfoRes => { // 可以将 userInfoRes 发送给后台解码出 unionId
               userInfoRes.code = loginRes.code
-              this.post(config.userInfo, userInfoRes).then((apiRes) => {
+              this.post(config.login, userInfoRes).then((apiRes) => {
                 resolve(apiRes)
 
                 if (apiRes.data) {
                   wx.hideLoading()
                   apiRes.data.avatarThumb = utils.formatHead(apiRes.data.avatarUrl)
                   this.globalData.userInfo = apiRes.data
-                  // storage.setItem('userInfo', apiRes.data)
+                  storage.setItem('userInfo', apiRes.data)
 
                   // 由于获取用户信息是网络请求，可能会在 Page.onLoad 之后才返回
                   // 所以此处触发回调函数
@@ -153,6 +153,15 @@ App({
       })
     })
     
+  },
+  // 刷新个人信息
+  refreshUserInfo: function () {
+    wx.showLoading()
+    this.post(config.userInfo).then(({ data }) => {
+      this.globalData.userInfo = data
+    }).finally(() => {
+      wx.hideLoading()
+    })
   },
   // 授权微信各种权限
   getAuthFunc: function (funcName = 'getUserInfo') {

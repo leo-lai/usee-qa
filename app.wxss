@@ -135,6 +135,7 @@
 .l-h2{font-size: 17pt; color: #333;}
 .l-h3{font-size: 14pt; color: #333;}
 .l-h4{font-size: 11pt; color: #333;}
+.l-text-error{color: red;}
 .l-text-center{text-align: center;}
 .l-text-right{text-align: right;}
 .l-text-green{color: #09bb07;}

@@ -10,8 +10,9 @@
       <view class="weui-navbar__slider" style="left: {{sliderLeft}}px; transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px);"></view>
     </view>
     <view class="weui-tab__panel">
+      <!-- 余额明细 -->
       <view class="weui-tab__content" hidden="{{activeIndex != 0}}">
-        <view class="l-flex-hc l-padding l-border-t" wx:for="{{5}}" wx:key="{{index}}">
+        <view class="l-flex-hc l-padding l-border-t l-bg-white" wx:for="{{balance.data}}" wx:key="{{index}}">
           <view class="l-rest">
             <view class="l-h4">答题所得</view>
             <view class="l-text-gray">2019-12-12 12:12:12</view>
@@ -20,9 +21,20 @@
             <text class="l-h3 l-text-green">+10000</text>          
           </view>
         </view>
+        <view class="weui-loadmore" hidden="{{ !balance.loading }}">
+          <view class="weui-loading"></view>
+          <view class="weui-loadmore__tips">正在加载</view>
+        </view>
+        <view class="weui-loadmore weui-loadmore_line" hidden="{{ !(balance.data.length === 0 && !balance.more) }}">
+          <view class="weui-loadmore__tips weui-loadmore__tips_in-line" >暂无数据</view>
+        </view>
+        <view class="weui-loadmore weui-loadmore_line" hidden="{{ !(balance.data.length > 0 && !balance.more) }}">
+          <view class="weui-loadmore__tips weui-loadmore__tips_in-line" >我是有底线的</view>
+        </view>
       </view>
+      <!-- 提现记录 -->
       <view class="weui-tab__content" hidden="{{activeIndex != 1}}">
-        <view class="l-flex-hc l-padding l-border-t" wx:for="{{20}}" wx:key="{{index}}">
+        <view class="l-flex-hc l-padding l-border-t l-bg-white" wx:for="{{withdrawa.data}}" wx:key="{{index}}">
           <view class="l-rest">
             <view class="l-h4">提现</view>
             <view class="l-text-gray">2019-12-12 12:12:12</view>
@@ -30,6 +42,16 @@
           <view class="l-margin-l">
             <text class="l-h3">-10000</text>
           </view>
+        </view>
+        <view class="weui-loadmore" hidden="{{ !withdrawa.loading }}">
+          <view class="weui-loading"></view>
+          <view class="weui-loadmore__tips">正在加载</view>
+        </view>
+        <view class="weui-loadmore weui-loadmore_line" hidden="{{ !(withdrawa.data.length === 0 && !withdrawa.more) }}">
+          <view class="weui-loadmore__tips weui-loadmore__tips_in-line" >暂无数据</view>
+        </view>
+        <view class="weui-loadmore weui-loadmore_line" hidden="{{ !(withdrawa.data.length > 0 && !withdrawa.more) }}">
+          <view class="weui-loadmore__tips weui-loadmore__tips_in-line" >我是有底线的</view>
         </view>
       </view>
     </view>

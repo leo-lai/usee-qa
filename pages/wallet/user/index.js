@@ -14,8 +14,11 @@ Page({
       this.setData({
         userInfo: userInfo
       })
+
+      // app.refreshUserInfo()
     })
   },
+  // 收益规则
   bindShowWallerRules: function() {
     this.setData({
       hideWalletRules: !this.data.hideWalletRules

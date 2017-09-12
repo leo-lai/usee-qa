@@ -42,6 +42,8 @@ Page({
           amount: data.collectFees,
           doctorId
         })
+      } else {
+        wx.hideLoading()
       }
     }).catch(() => {
       wx.hideLoading()

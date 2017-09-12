@@ -10,5 +10,5 @@
 }
 .weui-tab__content{
   margin-top: -1rpx;
-  background: #fff;
+  overflow: hidden;
 }
