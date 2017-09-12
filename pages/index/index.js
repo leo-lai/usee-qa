@@ -20,14 +20,14 @@ Page({
       if (userInfo.isDoctor === 0) { // 用户
         this.getProblemList(1)
       } else if (userInfo.isDoctor === 1) { // 医生
-
+        
       }
     })
   },
   onReachBottom: function () { // 加载更多
     if (this.data.userInfo) {
       if (this.data.userInfo.isDoctor === 0) { // 用户
-        this.getProblemList(this.data.problem.page + 1)
+        this.getProblemList(this.data.problem.data.length > 0 ? this.data.problem.page + 1 : 1)
       } else if (this.data.userInfo.isDoctor === 1) { // 医生
 
       }

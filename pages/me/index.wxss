@@ -1,9 +1,9 @@
 .l-page-group{
-  height: 99.9%;
-}
-.l-page-user{
   height: 100%;
+}
+.l-page-user, .l-page-doctor{
   background: #fff;
+  overflow: hidden;
 }
 
 .l-menu-group{

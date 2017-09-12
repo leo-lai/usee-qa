@@ -7,6 +7,7 @@ Page({
    */
   data: {
     isAllowPay: false,
+    problemId: '',
     orderInfo: {
       orderId: '',
       amount: 0
@@ -17,6 +18,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    this.data.problemId = options.pbid
     this.createOrder({
       problemId: options.pbid,
       doctorId: '',
@@ -40,19 +42,33 @@ Page({
   },
   // 支付
   payOrder: function () {
+    const that = this
     wx.showLoading({ mask: true })
     app.post(app.config.payConfig, this.data.orderInfo).then(({ data }) => {
       wx.requestPayment({
-        timeStamp: data.timeStamp,
-        nonceStr: data.nonceStr,
-        package: data.package,
-        signType: 'MD5',
-        paySign: data.paySign,
+        timeStamp: data.payInfo.timeStamp,
+        nonceStr: data.payInfo.nonceStr,
+        package: data.payInfo.package,
+        signType: data.payInfo.signType,
+        paySign: data.payInfo.paySign,
         success: function (res) {
-          console.log('pay success', res)
+          wx.showToast({
+            mask: true,
+            title: '支付成功',
+            icon: 'success',
+            success: function () {
+              app.navigateTo('/pages/ask-chat/index?pbid=' + that.data.problemId)
+            }
+          })
         },
         fail: function (res) {
-          console.log('pay fail', res)
+          if (res.errMsg !== 'requestPayment:fail cancel') {
+            wx.showModal({
+              title: '支付失败',
+              content: res.errMsg,
+              showCancel: false
+            })
+          }
         }
       })
     }).finally(() => {

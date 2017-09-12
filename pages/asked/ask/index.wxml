@@ -1,34 +1,37 @@
-<!--index.wxml-->
+<!--asked/ask/index.wxml-->
 <view class="l-page-full">
-  <!-- 没有提问 -->
-  <view class="l-list-none" wx:if="{{problem.data.length === 0 && !problem.more}}">
-    <image mode="widthFix" src="https://static.ushiyihao.com/xcx/withoutAsk.jpg"></image>
-    <view class="l-margin-t">您还没有提问过任何问题</view>
-    <navigator class="l-margin-t-xl l-btn-w60" url="/pages/ask/index">
-      <button type="primary">去提问</button>
-    </navigator>
-  </view>
-
   <view class="l-problem-list">
-    <navigator url="/pages/ask-info/index" class="l-problem-item l-bg-white" wx:for="{{problem.data}}" wx:key="{{item.problemId}}">
+    <navigator url="/pages/ask-chat/index?pbid={{item.problemId}}" class="l-problem-item l-bg-white" wx:for="{{problem.data}}" wx:key="{{item.problemId}}" wx:if="{{item.problemState > 0}}">
       <view class="_hd l-flex-hc">
-        <text class="l-rest l-text-theme">{{problem.state[item.problemState]}}</text>
+        <text class="l-rest {{item.problemState === 2 ? 'l-text-theme' : ''}}">{{problem.state[item.problemState]}}</text>
         <text class="l-text-theme">¥{{item.amount}}</text>
       </view>
       <view class="_bd l-text-wrap2">
         <text>{{item.problemRemarks}}</text>
       </view>
       <view class="_ft l-flex-hc l-text-gray">
-        <text class="l-rest">{{item.doctorName}} | {{item.hospital}}</text>
+        <view class="l-rest">
+          <text wx:if="{{item.doctorName}}">{{item.doctorName}} | {{item.hospital}}</text>
+          <text wx:if="{{!item.doctorName}}">等待医生抢答中...</text>
+        </view>
         <text>{{item.createDate}}</text>
       </view>
     </navigator>
   </view>
-  <view class="weui-loadmore" hidden="{{!problem.more || !problem.loading}}">
+
+  <!-- 没有提问 -->
+  <view class="l-list-none" wx:if="{{ problem.data.length === 0 && !problem.more }}">
+    <image mode="widthFix" src="https://static.ushiyihao.com/xcx/withoutAsk.jpg"></image>
+    <view class="l-margin-t">您还没有提问过任何问题</view>
+    <navigator class="l-margin-t-xl l-btn-w60" url="/pages/ask/index">
+      <button type="primary">去提问</button>
+    </navigator>
+  </view>
+  <view class="weui-loadmore" hidden="{{ !problem.loading }}">
     <view class="weui-loading"></view>
     <view class="weui-loadmore__tips">正在加载</view>
   </view>
-  <view class="weui-loadmore weui-loadmore_line" hidden="{{problem.more}}">
+  <view class="weui-loadmore weui-loadmore_line" hidden="{{ !(problem.data.length > 0 && !problem.more) }}">
     <view class="weui-loadmore__tips weui-loadmore__tips_in-line" >我是有底线的</view>
   </view>
 </view>

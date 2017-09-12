@@ -1,8 +1,7 @@
 {
   "pages": [
-    
     "pages/index/index",
-    "pages/test/index",
+    "pages/doctor-apply/index",
     "pages/doctor-list/index",
     "pages/doctor-info/index",
     "pages/me/index",
@@ -17,8 +16,11 @@
     "pages/asked/see/index",
     "pages/wallet/withdraw/index",
     "pages/wallet/bill/index",
-    "pages/doctor-apply/index",
-    "pages/ask-chat/index"
+    
+    "pages/ask-chat/index",
+    "pages/agreement/a1/index",
+    "pages/test/index",
+    "pages/me-info/doctor/index"
   ],
   "window": {
     "backgroundColor": "#eeeeee",

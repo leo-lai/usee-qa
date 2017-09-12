@@ -1,2 +1,117 @@
 <!--pages/ask-chat/index.wxml-->
-<text>{{page}}.wxml</text>
+<view class="l-page-full l-flex-v">
+  <view id="chat-scroll" class="l-rest l-scroll" >
+    <scroll-view scroll-y scroll-into-view="{{scrollIntoView}}" style="height: {{scrollHeight}}px;"> 
+      <view class="l-chat-record">
+        <!-- 问题详情 -->
+        <view class="_tip l-text-center">{{problemInfo.createDate}}</view>
+        <view class="l-chat-item _self">
+          <view class="_who">
+              <image src="{{userInfo.avatarThumb}}"></image> 
+          </view>
+          <view class="_msg">
+            <view>{{'年龄：' + problemInfo.age}}</view>
+          </view>
+          <view class="_state">
+          </view>
+        </view>
+        <view class="l-chat-item _self">
+          <view class="_who">
+              <image src="{{userInfo.avatarThumb}}"></image> 
+          </view>
+          <view class="_msg">
+            <view>{{'问题描述：' + problemInfo.problemRemarks}}</view>
+          </view>
+          <view class="_state">
+          </view>
+        </view>
+        <view class="_tip">等待医生答复，一般会在1-3小时内回复，如果超过48小时无人回复将全额退款至您的微信，回复将会第一时间通知您。</view>
+        
+        <!-- 对话列表 -->
+        <view class="l-chat-item {{item.fromUserId === userInfo.userId ? '_self' : ''}}" wx:for="{{chat.data}}" wx:key="index">
+          <view class="_who">
+              <image src="{{item.fromUserId === userInfo.userId ? item.fromUserAvatar : item.toUserAvatar}}"></image> 
+          </view>
+          <view class="_msg">
+            <view wx:if="{{item.msgType == 1}}">{{item.msgContent}}</view>
+            <image wx:if="{{item.msgType == 2}}" src="{{item.msgContent}}"></image> 
+          </view>
+          <view class="_state">
+            <button loading="{{item.msgState === 0}}"></button> 
+            <icon type="warn" wx:if="{{item.msgState === -1}}" /> 
+          </view>
+        </view>
+        <!-- 医生评价 -->
+        <view class="l-doctor-evaluate" wx:if="{{false}}">
+          <view class="l-text-center l-margin">
+            <view class="l-avatar">
+              <image  src="/images/avatar.jpg"></image>
+            </view>
+            <view class="l-margin-tb-m">胡医生</view>
+            <view class="l-text-gray l-margin-tb-m">第二军医大学附属长征医院|副主任医师</view>
+            <view class="l-margin-tb-m">专注眼科调理，近视预防，10年临床经验</view>
+          </view>
+          <view class="l-flex-hc _score">
+            <view class="l-rest _slted">
+              <text class="l-icon-638 l-margin-r-s"></text>
+              <text decode="true">满意&nbsp;&nbsp;</text>
+            </view>
+            <view class="l-rest l-text-center">
+              <text class="l-icon-601 l-margin-r-s"></text>
+              <text decode="true">一般&nbsp;&nbsp;</text>
+            </view>
+            <view class="l-rest l-text-right">
+              <text class="l-icon-699 l-margin-r-s"></text>
+              <text>有待提高</text>
+            </view>
+          </view>
+          <view class="_textarea">
+            <textarea maxlength="{{1000}}" />
+          </view>
+          <view class="_ft" hover-class="_hover">提交</view>
+        </view>
+      </view>
+      <view id="scroll-bottom"></view>
+    </scroll-view>  
+  </view>
+  <view id="chat-bar" class="l-chat-bar">
+    <view class="l-flex-hc l-chat-input">
+      <view class="l-rest">
+        <view class="_ipt">
+          <input value="{{send.content}}"
+            disabled="{{chat.disabled}}"
+            cursor-spacing="20"
+            confirm-type="send" 
+            confirm-hold="{{true}}" 
+            auto-height="{{true}}" 
+            focus="{{chat.inputFocus}}" 
+            bindtap="bindInputFocus"
+            bindblur="bindInputBlur"
+            bindinput="bindInputChange" 
+            bindconfirm="sendChat" />  
+           <!-- <textarea maxlength="500" auto-height="{{true}}" 
+            focus="{{chat.inputFocus}}" 
+            bindfocus="bindInputFocus" 
+            bindblur="bindInputBlur" 
+            bindinput="bindInputChange" 
+            bindconfirm="sendChat" />  -->
+        </view>
+      </view>
+      <text class="l-icon-63c l-fs-18 l-margin-l-s l-text-gray" bindtap="bindHideChatMenu"></text>
+    </view>
+    <view class="l-chat-menu" hidden="{{chat.hideMenu}}">
+      <view class="_item" hover-class="_hover">
+        <view class="l-icon-6c9"></view>
+        <text>照片</text>
+      </view>
+      <view class="_item" hover-class="_hover">
+        <view class="l-icon-626"></view>
+        <text>拍摄</text>
+      </view>
+      <view class="_item" hover-class="_hover" wx:if="{{userInfo.isDoctor === 1}}">
+        <view class="l-icon-6aa"></view>
+        <text>结束服务</text>
+      </view>
+    </view>
+  </view>
+</view>

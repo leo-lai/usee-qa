@@ -1,0 +1,22 @@
+<!--pages/agreement/a1/index.wxml-->
+<view class="l-bg-white l-padding l-text-justify">
+  <view class="l-text-center l-h3">技术服务协议</view>
+
+  <view class="l-margin-tb">鉴于U视平台为用户提供向医生进行咨询的平台技术服务，现就该服务内容及相关权利义务与您约定如下：</view>
+  <view class="l-h3 l-margin-t">一、定义</view>
+  <view class="l-margin-t-m"><text class="l-text-blod">平台：</text>指由贵州优视一号生物科技有限公司开发的U视门诊小程序（下称“U视门诊”），用于提供用户向医生进行咨询服务的技术服务平台。
+</view>
+  <view class="l-margin-t-m"><text class="l-text-blod">用户：</text>指接受本协议，通过U视门诊的技术平台向医生用户发起提问的用户，用户进入小程序，提交咨询即视为接受并同意本协议。</view>
+  <view class="l-margin-t-m"><text class="l-text-blod">医生：</text>指在U视门诊提供的医生咨询服务平台上入驻的医生，为用户提供咨询服务，平台入驻医生均经过贵州优视一号生物科技有限公司严格审核。
+</view>
+
+  <view class="l-h3 l-margin-t">二、平台技术服务</view>
+  <view class="l-margin-t-m">1、平台为用户提供向医生进行咨询的技术服务。通过平台的技术服务，用户可向平台指定的医生发起提出咨询提问，并获得医生的咨询服务。</view>
+  <view class="l-margin-t-m">2、就平台为用户提供的服务，用户应当向平台支付技术服务费，服务费的支付方式为微信钱包转账，服务费的收取标准由平台决定，并以平台向用户露出的</view>
+
+  <view class="l-br"></view>
+  <navigator class="l-text-center" open-type="navigateBack">
+    <button type="primary">我已阅读</button>
+  </navigator>
+  <view class="l-br"></view>
+</view>

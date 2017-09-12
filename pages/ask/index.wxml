@@ -1,10 +1,9 @@
-<!--index.wxml-->
+<!--ask/index.wxml-->
 <view class="l-page-full l-flex-v">
   <view id="chat-scroll" class="l-rest l-scroll" >
     <scroll-view scroll-y scroll-into-view="{{scrollIntoView}}" style="height: {{scrollHeight}}px;"> 
       <view class="l-chat-record">
-        <!-- <view class="_tip">医生的回答只能作为咨询建议，不能作为诊断和治疗的依据，咨询建议不能代替医生面诊。</view> -->
-
+        <view class="_tip">请根据提示输入基本信息，系统将为您推荐最佳医生</view> 
         <!-- 对话列表 -->
         <view class="l-chat-item {{item.fromUserId === userInfo.userId ? '_self' : ''}}" wx:for="{{chat.data}}" wx:key="index">
           <view class="_who">
@@ -45,42 +44,12 @@
                   <view>{{item.doctorName}} | {{item.academicTitle}}</view>
                   <view class="l-text-gray">{{item.hospital}}</view>
                 </view>
-                <text class="l-text-theme l-margin-l">¥{{item.amount}}</text>
+                <text class="l-text-theme l-margin-l">¥{{item.collectFees}}</text>
               </navigator>
             </view>
             <navigator class="l-text-center l-padding-btn l-text-gray" url="/pages/doctor-list/index?pbid={{doctor.problemId}}">更多专业医生</navigator> 
           </view>
         </block>
-
-        <!-- 医生评价 -->
-        <view class="l-doctor-evaluate" wx:if="{{false}}">
-          <view class="l-text-center l-margin">
-            <view class="l-avatar">
-              <image  src="/images/avatar.jpg"></image>
-            </view>
-            <view class="l-margin-tb-m">胡医生</view>
-            <view class="l-text-gray l-margin-tb-m">第二军医大学附属长征医院|副主任医师</view>
-            <view class="l-margin-tb-m">专注眼科调理，近视预防，10年临床经验</view>
-          </view>
-          <view class="l-flex-hc _score">
-            <view class="l-rest _slted">
-              <text class="l-icon-638 l-margin-r-s"></text>
-              <text decode="true">满意&nbsp;&nbsp;</text>
-            </view>
-            <view class="l-rest l-text-center">
-              <text class="l-icon-601 l-margin-r-s"></text>
-              <text decode="true">一般&nbsp;&nbsp;</text>
-            </view>
-            <view class="l-rest l-text-right">
-              <text class="l-icon-699 l-margin-r-s"></text>
-              <text>有待提高</text>
-            </view>
-          </view>
-          <view class="_textarea">
-            <textarea maxlength="{{1000}}" />
-          </view>
-          <view class="_ft" hover-class="_hover">提交</view>
-        </view>
         
       </view>
       <view id="scroll-bottom"></view>
@@ -98,7 +67,6 @@
             auto-height="{{true}}" 
             focus="{{chat.inputFocus}}" 
             bindtap="bindInputFocus"
-            bindblur="bindInputBlur"
             bindinput="bindInputChange" 
             bindconfirm="sendChat" />  
            <!-- <textarea maxlength="500" auto-height="{{true}}" 
@@ -109,21 +77,7 @@
             bindconfirm="sendChat" />  -->
         </view>
       </view>
-      <text class="l-icon-63c l-fs-18 l-margin-l-s l-text-gray" bindtap="bindHideChatMenu"></text>
-    </view>
-    <view class="l-chat-menu" hidden="{{chat.hideMenu}}">
-      <view class="_item" hover-class="_hover">
-        <view class="l-icon-6c9"></view>
-        <text>照片</text>
-      </view>
-      <view class="_item" hover-class="_hover">
-        <view class="l-icon-626"></view>
-        <text>拍摄</text>
-      </view>
-      <!-- <view class="_item" hover-class="_hover">
-        <view class="l-icon-6aa"></view>
-        <text>结束服务</text>
-      </view> -->
+      <button style="padding: 8rpx 30rpx;" class="l-margin-l-s l-btn-blue" size="mini" bindtap="sendChat">发送</button>
     </view>
   </view>
 </view>

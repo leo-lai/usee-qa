@@ -21,6 +21,17 @@ Page({
   onLoad: function (options) {
     this.getProblemList(1)
   },
+  onReachBottom: function () { // 加载更多
+    this.getProblemList(this.data.problem.data.length > 0 ? this.data.problem.page + 1 : 1)
+  },
+  onPullDownRefresh: function () { // 下拉刷新
+    this.setData({
+      'problem.more': true
+    })
+    this.getProblemList(1, () => {
+      wx.stopPullDownRefresh()
+    })
+  },
   getProblemList: function (page = 1, callback = function () { }) {
     if (!this.data.problem.more || this.data.problem.loading) {
       callback(this.data.problem.data)
@@ -33,17 +44,11 @@ Page({
 
     app.post(app.config.myAsks, {
       page
-    }).then(response => {
-      let data = {
-        page: 1,
-        rows: 1000,
-        problems: response.data
-      }
-
+    }).then(({data}) => {
       this.setData({
-        'problem.more': data.problems.length >= data.rows,
+        'problem.more': data.list.length >= data.rows,
         'problem.page': data.page,
-        'problem.data': data.page === 1 ? data.problems : this.data.problem.data.concat(data.problems)
+        'problem.data': data.page === 1 ? data.list : this.data.problem.data.concat(data.list)
       })
     }).finally(() => {
       this.setData({

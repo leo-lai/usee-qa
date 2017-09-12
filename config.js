@@ -25,10 +25,18 @@ var config = {
     createOrder: `${baseUrl}/diagnose/createOrder`,
     // 支付配置信息
     payConfig: `${baseUrl}/eyeAppPay/pay/prepare`,
+    // 医生申请
+    doctorApply: `${baseUrl}/diagnose/applyToDoctor`,
+    // 医生擅长标签
+    doctorLabels: `${baseUrl}/diagnose/getLabels`,
     // 医生列表
     doctorList: `${baseUrl}/diagnose/doctorList`,
     // 医生详情
     doctorInfo: `${baseUrl}/diagnose/doctorInfo`,
+    // 手机验证码 phoneNumber
+    phoneCode: `${baseUrl}/diagnose/phoneVerifyCode`,
+    // 上传图片 img_file
+    uploadImage: `${baseUrl}/diagnose/uploadImage`,
 
 
     // 下面的地址配合云端 Server 工作

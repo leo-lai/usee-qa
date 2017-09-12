@@ -47,12 +47,13 @@ App({
       this.login()
     })
   },
-  onError: function (msg) {
-    // wx.showModal({
-    //   showCancel: false,
-    //   content: msg
-    // })
+  // 页面跳转
+  navigateTo: function (url = '') {
+    wx.navigateTo({
+      url
+    })
   },
+  // post请求
   post: function (url = '', data = {}) {
     return new Promise((resolve, reject) => {
       data.sessionId = this.globalData.userInfo ? this.globalData.userInfo.sessionId : ''
@@ -109,6 +110,7 @@ App({
       })
     })
   },
+  // 登录，获取用户信息
   login: function () {
     // 登录, 获取用户信息
     return new Promise((resolve, reject) => {
@@ -123,21 +125,22 @@ App({
                 resolve(apiRes)
 
                 if (apiRes.data) {
+                  wx.hideLoading()
                   apiRes.data.avatarThumb = utils.formatHead(apiRes.data.avatarUrl)
                   this.globalData.userInfo = apiRes.data
-                  storage.setItem('userInfo', apiRes.data)
+                  // storage.setItem('userInfo', apiRes.data)
 
                   // 由于获取用户信息是网络请求，可能会在 Page.onLoad 之后才返回
                   // 所以此处触发回调函数
                   this.runReady.call(this, apiRes.data)
                 }
-              }).finally(() => {
+              }).catch(err => {
                 wx.hideLoading()
+                reject(err)
               })
             },
             fail: (err) => {
               wx.hideLoading()
-              console.error(err.errMsg)
               reject(err)
             }
           })
@@ -151,6 +154,7 @@ App({
     })
     
   },
+  // 授权微信各种权限
   getAuthFunc: function (funcName = 'getUserInfo') {
     // wx.openSetting({
     //   success: (res) => {
@@ -164,6 +168,7 @@ App({
     //   }
     // })
   },
+  // app初始化
   runReady: function (userInfo) {
     _ReadyCbs.forEach((cb) => {
       cb.call(this, userInfo)

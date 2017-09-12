@@ -84,7 +84,7 @@ Page({
 
     app.post(app.config.problemList, {
       page,
-      problemState: '',
+      problemState: 2,
       problemRemarks: this.data.searchKey
     }).then(({ data }) => {
       this.setData({

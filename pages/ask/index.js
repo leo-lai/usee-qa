@@ -60,12 +60,8 @@ Page({
 
       problemRemarks = []
       setTimeout(() => {
-        this.systemSend('您好，请根据提示输入基本信息帮助我们为您推荐最佳医生')
-      }, 300)
-      setTimeout(() => {
         this.systemSend('请输入患者的【年龄】', 1)
-      }, 600)
-      
+      }, 300)
     })
   },
   // 系统发送消息
@@ -123,7 +119,7 @@ Page({
     clearTimeout(systemSendTimeId)
     switch (this.data.send.answerType) {
       case 1:
-        if (msgContent > 0 && msgContent < 100) {
+        if (msgContent > 0) {
           formData.age = msgContent
           this.systemSend('请尽量详细描述患者的【主要症状】，【持续时间】，是否医院确诊及【检查结果】等，这样更容易获得医生的专业解答并节省交流时间', 2)
         } else {
@@ -154,24 +150,6 @@ Page({
       'send.content': e.detail.value
     })
   },
-  // 提交问题
-  submitProblem: function () {
-    this.systemSend('根据您的描述，系统正在为您推荐合适的专业医生...')
-    wx.showLoading({
-      mask: true
-    })
-    app.post(app.config.putQuestions, formData).then(({ data }) => {
-      this.setData({
-        'doctor.isShow': true,
-        'doctor.data': data.doctors,
-        'doctor.problemId': data.problemId
-      })
-
-      this.scrollToBottom()
-    }).finally(() => {
-      wx.hideLoading()
-    })
-  },
   bindInputFocus: function () {
     this.setData({
       'chat.disabled': false,
@@ -186,15 +164,22 @@ Page({
     //   })
     // }, 500)
   },
-  bindInputBlur: function () {
-    // setTimeout(this.scrollHeightFix, 500)
-  },
-  // 隐藏功能菜单
-  bindHideChatMenu: function() {
-    this.setData({
-      'chat.hideMenu': !this.data.chat.hideMenu,
-      'chat.inputFocus': !this.data.chat.hideMenu,
-      'chat.disabled': this.data.chat.hideMenu,
+  // 提交问题
+  submitProblem: function () {
+    this.systemSend('系统正在为您匹配专业医生...')
+    wx.showLoading({
+      mask: true
+    })
+    app.post(app.config.putQuestions, formData).then(({ data }) => {
+      this.setData({
+        'doctor.isShow': true,
+        'doctor.data': data.doctors,
+        'doctor.problemId': data.problemId
+      })
+
+      this.scrollToBottom()
+    }).finally(() => {
+      wx.hideLoading()
     })
   }
 })
