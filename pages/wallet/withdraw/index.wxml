@@ -5,7 +5,7 @@
     <view class="l-flex-hc l-margin-tb l-withdraw-input">
       <text class="l-h2">¥</text>
       <view class="l-rest l-margin-l">
-        <input type="digit" value="{{formData.amount}}" bindinput="bindInput" maxlength="9" />
+        <input type="digit" focus="{{true}}" value="{{formData.amount}}" bindinput="bindInput" maxlength="10" />
       </view>
     </view>
     <view class="l-margin-tb">

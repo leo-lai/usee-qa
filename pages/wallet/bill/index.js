@@ -79,12 +79,11 @@ Page({
 
     app.post(app.config.balanceList, {
       page
-    }).then((response) => {
-      let data = {
-        page: 1,
-        rows: 10,
-        list: response.data
-      }
+    }).then(({data}) => {
+      data.list = data.list.map(item => {
+        item.money = item.amount.toMoney()
+        return item
+      })
       this.setData({
         'balance.more': data.list.length >= data.rows,
         'balance.page': data.page,
@@ -110,16 +109,15 @@ Page({
 
     app.post(app.config.withdrawList, {
       page
-    }).then((response) => {
-      let data = {
-        page: 1,
-        rows: 10,
-        list: response.data
-      }
+    }).then(({data}) => {
+      data.withdrawalsList = data.withdrawalsList.map(item => {
+        item.money = item.amount.toMoney()
+        return item
+      })
       this.setData({
-        'withdrawa.more': data.list.length >= data.rows,
+        'withdrawa.more': data.withdrawalsList.length >= data.rows,
         'withdrawa.page': data.page,
-        'withdrawa.data': data.page === 1 ? data.list : this.data.withdrawa.data.concat(data.list)
+        'withdrawa.data': data.page === 1 ? data.withdrawalsList : this.data.withdrawa.data.concat(data.withdrawalsList)
       })
     }).finally(() => {
       this.setData({

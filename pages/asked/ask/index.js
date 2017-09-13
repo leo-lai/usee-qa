@@ -7,7 +7,7 @@ Page({
    */
   data: {
     problem: {
-      state: ['未支付', '已支付', '进行中', '已完成', '已拒绝'],
+      state: ['未支付', '等待医生回复', '交谈中', '已解答', '已拒绝'],
       loading: false,
       more: true,
       page: 1,

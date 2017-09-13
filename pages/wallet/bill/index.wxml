@@ -15,10 +15,10 @@
         <view class="l-flex-hc l-padding l-border-t l-bg-white" wx:for="{{balance.data}}" wx:key="{{index}}">
           <view class="l-rest">
             <view class="l-h4">答题所得</view>
-            <view class="l-text-gray">2019-12-12 12:12:12</view>
+            <view class="l-text-gray">{{item.createDate}}</view>
           </view>
           <view class="l-margin-l">
-            <text class="l-h3 l-text-green">+10000</text>          
+            <text class="l-h3 l-text-green">{{item.money}}</text>          
           </view>
         </view>
         <view class="weui-loadmore" hidden="{{ !balance.loading }}">
@@ -36,11 +36,11 @@
       <view class="weui-tab__content" hidden="{{activeIndex != 1}}">
         <view class="l-flex-hc l-padding l-border-t l-bg-white" wx:for="{{withdrawa.data}}" wx:key="{{index}}">
           <view class="l-rest">
-            <view class="l-h4">提现</view>
-            <view class="l-text-gray">2019-12-12 12:12:12</view>
+            <view class="l-h4">{{'提现' || item.withdrawalCode}}</view>
+            <view class="l-text-gray">{{item.createDate}}</view>
           </view>
           <view class="l-margin-l">
-            <text class="l-h3">-10000</text>
+            <text class="l-h3">-{{item.money}}</text>
           </view>
         </view>
         <view class="weui-loadmore" hidden="{{ !withdrawa.loading }}">

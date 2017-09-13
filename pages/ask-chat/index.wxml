@@ -25,10 +25,11 @@
           <view class="_state">
           </view>
         </view>
-        <view class="_tip">等待医生答复，一般会在1-3小时内回复，如果超过48小时无人回复将全额退款至您的微信，回复将会第一时间通知您。</view>
+        <view class="_tip" wx:if="{{problemInfo.problemState < 2}}">等待医生回复，一般会在1-3小时内回复，如果超过48小时无人回复将全额退款至您的微信，回复将会第一时间通知您。</view>
         
         <!-- 对话列表 -->
-        <view class="l-chat-item {{item.fromUserId === userInfo.userId ? '_self' : ''}}" wx:for="{{chat.data}}" wx:key="index">
+        <view class="_tip l-text-center" wx:if="{{chat.data.length > 0}}">{{chat.data[0].msgDatetime}}</view>
+        <view class="l-chat-item {{item.fromUserId === userInfo.userId ? '_self' : ''}}" wx:for="{{chat.data}}" wx:key="{{index}}">
           <view class="_who">
               <image src="{{item.fromUserId === userInfo.userId ? item.fromUserAvatar : item.toUserAvatar}}"></image> 
           </view>
@@ -42,14 +43,14 @@
           </view>
         </view>
         <!-- 医生评价 -->
-        <view class="l-doctor-evaluate" wx:if="{{false}}">
+        <view class="l-doctor-evaluate" wx:if="{{problemInfo.problemState === 3}}">
           <view class="l-text-center l-margin">
             <view class="l-avatar">
-              <image  src="/images/avatar.jpg"></image>
+              <image  src="{{doctor.avatarThumb || 'https://static.ushiyihao.com/xcx/doctor.png'}}"></image>
             </view>
-            <view class="l-margin-tb-m">胡医生</view>
-            <view class="l-text-gray l-margin-tb-m">第二军医大学附属长征医院|副主任医师</view>
-            <view class="l-margin-tb-m">专注眼科调理，近视预防，10年临床经验</view>
+            <view class="l-margin-tb-m">{{doctor.doctorName}}</view>
+            <view class="l-text-gray l-margin-tb-m">{{doctor.hospital}} | {{doctor.academicTitle}}</view>
+            <view class="l-margin-tb-m">{{doctor.introduce}}</view>
           </view>
           <view class="l-flex-hc _score">
             <view class="l-rest _slted">

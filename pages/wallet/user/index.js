@@ -9,13 +9,11 @@ Page({
     hideWalletRules: true,
     userInfo: null
   },
-  onLoad: function () {
-    app.onReady(userInfo => {
+  onShow: function () {
+    app.refreshUserInfo().then(({data}) => {
       this.setData({
-        userInfo: userInfo
+        userInfo: data
       })
-
-      // app.refreshUserInfo()
     })
   },
   // 收益规则

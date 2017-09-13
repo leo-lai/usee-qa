@@ -15,7 +15,7 @@
   </view>
   <view class="l-padding-xl l-flex-hc l-border-b">
     <view class="l-rest">
-      <text class="l-fs-14 l-margin-r-s">余额明细</text>
+      <text class="l-fs-14 l-margin-r-s">余额账单</text>
     </view>
     <navigator url="/pages/wallet/bill/index">
       <button type="default" style="min-width: 200rpx;">查看</button>

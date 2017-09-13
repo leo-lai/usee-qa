@@ -1,6 +1,7 @@
 //app.js
 import config from 'config'
 import utils from '/script/utils'
+import wilddog from '/script/wilddog-weapp-all'
 
 const storage = {
   setItem: (key, value) => {
@@ -32,6 +33,8 @@ const storage = {
 
 let _ReadyCbs = []
 App({
+  wilddog,
+  utils,
   config,
   storage,
   onLaunch: function () {
@@ -46,6 +49,15 @@ App({
     }).catch(() => {
       this.login()
     })
+
+    // 野狗监听
+    wilddog.initializeApp(config.wilddog)
+    this.ref_problemChat = wilddog.sync().ref('/problemChat')
+    // this.ref_problemList.on('value', function (snapshot) {
+    //   console.warn(snapshot.val())
+    // }, function (error) {
+    //   console.error(error)
+    // })
   },
   // 页面跳转
   navigateTo: function (url = '') {
@@ -157,11 +169,16 @@ App({
   // 刷新个人信息
   refreshUserInfo: function () {
     wx.showLoading()
-    this.post(config.userInfo).then(({ data }) => {
+    let promise = this.post(config.userInfo)
+    
+    promise.then(({ data }) => {
       this.globalData.userInfo = data
+      storage.setItem('userInfo', data)
     }).finally(() => {
       wx.hideLoading()
     })
+
+    return promise
   },
   // 授权微信各种权限
   getAuthFunc: function (funcName = 'getUserInfo') {

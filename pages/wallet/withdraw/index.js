@@ -12,16 +12,11 @@ Page({
     },
     userInfo: null
   },
-
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-    app.onReady(userInfo => {
+  onShow: function () {
+    app.refreshUserInfo().then(({ data }) => {
       this.setData({
-        userInfo: userInfo
+        userInfo: data
       })
-
     })
   },
   bindInput: function (e) {
@@ -44,6 +39,19 @@ Page({
   },
   // 提现
   withdraw: function () {
-    
+    wx.showLoading()
+    this.setData({
+      disabled: true
+    })
+    app.post(app.config.withdrawal, {
+      amount: parseFloat(this.data.formData.amount)
+    }).then(() => {
+      app.navigateTo('/pages/result/index?type=withdraw')
+    }).finally(() => {
+      wx.hideLoading()
+      this.setData({
+        disabled: false
+      })
+    })
   }
 })

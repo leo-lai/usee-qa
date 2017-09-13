@@ -1,10 +1,12 @@
 {
   "pages": [
+    "pages/asked/ask/index",
     "pages/index/index",
     "pages/doctor-apply/index",
     "pages/doctor-list/index",
     "pages/doctor-info/index",
     "pages/me/index",
+    "pages/me-info/doctor/index",
     "pages/search/index",
     "pages/ask/index",
     "pages/ask-info/index",
@@ -12,15 +14,14 @@
     "pages/about/index",
     "pages/wallet/user/index",
     "pages/wallet/doctor/index",
-    "pages/asked/ask/index",
+    
     "pages/asked/see/index",
     "pages/wallet/withdraw/index",
     "pages/wallet/bill/index",
-    
     "pages/ask-chat/index",
     "pages/agreement/a1/index",
-    "pages/test/index",
-    "pages/me-info/doctor/index"
+    "pages/result/index",
+    "pages/test/index"
   ],
   "window": {
     "backgroundColor": "#eeeeee",

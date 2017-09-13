@@ -13,16 +13,35 @@ Page({
     problemInfo: {},
     evaluate: {},
     doctor: {},
+    send: {
+      answerType: '',
+      content: ''
+    },
     chat: {
       loading: false,
       more: true,
       page: 1,
+      rows: 20,
       data: [],
       hideMenu: true,
       disabled: false,
       inputFocus: false
     },
     userInfo: null
+  },
+  // 聊天记录数据同步视图
+  chatSyncView: function (objectItem = {}, key = 'tick') {
+    if (!objectItem[key]) return
+
+    for (let i = this.data.chat.data.length - 1; i >= 0; i--) {
+      if (this.data.chat.data[i][key] === objectItem[key]) {
+        this.data.chat.data[i] = objectItem
+        this.setData({
+          'chat.data': this.data.chat.data
+        })
+        break
+      }
+    }
   },
   // 滚动区域高度修正
   scrollHeightFix: function () {
@@ -50,76 +69,70 @@ Page({
   onLoad: function (options) {
     this.scrollHeightFix()
 
-    this.problemId = options.pbid
     app.onReady(userInfo => {
       this.setData({
         userInfo: userInfo
       })
 
-      if (userInfo.isDoctor === 0) { // 用户
-        this.getProblemInfo(options.pbid)
-      } else if (userInfo.isDoctor === 1) { // 医生
-        
-      }
+      // 获取问题详情
+      this.getProblemInfo(options.pbid)
     })
   },
   // 用户发送消息
   sendChat: function () {
-    if (this.data.send.content.trim().length === 0) {
+    const that = this
+
+    // 禁止发送空内容
+    if (!that.data.send.content || that.data.send.content.trim().length === 0) {
       return
     }
-
+    
+    // 发送内容
+    let problemId = that.data.problemInfo.problemId
     let sendContent = {
-      fromUserId: this.data.userInfo.userId,
-      fromUserName: this.data.userInfo.userName,
-      fromUserAvatar: this.data.userInfo.avatarUrl,
-      toUserId: 'u00001',
-      toUserName: '系统消息',
-      toUserAvatar: '',
+      problemId,
+      fromUserRoles: that.data.userInfo.isDoctor,
+      fromUserId: that.data.userInfo.userId,
+      fromUserName: that.data.userInfo.userName,
+      fromUserAvatar: that.data.userInfo.avatarUrl,
       msgType: 1,
-      msgState: 1,
+      msgState: 0,
       msgDatetime: (new Date()).format('yyyy-MM-dd hh:mm:ss'),
-      msgContent: this.data.send.content
+      msgContent: that.data.send.content,
+      tick: Date.now()
     }
 
-    this.setData({
+    // 用户发给医生
+    if (that.data.userInfo.isDoctor === 0) {
+      sendContent.toUserId = that.data.doctor.doctorId
+      sendContent.toUserName = that.data.doctor.doctorName
+      sendContent.toUserAvatar = that.data.doctor.avatarThumb
+    } else if (that.data.userInfo.isDoctor === 1) {
+      sendContent.toUserId = that.data.problemInfo.interrogationId
+      sendContent.toUserName = ''
+      sendContent.toUserAvatar = ''
+    }
+    
+    that.setData({
       'send.content': '',
-      'chat.data': [].concat(this.data.chat.data, sendContent)
+      'chat.data': that.data.chat.data.concat(sendContent)
     })
+    that.scrollToBottom()
 
-    this.scrollToBottom()
+    // 提交给后台
+    let formData = Object.assign({}, sendContent, { msgState: 2 })
+    app.post(app.config.sendMessage, formData).then(({data}) => {
+      sendContent.msgChatId = data.messageChatId
+      sendContent.msgDatetime = data.msgDatetime
+      sendContent.msgState = 1
 
-    this.listenChat(sendContent.msgContent)
-  },
-  // 监听回复消息
-  listenChat: function (msgContent = '') {
-    clearTimeout(systemSendTimeId)
-    switch (this.data.send.answerType) {
-      case 1:
-        if (msgContent > 0) {
-          formData.age = msgContent
-          this.systemSend('请尽量详细描述患者的【主要症状】，【持续时间】，是否医院确诊及【检查结果】等，这样更容易获得医生的专业解答并节省交流时间', 2)
-        } else {
-          this.systemSend('请输入真实的【年龄】，回复数字即可', 1)
-        }
-        break
-      case 2:
-        if (msgContent.trim() == 1) {
-          if (problemRemarks.length === 0) {
-            this.systemSend('请详细描述病症，回复数字【1】确认完成描述', 2)
-          } else {
-            systemSendTimes = 0
-            formData.problemRemarks = problemRemarks.join(',')
-            this.submitProblem()
-          }
-        } else {
-          problemRemarks.push(msgContent)
-          systemSendTimeId = setTimeout(() => {
-            this.systemSend('还有其他要补充说明吗？回复数字【1】确认完成描述', 2)
-          }, ++systemSendTimes * 500 + 5000)
-        }
-        break
-    }
+      // 推送到野狗
+      app.ref_problemChat.child(problemId).set(sendContent)
+    }).catch(() => {
+      sendContent.msgState = -1
+    }).finally(() => {
+      that.chatSyncView(sendContent, 'tick')
+    })
   },
   // 监听聊天内容输入
   bindInputChange: function (e) {
@@ -154,22 +167,65 @@ Page({
   },
   // 获取问题详情
   getProblemInfo: function (problemId = '') {
+    let that = this
     wx.showLoading({
       mask: true
     })
-
     app.post(app.config.problemInfo, {
-      problemId
+      problemId,
+      page: that.data.chat.page,
+      rows: that.data.chat.rows,
     }).then(({ data }) => {
-      this.setData({
+
+      data.doctor.avatarThumb = app.utils.formatHead(data.doctor.headPortrait)
+      that.setData({
         'isNeedPay': data.isNeedPay,
         'problemInfo': data.problemInfo,
         'evaluate': data.evaluate,
         'doctor': data.doctor,
-        'chat.data': data.chat,
+        'chat.data': data.chatList.reverse(),
         'chat.page': data.page,
         'chat.more': data.total > 1
       })
+
+      that.scrollToBottom()
+
+      // 改变页面标题
+      if (data.problemInfo.problemState === 1) {
+        let title = 'U视问答'
+        title = `等待医生回复`
+        if (!data.doctor.doctorId){
+          title = `等待医生抢答`
+        }
+        wx.setNavigationBarTitle({
+          title
+        })
+      } else if (data.problemInfo.problemState === 2)  {
+        wx.setNavigationBarTitle({
+          title: `与${data.doctor.doctorName}交谈中` 
+        })
+      }
+
+      // 野狗监听节点problemChat/[problemId]
+      let ref_key = 'ref_chat_' + data.problemInfo.problemId
+      that[ref_key] = app.wilddog.sync().ref('/problemChat/' + data.problemInfo.problemId)
+      that[ref_key].on('value', function (snapshot) {
+        let value = snapshot.val()
+        if (value) {
+          if (value.fromUserId !== that.data.userInfo.userId) {
+            if (that.data.chat.data.length === 0 || 
+              that.data.chat.data[that.data.chat.data.length-1].tick !== value.tick) {
+              that.setData({
+                'chat.data': that.data.chat.data.concat(value)
+              })
+              that.scrollToBottom()
+            }
+          }
+        }
+      }, function (error) {
+        console.error(error)
+      })
+
     }).finally(() => {
       wx.hideLoading()
     })

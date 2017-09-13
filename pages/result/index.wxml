@@ -1,0 +1,28 @@
+<!--pages/result/index.wxml-->
+<view class="weui-msg">
+  <!-- 提现提示 -->
+  <view wx:if="{{resultType === 'withdraw'}}">
+    <view class="weui-msg__icon-area">
+      <icon type="waiting" size="93"></icon>
+    </view>
+    <view class="weui-msg__text-area">
+      <view class="weui-msg__title">提现申请已提交</view>
+      <view class="weui-msg__desc">申请通过后，提现的金额将进入您的微信钱包，审核时间一般为1-3个工作日，如有疑问请联系客服：400-180-6900
+      </view>
+    </view>
+    <view class="weui-msg__opr-area">
+      <view class="weui-btn-area">
+        <button class="weui-btn" type="primary" bindtap="backTo" data-delta="2">完成</button>
+      </view>
+    </view>
+  </view>
+
+  <view class="weui-msg__extra-area">
+    <view class="weui-footer">
+      <view class="weui-footer__links">
+        <!-- <navigator url="" class="weui-footer__link">贵州优视一号生物科技有限公司</navigator> -->
+      </view>
+      <view class="weui-footer__text">Copyright © 2017-2018 U视一号</view>
+    </view>
+  </view>
+</view>

@@ -74,7 +74,7 @@ Page({
       toUserName: this.data.userInfo.userName,
       toUserAvatar: this.data.userInfo.avatarUrl,
       msgType: 1,  // 1文本 2图片 3语音
-      msgState: 1, // -1未发送成功 0发送中 1已发送 2未读 3已读
+      msgState: 1, // -1未发送成功 0发送中 1已发送并未读 2已读
       msgContent: msgContent,
       msgDatetime: (new Date()).format('yyyy-MM-dd hh:mm:ss')
     }
