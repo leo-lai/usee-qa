@@ -39,16 +39,18 @@ App({
   storage,
   onLaunch: function () {
     // 获取用户信息
-    storage.getItem('userInfo').then((value) => {
-      if (!value) {
-        this.login()
-      } else {
-        this.globalData.userInfo = value
-        this.runReady(value)
-      }
-    }).catch(() => {
-      this.login()
-    })
+    // storage.getItem('userInfo').then((value) => {
+    //   if (!value) {
+    //     this.login()
+    //   } else {
+    //     this.globalData.userInfo = value
+    //     this.runReady(value)
+    //   }
+    // }).catch(() => {
+    //   this.login()
+    // })
+
+    this.login()
 
     // 野狗监听
     wilddog.initializeApp(config.wilddog)

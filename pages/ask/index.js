@@ -119,11 +119,11 @@ Page({
     clearTimeout(systemSendTimeId)
     switch (this.data.send.answerType) {
       case 1:
-        if (msgContent > 0) {
+        if (msgContent > 0 && msgContent <= 149) {
           formData.age = msgContent
           this.systemSend('请尽量详细描述患者的【主要症状】，【持续时间】，是否医院确诊及【检查结果】等，这样更容易获得医生的专业解答并节省交流时间', 2)
         } else {
-          this.systemSend('请输入真实的【年龄】，回复数字即可', 1)
+          this.systemSend('请输入真实的【年龄0-149】', 1)
         }
         break
       case 2:
@@ -166,12 +166,13 @@ Page({
   },
   // 提交问题
   submitProblem: function () {
-    this.systemSend('系统正在为您匹配专业医生...')
+    // this.systemSend('系统正在为您匹配专业医生...')
     wx.showLoading({
       mask: true
     })
     app.post(app.config.putQuestions, formData).then(({ data }) => {
       this.setData({
+        'send.answerType': '',
         'doctor.isShow': true,
         'doctor.data': data.doctors,
         'doctor.problemId': data.problemId
