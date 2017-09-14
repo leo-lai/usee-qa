@@ -1,0 +1,96 @@
+<!--pages/agreement/a2/index.wxml-->
+<view class="l-bg-white l-padding l-text-justify">
+  <view class="l-margin-b">鉴于U视一号为用户提供向医生进行咨询的平台技术服务，您作为医生方入驻并使用平台，现就该服务内容及相关权利义务与您约定如下：</view>
+  <view class="l-margin-t-m l-text-blod">平台：指由贵州优视一号生物科技有限公司开发的U视一号小程序（下称“U视一号”），用于提供用户向医生进行咨询服务的技术服务平台；</view>
+  <view class="l-margin-t-m l-text-blod">医生：指在U视一号提供的医生咨询服务平台上入驻的医生，为用户提供咨询服务；</view>
+  <view class="l-margin-t-m l-text-blod">用户：指接受本协议，通过U视一号的技术平台向医生用户发起提问的用户，用户进入小程序，提交咨询即视为接受并同意本协议；</view>
+
+
+
+  <view class="l-h3 l-margin-t">一、服务内容：</view>
+  <view class="l-margin-t-m">1.1 U视一号小程序作为医生、患者间交流互通平台，用户通过U视一号发表的各种言论和图片（包括但不仅限于症状图片、咨询建议、患者评价等），并不代表U视一号赞同其观点或证实其内容的真实性，<text class="l-text-blod">不能作为临床诊断及医疗的依据，不能替代医生与病人面对面的诊断和治疗</text>；</view>
+  <view class="l-margin-t-m">1.2 U视一号不承担用户因不可抗力、自身过错、网络状况、通讯线路等技术原因或其他不可控原因而导致不能正常使用U视一号所导致的直接和间接损失，亦不承担任何法律责任；</view>
+
+  <view class="l-h3 l-margin-t">二、入驻：</view>
+  <view class="l-margin-t-m">2.1 医生在入驻U视一号小程序时，应根据页面要求填写基本信息，并进行<text class="l-text-blod">实名认证</text>，U视一号有权采取合理方式对医生身份进行核实，并对通过认证的医生提供相应服务；医生未能通过身份认证的，U视一号有权将网页认证关联信息删除；</view>
+  <view class="l-margin-t-m">2.2 医生在通过审核后，如若修改个人信息，<text class="l-text-blod">信息中不得出现违法和不良信息</text>，否则U视一号有权拒绝提供服务，并删除该账号；</view>
+
+  <view class="l-h3 l-margin-t">三、权利和责任：</view>
+  <view class="l-margin-t-m">3.1 入驻医生不得以任何形式转让或授权他人使用自己的U视一号小程序账号对患者进行服务，亦不得盗用他人帐号，由以上行为造成的后果由入驻医生自行承担；</view>
+  <view class="l-margin-t-m">3.2 入驻医生有权根据U视一号管理规定发布、获取信息，进行医患互通交流等；</view>
+  <view class="l-margin-t-m">3.3 入驻医生对自己在U视一号上发布的信息承担责任，承诺自己在使用U视一号时实施的所有行为均遵守国家法律、法规和U视一号管理规定以及各种社会公共利益或公共道德，不得发布包括但不仅限于以下的违规信息及行为：</view>
+  <view class="l-margin-l">
+    <view class="l-text-blod l-margin-t-s">1）不得传输或发表：煽动抗拒、破坏宪法和法律、行政法规实施的言论，煽动颠覆国家政权，推翻社会主义制度的言论，煽动分裂国家、破坏国家统一的的言论，煽动民族仇恨、民族歧视、破坏民族团结的言论；</view>
+    <view class="l-text-blod l-margin-t-s">2）不得利用本客户端从事洗钱、窃取商业秘密、窃取个人信息等违法犯罪活动；</view>
+    <view class="l-text-blod l-margin-t-s">3）不得传输或发表任何违法犯罪的、骚扰性的、中伤他人的、辱骂性的、恐吓性的、伤害性的、庸俗的、淫秽的、不文明的等信息资料；</view>
+    <view class="l-text-blod l-margin-t-s">4）不得传输或发表损害国家社会公共利益和涉及国家安全的信息资料或言论；</view>
+    <view class="l-text-blod l-margin-t-s">5）不得教唆他人从事本条所禁止的行为；</view>
+    <view class="l-text-blod l-margin-t-s">6）不得利用在本客户端注册的账户进行牟利性经营活动；</view>
+    <view class="l-text-blod l-margin-t-s">7）不得发布任何侵犯他人著作权、商标权等知识产权或合法权利的内容；</view>
+    <view class="l-text-blod l-margin-t-s">8）不得对自身专业之外的提问和咨询给出回复或建议；</view>
+  </view>
+  <view class="l-margin-t-m">如有违反导致任何法律后果的发生，入驻医生将以自己的名义独立承担所有相应的法律责任。</view>
+  <view class="l-margin-t-m">3.4 入驻医生必须遵守卫生部《互联网医疗卫生信息服务管理办法》及国家食品药品监督管理局的有关法规，<text class="l-text-blod">认证医生只能提供医疗卫生信息建议，不得从事网上诊断和治疗活动，不得进行网上售药，不得进行广告性质宣传活动</text>，否则造成后果由入驻医生自行承担；</view>
+  <view class="l-margin-t-m">3.5 如发现其他入驻医生有违法或违反U视一号管理规定的行为，可以向U视一号进行反映要求处理；不得私自与其他医生发生纠纷，否则咋成后果自行承担；</view>
+  <view class="l-margin-t-m">3.6 U视一号小程序平台仅作为技术提供方，将协助医患之间进行合法的交流，不对用户发布的信息的来源和正确性负责，不参与医患交流，不对医患交流的结果承担任何责任；</view>
+  <view class="l-margin-t-m">3.7 对于用户在U视一号上的不当行为或其它任何U视一号认为应当终止服务的情况，U视一号有权随时作出删除相关信息、终止服务提供等处理，而无需征得用户的同意；</view>
+  <view class="l-margin-t-m">3.8 因服务平台的属性，U视一号没有义务对所有用户的咨询信息以及与咨询有关的其它事项进行事先审查，但下列情况除外：</view>
+  <view class="l-margin-l">
+    <view class="l-margin-t-s">1）接到第三方通知，例如：认为某个具体用户或具体咨询事项可能存在重大问题；</view>
+    <view class="l-margin-t-s">2）用户或第三方向U视一号告知平台上有违法或不当行为；</view>
+    <view class="l-margin-t-s">3）平台发现某个具体用户或具体咨询事项可能存在重大问题；</view>
+  </view>
+  <view class="l-margin-t-m">3.9 医生与用户如果在U视一号小程序平台上如与其它用户产生纠纷，可以联系U视一号客服从中予以调处，经U视一号审核后，U视一号有权向纠纷双方了解情况，并将所了解的情况互相通知对方；U视一号所作出的调处行为不具有法律效力，调处结果系由纠纷双方自愿作出，U视一号仅协助提供信息的沟通，不对调处结果承担相应法律责任；</view>
+  <view class="l-margin-t-m">3.10 经国家生效法律文书或行政处罚决定确认用户存在违法行为，或者U视一号有足够事实依据可以认定用户存在违法或违反U视一号管理规定的行为的，U视一号有权主动停用用户账号；</view>
+  <view class="l-margin-t-m">3.11 因不可抗力（如火灾、水灾、暴动、骚乱、战争、自然灾害等）导致U视一号的服务中断或者用户数据损坏、丢失等，U视一号不承担任何责任；</view>
+  <view class="l-h3 l-margin-t">四、服务变更、中断或终止：</view>
+  <view class="l-margin-t-m">4.1 若因系统维护或升级的需要而需暂停网络服务，U视一号平台尽可能事先进行通告，U视一号平台有权直接维护、更新或升级；</view>
+  <view class="l-margin-t-m">4.2 如发生下列任何一种情形，U视一号有权解除本协议并在不事先通知用户的情况下随时中断或终止部分或全部服务，对于服务的中断或终止而造成用户损失的，U视一号不承担任何责任；</view>
+  <view class="l-margin-l">
+    <view class="l-margin-t-s">1）用户自愿注销的；</view>
+    <view class="l-margin-t-s">2）用户违反国家有关法律法规或U视一号管理规定，侵害他人合法权益的；</view>
+    <view class="l-margin-t-s">3）用户因在U视一号上的不当行为被行政或司法机构拘留或起诉；</view>
+    <view class="l-margin-t-s">4）医生认证用户被有关部门吊销执业医师证书；</view>
+    <view class="l-margin-t-s">5）用户提供的个人资料不真实；</view>
+    <view class="l-margin-t-s">6）用户盗用他人账户、发布违禁信息、骗取他人财物的；</view>
+    <view class="l-margin-t-s">7）用户传播虚假信息，歪曲事实，经查证属实的；</view>
+    <view class="l-margin-t-s">8）其它U视一号认为需要终止服务的情况；</view>
+  </view>
+  <view class="l-margin-t-m">4.3 用户服务终止后，U视一号仍有以下权利：</view>
+  <view class="l-margin-l">
+    <view>1）用户注销后，U视一号有权保留该用户的注册数据及以前的行为记录；</view>
+    <view>2）用户注销后，如用户在注销前在U视一号平台上存在违法行为或违反条款的行为，U视一号仍可行使本服务条款所规定的权利；</view>
+  </view>
+
+  <view class="l-h3 l-margin-t">五、隐私声明：</view>
+  <view class="l-margin-t-m">5.1 U视一号不会对外公开或向第三方提供单个用户资料及用户在使用网络服务时存储的非公开内容，但下列情况除外：</view>
+  <view class="l-margin-l">
+    <view class="l-margin-t-s">1）事先获得用户的明确授权；</view>
+    <view class="l-margin-t-s">2）有关的法律法规明确要求；</view>
+    <view class="l-margin-t-s">3）按照相关政府主管部门的要求；</view>
+    <view class="l-margin-t-s">4）维护社会公众的利益；</view>
+    <view class="l-margin-t-s">5）维护U视一号的合法权益；</view>
+  </view>
+  <view class="l-margin-t-m">5.2 U视一号可能会与第三方合作向用户提供相关的网络服务，在此情况下，如该第三方同意承担与U视一号同等的保护用户隐私的责任，则U视一号有权将用户的注册资料等提供给该第三方；</view>
+  <view class="l-margin-t-m">5.3 在不透露单个用户隐私资料的前提下，U视一号有权对整个用户数据库进行分析并对用户数据库进行商业上的利用；</view>
+  <view class="l-margin-t-m">5.4 U视一号在隐去用户的姓名、单位、地址等个人信息后，有权在未征得用户同意的情况下公开、编辑、出版、发行；</view>
+
+  <view class="l-h3 l-margin-t">六、免责声明：</view>
+  <view class="l-margin-t-m">6.1 用户使用U视一号服务所存在的风险将完全由其自己承担；因其使用U视一号服务而产生的一切后果也由其自己承担，U视一号对用户不承担任何责任；</view>
+  <view class="l-margin-t-m">6.2 U视一号不保证为向用户提供便利而设置的外部链接的准确性和完整性，同时，对于该等外部链接指向的不由U视一号实际控制的任何网页上的内容，U视一号不承担任何责任；</view>
+  <view class="l-margin-t-m">6.3 对于因不可抗力或U视一号不能控制的原因造成的网络服务中断或其它缺陷，U视一号不承担任何责任，但将尽力减少因此而给用户造成的损失和影响；</view>
+  <view class="l-margin-t-m">6.4 <text class="l-text-blod">对于盗号或其他因素导致账号被他人使用，因而产生的一切后果也由其自己承担，U视一号不承担任何责任</text>；</view>
+
+  <view class="l-h3 l-margin-t">七、违约赔偿：</view>
+  <view class="l-margin-t-m">7.1 用户同意保障和维护U视一号及其他用户的利益，如因用户违反有关法律、法规或U视一号管理规定而给U视一号或任何其他第三人造成损失，用户同意承担由此造成的损害赔偿责任；</view>
+
+  <view class="l-h3 l-margin-t">八、服务条款修改：</view>
+  <view class="l-margin-t-m">8.1 U视一号有权根据服务情况变更、终止U视一号管理规定的各项条款，U视一号将会通过适当方式向用户提示修改内容；</view>
+  <view class="l-margin-t-m">8.2 如果用户不同意U视一号管理规定所做的修改，有权停止使用网络服务；如果用户继续使用U视一号小程序平台的服务，则视为用户接受U视一号对服务条款相关条款所做的修改；</view>
+
+  <view class="l-h3 l-margin-t">九、其他：</view>
+  <view class="l-margin-t-m">9.1 本服务条款构成双方对服务条款之约定事项及其他有关事宜的完整协议，除服务条款规定的之外，未赋予服务条款各方其他权利；</view>
+  <view class="l-margin-t-m">9.2 如本服务条款中的任何条款无论因何种原因完全或部分无效或不具有执行力，本条款的其余条款仍应有效并且有约束力；</view>
+  <view class="l-margin-t-m">9.3 本服务条款的订立、执行和解释及争议的解决均应适用中国法律；</view>
+  <view class="l-margin-t-m">9.4 如双方就本服务条款内容或其执行发生任何争议，双方应尽量友好协商解决；协商不成时，任何一方均可向贵州优视一号生物科技有限公司所在地的人民法院提起诉；</view>
+</view>

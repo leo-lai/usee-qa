@@ -1,7 +1,7 @@
 <!--index.wxml-->
 <view class="l-page-group">
   <!-- 用户首页 -->
-  <view class="l-page-user">
+  <view class="l-page-user" wx:if="{{userInfo.isDoctor === 0}}">
     <!-- banner -->
     <view class="banner">
       <view class="l-margin-t l-fs-20">U视问答</view>
@@ -55,7 +55,7 @@
   </view>
 
   <!-- 医生首页 -->
-  <view class="l-page-doctor">
+  <view class="l-page-doctor" wx:if="{{userInfo.isDoctor === 1}}">
     
   </view>
 </view>

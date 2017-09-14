@@ -1,22 +1,45 @@
 <!--pages/agreement/a1/index.wxml-->
 <view class="l-bg-white l-padding l-text-justify">
-  <view class="l-text-center l-h3">技术服务协议</view>
-
-  <view class="l-margin-tb">鉴于U视平台为用户提供向医生进行咨询的平台技术服务，现就该服务内容及相关权利义务与您约定如下：</view>
+  <view class="l-margin-tb">鉴于U视一号为用户提供向医生进行咨询的平台技术服务，现就该服务内容及相关权利义务与您约定如下：</view>
   <view class="l-h3 l-margin-t">一、定义</view>
-  <view class="l-margin-t-m"><text class="l-text-blod">平台：</text>指由贵州优视一号生物科技有限公司开发的U视门诊小程序（下称“U视门诊”），用于提供用户向医生进行咨询服务的技术服务平台。
-</view>
-  <view class="l-margin-t-m"><text class="l-text-blod">用户：</text>指接受本协议，通过U视门诊的技术平台向医生用户发起提问的用户，用户进入小程序，提交咨询即视为接受并同意本协议。</view>
-  <view class="l-margin-t-m"><text class="l-text-blod">医生：</text>指在U视门诊提供的医生咨询服务平台上入驻的医生，为用户提供咨询服务，平台入驻医生均经过贵州优视一号生物科技有限公司严格审核。
-</view>
+  <view class="l-margin-t-m">
+    <text class="l-text-blod">平台：</text>指由贵州优视一号生物科技有限公司开发的U视门诊小程序（下称“U视门诊”），用于提供用户向医生进行咨询服务的技术服务平台。
+  </view>
+  <view class="l-margin-t-m">
+    <text class="l-text-blod">用户：</text>指接受本协议，通过U视门诊的技术平台向医生用户发起提问的用户，用户进入小程序，提交咨询即视为接受并同意本协议。</view>
+  <view class="l-margin-t-m">
+    <text class="l-text-blod">医生：</text>指在U视门诊提供的医生咨询服务平台上入驻的医生，为用户提供咨询服务，平台入驻医生均经过贵州优视一号生物科技有限公司严格审核。
+  </view>
 
   <view class="l-h3 l-margin-t">二、平台技术服务</view>
-  <view class="l-margin-t-m">1、平台为用户提供向医生进行咨询的技术服务。通过平台的技术服务，用户可向平台指定的医生发起提出咨询提问，并获得医生的咨询服务。</view>
-  <view class="l-margin-t-m">2、就平台为用户提供的服务，用户应当向平台支付技术服务费，服务费的支付方式为微信钱包转账，服务费的收取标准由平台决定，并以平台向用户露出的</view>
+  <view class="l-margin-t-m">2.1 平台为用户提供向医生进行咨询的技术服务；通过平台的技术服务，用户可向平台指定的医生发起提出咨询提问，并获得医生的咨询服务；</view>
+  <view class="l-margin-t-m">2.2 就平台为用户提供的服务，<text class="l-text-blod">用户应当向平台支付技术服务费，服务费的支付方式为微信钱包转账，服务费的收取标准由平台或被咨询医生决定，并以平台向用户露出的展示信息为准</text>，用户接受该费用标准并完成费用支付后，用户可以向医生发起咨询；若用户未完成费用支付，则平台有权不为用户提供接入医生进行咨询的服务；</view>
+  <view class="l-margin-t-m">2.3 <text class="l-text-blod">在用户向平台付费后，且未进入向医生发起咨询提问的页面前，可以向平台申请退款，用户支付的技术服务费将无息退回用户的微信钱包；用户一旦进入向医生发起咨询提问的页面，系统将自动接入医生提供给用户的咨询服务，用户无权申请退款；</text></view>
+  <view class="l-margin-t-m">2.4 协议双方确认，通过平台为用户提供的技术服务，由<text class="l-text-blod">平台医生向用户所提供的建议及解答均系个人建议及经验且不涉及任何形式的诊疗服务</text>，用户知晓并同意此类建议及个人经验仅供参考，用户若将医生用户的建议及经验作为决策或者诊断依据，由此可能引发的任何负面影响甚至损失由用户自行负责，除平台存在法定过错的情况外，平台不承担任何其他责任；</view>
 
-  <view class="l-br"></view>
-  <navigator class="l-text-center" open-type="navigateBack">
-    <button type="primary">我已阅读</button>
-  </navigator>
-  <view class="l-br"></view>
+  <view class="l-h3 l-margin-t">三、双方权利义务</view>
+  <view class="l-margin-t-m">3.1 协议双方知悉并确认本合同项下仅为平台为用户提供的技术服务，而通过本技术服务由平台上医生为用户提供的健康咨询服务，亦<text class="l-text-blod">不涉及任何诊疗行为</text>；</view>
+  <view class="l-margin-t-m">3.2 用户应遵守U视一号已经发布或者未来可能发布的并采取合理途径通知用户的各项规则，并确保其在使用服务期间始终符合前述规则的约定；</view>
+  <view class="l-margin-t-m">3.3 用户应<text class="l-text-blod">保证提问内容、回答内容、评论内容等不涉及任何违反法律法规、侵犯第三方合法权益的内容</text>，对于存在前述内容的提问，U视一号有权予以删除，并根据规则对用户账户作出相应处理，包括但不限于暂停服务、终止本协议等；</view>
+  <view class="l-margin-t-m">3.4 <text class="l-text-blod">U视一号为用户提供平台技术服务，不直接参与医生向用户提供的咨询服务</text>；若用户与医生之间产生纠纷，U视一号不承担法律规定之外的责任；</view>
+  <view class="l-margin-t-m">3.5 因服务平台的属性,U视一号没有义务对所有用户的咨询信息以及与咨询有关的其它事项进行事先审查,但下列情况除外：</view>
+  <view class="l-margin-l">
+    <view class="l-margin-t-s">1）接到第三方通知,例如：认为某个具体用户或具体咨询事项可能存在重大问题；</view>
+    <view class="l-margin-t-s">2）用户或第三方向U视一号告知平台上有违法或不当行为；</view>
+    <view class="l-margin-t-s">3）平台发现某个具体用户或具体咨询事项可能存在重大问题；</view>
+  </view>
+  <view class="l-margin-t-m">用户确认U视一号以普通非专业人员的知识水平标准对相关内容进行判别,可以认为这些内容或行为具有违法或不当性质的,U视一号会进行跟进及审核，并有权根据不同情况选择删除相关信息、对用户账号采取限制性措施或停止对该商户提供服务；</view>
+  <view class="l-margin-t-m">3.6 用户同意并确认下列事项：</view>
+  <view class="l-margin-l">
+    <view class="l-margin-t-s">1）<text class="l-text-blod">U视一号不对用户提供资质的真实、合法性问题承担任何责任</text>；</view>
+    <view class="l-margin-t-s">2）<text class="l-text-blod">U视一号不对平台上提问及回答内容的真实性、准确性做任何形式的担保</text>；</view>
+  </view>
+
+  <view class="l-h3 l-margin-t">四、违约责任</view>
+  <view class="l-margin-t-m">4.1 如一方违反本合同的有关规定，另一方有权书面通知违约方在规定的时间内纠正违约行为，并对违约造成的损失索赔；如违约方未能在规定的时间内纠正违约行为，则守约方有权终止本合同；</view>
+  <view class="l-margin-t-m">4.2 如发生严重违约，包括但不限于用户发布信息涉及违反国家法律法规或者侵害第三方合法权益的内容的，U视一号有权立即终止本合同，并要求用户承担由此给U视一号造成的实际损失（包括合理的律师费、调查费等）；</view>
+
+  <view class="l-h3 l-margin-t">五、其他</view>
+  <view class="l-margin-t-m">5.1 用户在线确定接受本协议后，本协议即在双方之间产生法律效力；</view>
+  <view class="l-margin-t-m">5.2 本协议未尽事宜，以U视一号及其关联方与用户签署的服务协议为准；</view>
 </view>

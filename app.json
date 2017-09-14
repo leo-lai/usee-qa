@@ -14,12 +14,12 @@
     "pages/about/index",
     "pages/wallet/user/index",
     "pages/wallet/doctor/index",
-    
     "pages/asked/see/index",
     "pages/wallet/withdraw/index",
     "pages/wallet/bill/index",
     "pages/ask-chat/index",
     "pages/agreement/a1/index",
+    "pages/agreement/a2/index",
     "pages/result/index",
     "pages/test/index"
   ],
