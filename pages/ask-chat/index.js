@@ -69,7 +69,7 @@ Page({
   onLoad: function (options) {
     this.scrollHeightFix()
 
-    app.onReady(userInfo => {
+    app.onLogin(userInfo => {
       this.setData({
         userInfo: userInfo
       })
@@ -78,41 +78,61 @@ Page({
       this.getProblemInfo(options.pbid)
     })
   },
-  // 用户发送消息
-  sendChat: function () {
-    const that = this
-
-    // 禁止发送空内容
-    if (!that.data.send.content || that.data.send.content.trim().length === 0) {
-      return
-    }
-    
+  // 获取发送消息体
+  getSendContent: function (content = '', msgType = 1) {
     // 发送内容
-    let problemId = that.data.problemInfo.problemId
     let sendContent = {
-      problemId,
-      fromUserRoles: that.data.userInfo.isDoctor,
-      fromUserId: that.data.userInfo.userId,
-      fromUserName: that.data.userInfo.userName,
-      fromUserAvatar: that.data.userInfo.avatarUrl,
-      msgType: 1,
+      problemId: this.data.problemInfo.problemId,
+      fromUserRoles: this.data.userInfo.isDoctor,
+      fromUserId: this.data.userInfo.userId,
+      fromUserName: this.data.userInfo.userName,
+      fromUserAvatar: this.data.userInfo.avatarUrl,
+      msgType,
       msgState: 0,
       msgDatetime: (new Date()).format('yyyy-MM-dd hh:mm:ss'),
-      msgContent: that.data.send.content,
+      msgContent: content.trim(),
       tick: Date.now()
     }
 
     // 用户发给医生
-    if (that.data.userInfo.isDoctor === 0) {
-      sendContent.toUserId = that.data.doctor.doctorId
-      sendContent.toUserName = that.data.doctor.doctorName
-      sendContent.toUserAvatar = that.data.doctor.avatarThumb
-    } else if (that.data.userInfo.isDoctor === 1) {
-      sendContent.toUserId = that.data.problemInfo.interrogationId
+    if (this.data.userInfo.isDoctor === 0) {
+      sendContent.toUserId = this.data.doctor.doctorId
+      sendContent.toUserName = this.data.doctor.doctorName
+      sendContent.toUserAvatar = this.data.doctor.avatarThumb
+    } else if (this.data.userInfo.isDoctor === 1) {
+      sendContent.toUserId = this.data.problemInfo.interrogationId
       sendContent.toUserName = ''
       sendContent.toUserAvatar = ''
     }
-    
+
+    return sendContent
+  },
+  // 保存消息记录到服务器
+  saveSendContent: function (formData = {}, sendContent = {}) {
+    app.post(app.config.sendMessage, formData).then(({ data }) => {
+      sendContent.msgChatId = data.messageChatId
+      sendContent.msgDatetime = data.msgDatetime
+      sendContent.msgState = 1
+
+      // 推送到野狗
+      app.ref_problemChat.child(sendContent.problemId).set(sendContent)
+    }).catch((error) => {
+      sendContent.msgState = -1
+    }).finally(() => {
+      this.chatSyncView(sendContent, 'tick')
+    })
+  },
+  // 发送文本消息
+  sendChat: function () {
+    const that = this
+
+    // 获取发送内容
+    let sendContent = that.getSendContent(that.data.send.content, 1)
+    // 禁止发送空内容
+    if (sendContent.content === '') {
+      return
+    }
+
     that.setData({
       'send.content': '',
       'chat.data': that.data.chat.data.concat(sendContent)
@@ -121,17 +141,65 @@ Page({
 
     // 提交给后台
     let formData = Object.assign({}, sendContent, { msgState: 2 })
-    app.post(app.config.sendMessage, formData).then(({data}) => {
-      sendContent.msgChatId = data.messageChatId
-      sendContent.msgDatetime = data.msgDatetime
-      sendContent.msgState = 1
+    that.saveSendContent(formData, sendContent)
+  },
+  // 发送图片信息
+  sendImage: function (e) {
+    const that = this
+    let sourceType = [e.currentTarget.dataset.type || 'album'] // camera
+    wx.chooseImage({
+      count: 9,
+      sourceType, 
+      sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+      success: function (res) {
+        // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
+        res.tempFiles.forEach(item => {
+          let sendContent = that.getSendContent(item.path, 2)
+          let formData = Object.assign({}, sendContent, { msgState: 2 })
 
-      // 推送到野狗
-      app.ref_problemChat.child(problemId).set(sendContent)
-    }).catch(() => {
-      sendContent.msgState = -1
-    }).finally(() => {
-      that.chatSyncView(sendContent, 'tick')
+          sendContent.imageSrc = item.path
+          sendContent.progress = 0
+
+          that.setData({
+            'chat.data': that.data.chat.data.concat(sendContent)
+          })
+          that.hideChatMenu()
+          that.scrollToBottom()
+
+          // 上传图片到服务器
+          item.uploadTask = wx.uploadFile({
+            url: app.config.uploadImage,
+            filePath: item.path,
+            name: 'img_file',
+            success: function (res) {
+              formData.msgContent = res.data
+              that.saveSendContent(formData, sendContent)
+            },
+            fail: function (res) {
+              sendContent.msgState = -1
+              that.chatSyncView(sendContent, 'tick')
+            }
+          })
+          // 上传进度
+          item.uploadTask.onProgressUpdate(res => {
+            sendContent.progress = res.progress
+          })
+        })
+      }
+    })
+  },
+  // 预览图片
+  previewImage: function (e) {
+    let urls = []
+    this.data.chat.data.reverse().forEach(item => {
+      if (item.msgType === 2) {
+        urls.push(item.imageSrc)
+      }
+    })
+
+    wx.previewImage({
+      current: e.currentTarget.id, // 当前显示图片的http链接
+      urls
     })
   },
   // 监听聊天内容输入
@@ -157,13 +225,21 @@ Page({
   bindInputBlur: function () {
     // setTimeout(this.scrollHeightFix, 500)
   },
-  // 隐藏功能菜单
-  bindHideChatMenu: function () {
+  // 打开隐藏功能菜单
+  toggleHideChatMenu: function () {
     this.setData({
       'chat.hideMenu': !this.data.chat.hideMenu,
-      'chat.inputFocus': !this.data.chat.hideMenu,
       'chat.disabled': this.data.chat.hideMenu,
+      'chat.inputFocus': !this.data.chat.hideMenu
     })
+  },
+  hideChatMenu: function () {
+    if (!this.data.chat.hideMenu) {
+      this.setData({
+        'chat.hideMenu': true,
+        'chat.disabled': false
+      })
+    }
   },
   // 获取问题详情
   getProblemInfo: function (problemId = '') {
@@ -177,13 +253,20 @@ Page({
       rows: that.data.chat.rows,
     }).then(({ data }) => {
 
+      let chatList = data.chatList.reverse().map(item => {
+        if (item.msgType === 2) {
+          item.imageSrc = item.msgContent
+          item.msgContent = app.utils.formatThumb(item.msgContent, 100)
+        }
+        return item
+      })
       data.doctor.avatarThumb = app.utils.formatHead(data.doctor.headPortrait)
       that.setData({
         'isNeedPay': data.isNeedPay,
         'problemInfo': data.problemInfo,
         'evaluate': data.evaluate,
         'doctor': data.doctor,
-        'chat.data': data.chatList.reverse(),
+        'chat.data': chatList,
         'chat.page': data.page,
         'chat.more': data.total > 1
       })

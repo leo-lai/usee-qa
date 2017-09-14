@@ -2,7 +2,6 @@
   "pages": [
     "pages/index/index",
     "pages/asked/ask/index",
-    
     "pages/doctor-apply/index",
     "pages/doctor-list/index",
     "pages/doctor-info/index",

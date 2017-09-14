@@ -21,7 +21,7 @@ Page({
     tempFilePaths: []
   },
   onLoad: function () {
-    app.onReady(userInfo => {
+    app.onLogin(userInfo => {
       this.getDoctorLabels()
     })
   },
@@ -40,7 +40,7 @@ Page({
   },
   // 选择图片
   chooseImage: function (e) {
-    const that = this;
+    const that = this
     wx.chooseImage({
       count: 6 - that.data.files.length,
       sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有

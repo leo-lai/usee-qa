@@ -12,10 +12,8 @@ Page({
     userInfo: null
   },
   onLoad: function () {
-    app.onReady(userInfo => {
-      this.setData({
-        userInfo: userInfo
-      })
+    app.onLogin(userInfo => {
+      this.setData({ userInfo })
 
       if (userInfo.isDoctor === 0) { // 用户
         this.getProblemList(1)
@@ -49,7 +47,7 @@ Page({
       wx.stopPullDownRefresh()
     }
   },
-  getProblemList: function (page = 1, callback = function(){}) {
+  getProblemList: function (page = 1, callback = app.noop) {
     if (!this.data.problem.more || this.data.problem.loading) {
       callback(this.data.problem.data)
       return

@@ -3,6 +3,7 @@ import config from 'config'
 import utils from '/script/utils'
 import wilddog from '/script/wilddog-weapp-all'
 
+const noop = function () {}
 const storage = {
   setItem: (key, value) => {
     try {
@@ -31,26 +32,29 @@ const storage = {
   }
 }
 
-let _ReadyCbs = []
+const navigateTo = url => {
+  url && wx.navigateTo({ url })
+}
+
 App({
   wilddog,
   utils,
   config,
   storage,
+  noop,
+  navigateTo,
   onLaunch: function () {
     // 获取用户信息
-    // storage.getItem('userInfo').then((value) => {
-    //   if (!value) {
-    //     this.login()
-    //   } else {
-    //     this.globalData.userInfo = value
-    //     this.runReady(value)
-    //   }
-    // }).catch(() => {
-    //   this.login()
-    // })
-
-    this.login()
+    storage.getItem('userInfo').then(userInfo => {
+      if (userInfo) {
+        this.globalData.userInfo = userInfo
+        this.runLoginCbs(userInfo)
+      } else {
+        this.login()
+      }
+    }).catch(() => {
+      this.login()
+    })
 
     // 野狗监听
     wilddog.initializeApp(config.wilddog)
@@ -60,12 +64,6 @@ App({
     // }, function (error) {
     //   console.error(error)
     // })
-  },
-  // 页面跳转
-  navigateTo: function (url = '') {
-    wx.navigateTo({
-      url
-    })
   },
   // post请求
   post: function (url = '', data = {}) {
@@ -80,33 +78,23 @@ App({
         },
         success: ({ data }) => {
           if (data.resultCode === 200) {
-            resolve(data)
-            return
+            return resolve(data)
           }
 
           // session失效
           if (data.resultCode === 4002) {
             storage.removeItem('userInfo')
-            let loginPromise = this.login()
-            if (url.lastIndexOf('/login') === 0) {
-              resolve(loginPromise)
-            } else {
-              wx.showModal({
-                showCancel: false,
-                content: '登录信息失效，请重新进入小程序'
-              })
-              reject(data)
-            }
-            return
+            this.login() // 重新登录
+            return reject(data)
           }
           
           // 其他错误码处理
-          // switch (data.resultCode) {
-          //   case 4008:
-          //   case 4004:
-          //   case 4005:
-          //     break
-          // }
+          switch (data.resultCode) {
+            case 4008:
+            case 4004:
+            case 4005:
+              break
+          }
 
           wx.showModal({
             showCancel: false,
@@ -114,7 +102,7 @@ App({
           })
           reject(data)
         },
-        fail: (err) => {
+        fail: err => {
           wx.showModal({
             showCancel: false,
             content: err.errMsg || '接口请求出错'
@@ -126,8 +114,8 @@ App({
   },
   // 登录，获取用户信息
   login: function () {
-    // 登录, 获取用户信息
     return new Promise((resolve, reject) => {
+      const that = this
       wx.showLoading()
       wx.login({
         success: loginRes => { // 获取授权code，可以到后台换取 openId, sessionKey, unionId
@@ -135,44 +123,42 @@ App({
             withCredentials: true,
             success: userInfoRes => { // 可以将 userInfoRes 发送给后台解码出 unionId
               userInfoRes.code = loginRes.code
-              this.post(config.login, userInfoRes).then((apiRes) => {
+              that.post(config.login, userInfoRes).then((apiRes) => {
                 resolve(apiRes)
 
                 if (apiRes.data) {
                   wx.hideLoading()
                   apiRes.data.avatarThumb = utils.formatHead(apiRes.data.avatarUrl)
-                  this.globalData.userInfo = apiRes.data
+                  that.globalData.userInfo = apiRes.data
                   storage.setItem('userInfo', apiRes.data)
 
                   // 由于获取用户信息是网络请求，可能会在 Page.onLoad 之后才返回
                   // 所以此处触发回调函数
-                  this.runReady.call(this, apiRes.data)
+                  that.runLoginCbs.call(that, apiRes.data)
                 }
               }).catch(err => {
                 wx.hideLoading()
                 reject(err)
               })
             },
-            fail: (err) => {
+            fail: err => {
               wx.hideLoading()
               reject(err)
             }
           })
         },
-        fail: (err) => {
+        fail: err => {
           wx.hideLoading()
-          console.error(err.errMsg)
           reject(err)
         }
       })
     })
-    
   },
   // 刷新个人信息
   refreshUserInfo: function () {
-    wx.showLoading()
     let promise = this.post(config.userInfo)
     
+    wx.showLoading()
     promise.then(({ data }) => {
       this.globalData.userInfo = data
       storage.setItem('userInfo', data)
@@ -197,21 +183,21 @@ App({
     // })
   },
   // app初始化
-  runReady: function (userInfo) {
-    _ReadyCbs.forEach((cb) => {
+  runLoginCbs: function (userInfo) {
+    this.globalData.loginCbs.forEach(cb => {
       cb.call(this, userInfo)
     })
   },
-  onReady: function (callback) {
+  onLogin: function (callback) {
     if (typeof callback === 'function') {
+      this.globalData.loginCbs.push(callback)
       if (this.globalData.userInfo) {
         callback.call(this, this.globalData.userInfo)
-      } else {
-        _ReadyCbs.push(callback)
       }
     }
   },
   globalData: {
-    userInfo: null
+    userInfo: null,
+    loginCbs: []
   }
 })

@@ -68,8 +68,27 @@ const formatHead = (src, size = 132) => {
   return src.replace(/\/0$/, '/' + size)
 }
 
+const formatThumb = (src = '', width, height) => {
+  width = width || 320
+  if (!src) {
+    // return `https://placeholdit.imgix.net/~text?txtsize=20&bg=ffffff&txtclr=999&txt=image&w=${width}&h=${width}` 
+    return ''
+  }
+  if (src.indexOf('clouddn.com') === -1) {
+    return src
+  }
+
+  // return src += '?imageMogr2/gravity/Center/crop/'+width+'x'+height;
+  src += `?imageMogr2/format/jpg/interlace/1/quality/60/gravity/Center/thumbnail/${width}x`
+  if (height) {
+    src += `/crop/x${height}`
+  }
+  return src
+}
+
 module.exports = {
   formatTime,
   formatNumber,
-  formatHead
+  formatHead,
+  formatThumb
 }

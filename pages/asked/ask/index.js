@@ -19,7 +19,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.getProblemList(1)
+    app.onLogin(userInfo => {
+      this.getProblemList(1)
+    })
   },
   onReachBottom: function () { // 加载更多
     this.getProblemList(this.data.problem.data.length > 0 ? this.data.problem.page + 1 : 1)

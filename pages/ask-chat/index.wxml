@@ -1,7 +1,7 @@
 <!--pages/ask-chat/index.wxml-->
 <view class="l-page-full l-flex-v">
-  <view id="chat-scroll" class="l-rest l-scroll" >
-    <scroll-view scroll-y scroll-into-view="{{scrollIntoView}}" style="height: {{scrollHeight}}px;"> 
+  <view id="chat-scroll" class="l-rest l-scroll" bindtap="hideChatMenu">
+    <scroll-view scroll-y="true" scroll-into-view="{{scrollIntoView}}" style="height: {{scrollHeight}}px;" scroll-with-animation="{{true}}" enable-back-to-top="{{true}}"> 
       <view class="l-chat-record">
         <!-- 问题详情 -->
         <view class="_tip l-text-center">{{problemInfo.createDate}}</view>
@@ -33,10 +33,11 @@
           <view class="_who">
               <image src="{{item.fromUserId === userInfo.userId ? item.fromUserAvatar : item.toUserAvatar}}"></image> 
           </view>
-          <view class="_msg">
-            <view wx:if="{{item.msgType == 1}}">{{item.msgContent}}</view>
-            <image wx:if="{{item.msgType == 2}}" src="{{item.msgContent}}"></image> 
+          <view class="_msg" wx:if="{{item.msgType == 1}}">{{item.msgContent}}</view>
+          <view class="_msg-img" wx:if="{{item.msgType == 2}}" id="{{item.imageSrc}}" bindtap="previewImage">
+            <image mode="widthFix" src="{{item.msgContent}}"></image>
           </view>
+
           <view class="_state">
             <button loading="{{item.msgState === 0}}"></button> 
             <icon type="warn" wx:if="{{item.msgState === -1}}" /> 
@@ -98,14 +99,14 @@
             bindconfirm="sendChat" />  -->
         </view>
       </view>
-      <text class="l-icon-63c l-fs-18 l-margin-l-s l-text-gray" bindtap="bindHideChatMenu"></text>
+      <text class="l-icon-63c l-fs-18 l-margin-l-s l-text-gray" bindtap="toggleHideChatMenu"></text>
     </view>
     <view class="l-chat-menu" hidden="{{chat.hideMenu}}">
-      <view class="_item" hover-class="_hover">
+      <view class="_item" hover-class="_hover" bindtap="sendImage" data-type="album">
         <view class="l-icon-6c9"></view>
         <text>照片</text>
       </view>
-      <view class="_item" hover-class="_hover">
+      <view class="_item" hover-class="_hover" bindtap="sendImage" data-type="camera">
         <view class="l-icon-626"></view>
         <text>拍摄</text>
       </view>

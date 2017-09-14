@@ -280,13 +280,20 @@ image{max-width: 100%;}
 .l-chat-item ._msg{
   border-radius: 30rpx 30rpx 30rpx 0;
   padding: 20rpx 30rpx;
-  background: #fff;
+  background-color: #fff;
   max-width: 70%;
   word-break: break-all;
   word-wrap: break-word;
 }
-.l-chat-item ._msg image{
-  max-width: 30%;
+
+.l-chat-item ._msg-img{
+  border-radius: 30rpx 30rpx 30rpx 0;
+  background: #fff;
+  overflow: hidden;
+  width: 40%;
+}
+.l-chat-item ._msg-img image{
+  vertical-align: top;
 }
 .l-chat-item ._state{
   margin-left: 20rpx;
@@ -308,6 +315,11 @@ image{max-width: 100%;}
   margin-right: 0;
 }
 .l-chat-item._self ._msg{
+  background: #27adf6;
+  border-radius: 30rpx 30rpx 0 30rpx;
+  color: #fff;
+}
+.l-chat-item._self ._msg-img{
   background: #27adf6;
   border-radius: 30rpx 30rpx 0 30rpx;
   color: #fff;
