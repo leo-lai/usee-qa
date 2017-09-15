@@ -215,7 +215,7 @@ page{
 navigator.l-text-link{display: inline;}
 navigator button{vertical-align: top;}
 image{max-width: 100%;}
-.l-page-full{height: 100%;}
+.l-page-full{min-height: 100%;}
 .l-h100{height: 100%;}
 .l-scroll{
   box-sizing: border-box;
@@ -290,7 +290,7 @@ image{max-width: 100%;}
   border-radius: 30rpx 30rpx 30rpx 0;
   background: #fff;
   overflow: hidden;
-  width: 40%;
+  width: 30%;
 }
 .l-chat-item ._msg-img image{
   vertical-align: top;

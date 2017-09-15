@@ -41,7 +41,7 @@
     <view class="l-padding-tb l-border-b l-flex-hc">
       <text class="l-margin-r">¥</text>
       <view class="l-rest">
-        <input class="l-h3" type="digit" value="0" id="collectFees" bindinput="bindInput"/>
+        <input class="l-h3" type="digit" value="" id="collectFees" bindinput="bindInput"/>
       </view>
     </view>
 

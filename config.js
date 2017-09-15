@@ -28,6 +28,10 @@ var config = {
   problemList: `${baseUrl}/diagnose/problemList`,
   // 问题详情
   problemInfo: `${baseUrl}/diagnose/checkBeforInfo`,
+  // 结束问题
+  endProblem: `${baseUrl}/diagnose/endProblem`,
+  // 医生抢答
+  problemRob: `${baseUrl}/diagnose/robProblem`,
   // 我提交的问题
   myAsks: `${baseUrl}/diagnose/myInterrogations`,
   // 我看过的问题
@@ -52,6 +56,8 @@ var config = {
   uploadImage: `${baseUrl}/diagnose/uploadImage`,
   // 发送消息
   sendMessage: `${baseUrl}/diagnose/sendMessage`,
+  // 评价
+  evaluate: `${baseUrl}/diagnose/evaluate`,
 
 
   // 下面的地址配合云端 Server 工作

@@ -23,16 +23,14 @@ Page({
     }
   },
   onLoad: function () {
-    const that = this
     wx.getSystemInfo({
-      success: function (res) {
-        that.setData({
-          sliderLeft: (res.windowWidth / that.data.tabs.length - sliderWidth) / 2,
-          sliderOffset: res.windowWidth / that.data.tabs.length * that.data.activeIndex
+      success: res => {
+        this.setData({
+          sliderLeft: (res.windowWidth / this.data.tabs.length - sliderWidth) / 2,
+          sliderOffset: res.windowWidth / this.data.tabs.length * this.data.activeIndex
         })
       }
     })
-
     this.getBalanceList()
     this.getWithdrawList()
   },

@@ -18,7 +18,7 @@
             <view class="l-text-gray">{{item.createDate}}</view>
           </view>
           <view class="l-margin-l">
-            <text class="l-h3 l-text-green">{{item.money}}</text>          
+            <text class="l-h3 l-text-green">{{item.amount > 0 ? '+' : '-'}}{{item.money}}</text>          
           </view>
         </view>
         <view class="weui-loadmore" hidden="{{ !balance.loading }}">

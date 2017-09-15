@@ -1,0 +1,60 @@
+/* pages/ask-end/index.wxss */
+.l-page-end{
+  border-radius: 30rpx;
+  padding: 50rpx;
+  margin: 50rpx;
+  background: #fff;
+  text-align: center;
+}
+.l-money{
+  width: 500rpx;
+  height: 500rpx;
+  text-align: center;
+  color: #ef5b45;
+  background: url(https://static.ushiyihao.com/xcx/moneyFly.png) no-repeat 50% 50%;
+  background-size: contain;
+  padding-bottom: 100rpx;
+  font-size: 26pt;
+  margin: -100rpx auto;
+}
+
+/* 医生评价 */
+.l-doctor-evaluate{
+  background: #fff;
+  border-radius: 30rpx;
+  margin: 50rpx;
+}
+.l-doctor-evaluate .l-avatar{
+  width: 120rpx;
+  height: 120rpx;
+  padding: 15rpx;
+  background: #fff;
+  margin: -30rpx auto 0;
+}
+.l-doctor-evaluate ._score{
+  margin: 30rpx 30rpx 0 30rpx;
+}
+.l-doctor-evaluate ._score ._slted{
+  color: #ef5b45;
+}
+.l-doctor-evaluate ._ft{
+  padding: 20rpx 30rpx;
+  text-align: center;
+  color: #fff;
+  background: #27adf6;
+  border-radius: 0 0 30rpx 30rpx;
+}
+.l-doctor-evaluate ._ft._hover{
+  background: #259fe2;
+}
+.l-doctor-evaluate ._textarea{
+  margin: 15rpx 30rpx 30rpx 30rpx;
+  padding: 10rpx 20rpx;
+  box-sizing: border-box;
+  border: 1rpx solid #eee;
+}
+.l-doctor-evaluate ._textarea textarea{
+  position: relative;
+  width: 100%;
+  max-height: 200rpx;
+}

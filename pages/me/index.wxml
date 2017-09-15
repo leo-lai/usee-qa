@@ -36,20 +36,20 @@
           <view class="_desc">或许你可以帮助我们做的更好</view>
         </view>
       </button>
-      <navigator class="l-flex-h _item" url="/pages/doctor-list/index">
+      <!-- <navigator class="l-flex-h _item" url="/pages/doctor-list/index">
         <text class="l-icon-698 _icon"></text>
         <view class="l-rest">
           <view>医生列表</view>
           <view class="_desc">在这里能找到帮助您的医生</view>
         </view>
-      </navigator>
-      <navigator class="l-flex-h _item" url="/pages/doctor-apply/index">
+      </navigator> -->
+      <!-- <navigator class="l-flex-h _item" url="/pages/doctor-apply/index">
         <text class="l-icon-698 _icon"></text>
         <view class="l-rest">
           <view>申请成为医生</view>
           <view class="_desc">点击这里成为医生帮助更多患者</view>
         </view>
-      </navigator>
+      </navigator> -->
       <navigator class="l-flex-h _item" url="/pages/about/index">
         <text class="l-icon-611 _icon"></text>
         <view class="l-rest">
@@ -64,47 +64,42 @@
       <view class="l-h2">钱包余额</view>
       <view class="l-flex-hc">
         <view class="l-rest l-text-theme">
-          <text class="l-fs-40 l-margin-r-s">0</text>元
+          <text class="l-fs-40 l-margin-r-s">{{userInfo.amount}}</text>元
         </view>
-        <view>
+        <navigator url="/pages/wallet/withdraw/index">
           <button type="primary" style="width: 150rpx;">提现</button>
-        </view>
+        </navigator>
       </view>
-      <navigator url="" class="l-text-link">查看余额明细 <text class="l-icon-714 _mini"></text></navigator>
+      <navigator url="/pages/wallet/bill/index" class="l-text-link">查看余额明细 <text class="l-icon-714 _mini"></text></navigator>
     </view>
 
-    <view class="l-flex-h l-padding">
+    <navigator class="l-flex-h l-padding" url="/pages/me-info/doctor/index">
       <view class="l-avatar l-margin-r l-rel" style="width: 120rpx; height: 120rpx;">
         <image src="{{userInfo.avatarUrl || 'https://static.ushiyihao.com/xcx/avatar.jpg'}}"></image>
         <text class="l-icon-6dd l-text-link" style="position:absolute; bottom: -10rpx; right:0;"></text>
       </view>
-      <view>
-        <view class="l-fs-16">{{userInfo.userName}}</view>
-        <view class="l-text-wrap1">第二军医大学附属长征医院 | 副主任医生</view>
-
-        <view class="l-margin-t-xl l-flex-hc l-text-center" style="margin-left: -30rpx;">
+      <view class="l-rest">
+        <view class="l-fs-16">{{userInfo.doctorName}}</view>
+        <view class="l-text-wrap1">{{userInfo.hospital}} | {{userInfo.academicTitle}}</view>
+        <view class="l-margin-t l-flex-hc">
           <view class="l-rest">
-            <view class="l-text-theme l-fs-17">0</view>
-            <view>已回答的</view>
+            <text class="l-text-gray">已回答的</text>
+            <text class="l-text-theme l-margin-l l-fs-14">{{userInfo.problemCount}}</text>
           </view>
           <view class="l-rest">
-            <view class="l-text-theme l-fs-17">0</view>
-            <view>问到我的</view>
-          </view>
-          <view class="l-rest">
-            <view class="l-text-theme l-fs-17">100%</view>
-            <view>好评率</view>
+            <text class="l-text-gray">好评率</text>
+            <text class="l-text-theme l-margin-l l-fs-14">{{userInfo.praise}}%</text>
           </view>
         </view>
       </view>
-    </view>
+    </navigator>
 
     <view class="l-menu-group">
-      <navigator class="l-flex-h _item" url="/pages/about/index">
+      <navigator class="l-flex-h _item" url="/pages/invitation/index">
         <text class="l-icon-698 _icon"></text>
         <view class="l-rest">
-          <view>推荐医生</view>
-          <view class="_desc">你可以号召更多的专业力量来帮助这个世界</view>
+          <view>邀请医生</view>
+          <view class="_desc">利用您的影响力号召更多的专业力量来帮助这个世界</view>
         </view>
       </navigator>
       <button class="l-flex-h _item" open-type="contact" hover-class="l-hover">

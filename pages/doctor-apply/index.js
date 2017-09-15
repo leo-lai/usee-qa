@@ -12,7 +12,7 @@ Page({
       hospital: '',
       introduce: '',
       physicianLicense: '',
-      collectFees: 0,
+      collectFees: '',
       labelIds: '',
       labelName: '',
       phoneCode: ''
@@ -239,7 +239,13 @@ Page({
     })
     app.post(app.config.doctorApply, this.data.formData).then(() => {
       wx.showToast({
-        title: '提交成功'
+        title: '提交成功',
+        duration: 3000,
+        success: res => {
+          wx.navigateBack({
+            delta: 1
+          })
+        }
       })
     }).catch(() => {
       wx.hideLoading()

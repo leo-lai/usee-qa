@@ -1,0 +1,53 @@
+<!--pages/ask-end/index.wxml-->
+<view class="l-page-grounp">
+  <view class="weui-toptips weui-toptips_warn" hidden="{{!topTips}}">{{topTips}}</view>
+  <!-- 结束服务 -->
+  <view class="l-page-end l-zoom" wx:if="{{todo === 'end'}}">
+    <view class="l-h3">结束成功，{{amount}}元已入账</view>
+    <view class="l-margin-tb l-text-gray">回答更多的问题帮助更多的患者赚取更多的咨询费用</view>
+
+    <view class="l-money l-flex-vhc">￥{{amount}}</view>
+
+    <navigator class="l-margin-tb" url="/pages/index/index" open-type="switchTab">
+      <button type="primary">继续回答问题</button>
+    </navigator>
+    <navigator class="l-margin-tb" url="/pages/me/index" open-type="switchTab">
+      <button>查看余额</button>
+    </navigator>
+  </view>
+
+  <!-- 医生评价 -->
+  <view class="l-page-evaluate l-zoom" wx:if="{{todo === 'evaluate'}}">
+    <view class="l-h3 l-margin-tb l-text-center">咨询已结束，评价一下吧！</view>
+    <view class="l-margin-tb l-fs-s l-text-gray" style="padding: 0 60rpx;">温馨提示：认真评价将有助于提高问题的查看率，即相应的提高您的收益，收益规则请到[我的->我的钱包]查看</view>
+    <view class="l-br l-zoom"></view>
+    <view class="l-doctor-evaluate">
+      <view class="l-text-center l-margin">
+        <view class="l-avatar">
+          <image src="{{doctorInfo.avatarThumb || 'https://static.ushiyihao.com/xcx/doctor.png'}}"></image>
+        </view>
+        <view class="l-margin-tb-m">{{doctorInfo.doctorName}}</view>
+        <view class="l-text-gray l-margin-tb-m">{{doctorInfo.hospital}} | {{doctorInfo.academicTitle}}</view>
+        <view class="l-margin-tb-m">{{doctorInfo.introduce}}</view>
+      </view>
+      <view class="l-flex-hc _score">
+        <view class="l-rest {{formData.satisfactionDegree == 1 ? '_slted' : ''}}" bindtap="markScore" data-score="1">
+          <text class="l-icon-638 l-margin-r-s"></text>
+          <text decode="true">满意&nbsp;&nbsp;</text>
+        </view>
+        <view class="l-rest l-text-center {{formData.satisfactionDegree == 0 ? '_slted' : ''}}" bindtap="markScore" data-score="0">
+          <text class="l-icon-601 l-margin-r-s"></text>
+          <text decode="true">一般&nbsp;&nbsp;</text>
+        </view>
+        <view class="l-rest l-text-right {{formData.satisfactionDegree == 2 ? '_slted' : ''}}" bindtap="markScore" data-score="2">
+          <text class="l-icon-699 l-margin-r-s"></text>
+          <text>有待提高</text>
+        </view>
+      </view>
+      <view class="_textarea">
+        <textarea bindinput="bindInput" maxlength="500" placeholder="评价点什么(10~500个字)..." />
+      </view>
+      <view class="_ft" hover-class="_hover" bindtap="submitEvaluate">提交</view>
+    </view>
+  </view>
+</view>

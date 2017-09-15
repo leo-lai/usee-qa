@@ -1,0 +1,21 @@
+<!--pages/doctor-rob/index.wxml-->
+<view class="l-page">
+  <view class="l-problem-item l-bg-white l-margin-b">
+    <view class="_hd l-flex-hc">
+      <text class="l-rest l-text-gray">匿名用户</text>
+      <text class="l-text-theme">¥{{problemInfo.amount}}</text>
+    </view>
+    <view class="_bd">
+      {{problemInfo.problemRemarks}}
+    </view>
+    <view class="_ft l-flex-hc l-text-gray">
+      <text class="l-rest"></text>
+      <text>{{problemInfo.createDate}}</text>
+    </view>
+  </view>
+
+  <view class="l-margin-tb l-bg-white l-padding-xl l-text-center">
+    <view style="width: 250rpx; margin: auto;"><button type="primary" bindtap="robProblem">我来回答</button></view>
+    <navigator class="l-margin-t l-text-gray" url="/pages/agreement/a2/index">回答则认为您同意《在线咨询协议》</navigator>
+  </view>
+</view>

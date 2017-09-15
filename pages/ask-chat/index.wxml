@@ -5,7 +5,7 @@
       <view class="l-chat-record">
         <!-- 问题详情 -->
         <view class="_tip l-text-center">{{problemInfo.createDate}}</view>
-        <view class="l-chat-item _self">
+        <view class="l-chat-item {{userInfo.isDoctor === 0 ? '_self' : ''}}">
           <view class="_who">
               <image src="{{userInfo.avatarThumb}}"></image> 
           </view>
@@ -15,7 +15,7 @@
           <view class="_state">
           </view>
         </view>
-        <view class="l-chat-item _self">
+        <view class="l-chat-item {{userInfo.isDoctor === 0 ? '_self' : ''}}">
           <view class="_who">
               <image src="{{userInfo.avatarThumb}}"></image> 
           </view>
@@ -43,35 +43,7 @@
             <icon type="warn" wx:if="{{item.msgState === -1}}" /> 
           </view>
         </view>
-        <!-- 医生评价 -->
-        <view class="l-doctor-evaluate" wx:if="{{problemInfo.problemState === 3}}">
-          <view class="l-text-center l-margin">
-            <view class="l-avatar">
-              <image  src="{{doctor.avatarThumb || 'https://static.ushiyihao.com/xcx/doctor.png'}}"></image>
-            </view>
-            <view class="l-margin-tb-m">{{doctor.doctorName}}</view>
-            <view class="l-text-gray l-margin-tb-m">{{doctor.hospital}} | {{doctor.academicTitle}}</view>
-            <view class="l-margin-tb-m">{{doctor.introduce}}</view>
-          </view>
-          <view class="l-flex-hc _score">
-            <view class="l-rest _slted">
-              <text class="l-icon-638 l-margin-r-s"></text>
-              <text decode="true">满意&nbsp;&nbsp;</text>
-            </view>
-            <view class="l-rest l-text-center">
-              <text class="l-icon-601 l-margin-r-s"></text>
-              <text decode="true">一般&nbsp;&nbsp;</text>
-            </view>
-            <view class="l-rest l-text-right">
-              <text class="l-icon-699 l-margin-r-s"></text>
-              <text>有待提高</text>
-            </view>
-          </view>
-          <view class="_textarea">
-            <textarea maxlength="{{1000}}" />
-          </view>
-          <view class="_ft" hover-class="_hover">提交</view>
-        </view>
+        
       </view>
       <view id="scroll-bottom"></view>
     </scroll-view>  
@@ -110,7 +82,7 @@
         <view class="l-icon-626"></view>
         <text>拍摄</text>
       </view>
-      <view class="_item" hover-class="_hover" wx:if="{{userInfo.isDoctor === 1}}">
+      <view class="_item" hover-class="_hover" wx:if="{{userInfo.isDoctor === 1}}" bindtap="endProblem">
         <view class="l-icon-6aa"></view>
         <text>结束服务</text>
       </view>

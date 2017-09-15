@@ -17,12 +17,18 @@ Page({
       this.setData({
         userInfo: userInfo
       })
-
-      if (userInfo.isDoctor === 0) { // 用户
-
-      } else if (userInfo.isDoctor === 1) { // 医生
-
-      }
+      
     })
+  },
+  onShow: function () {
+    if (this.data.userInfo.isDoctor === 0) { // 用户
+
+    } else if (this.data.userInfo.isDoctor === 1) { // 医生
+      app.refreshUserInfo().then(({ data }) => {
+        this.setData({
+          userInfo: data
+        })
+      })
+    }
   }
 })

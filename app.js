@@ -96,11 +96,14 @@ App({
               break
           }
 
+          wx.hideLoading()
           wx.showModal({
             showCancel: false,
-            content: data.message
+            content: data.message || '接口请求出错',
+            success: res => {
+              reject(data)
+            }
           })
-          reject(data)
         },
         fail: err => {
           wx.showModal({
@@ -158,12 +161,12 @@ App({
   refreshUserInfo: function () {
     let promise = this.post(config.userInfo)
     
-    wx.showLoading()
+    wx.showNavigationBarLoading()
     promise.then(({ data }) => {
       this.globalData.userInfo = data
       storage.setItem('userInfo', data)
     }).finally(() => {
-      wx.hideLoading()
+      wx.hideNavigationBarLoading()
     })
 
     return promise

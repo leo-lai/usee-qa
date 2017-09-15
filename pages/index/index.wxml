@@ -27,35 +27,101 @@
     <view class="l-text-center l-bg-white l-padding-tb-s">
       <text class="l-h4">已解答</text>
     </view>
+    <block wx:for="{{problem.data}}" wx:key="problemId">
+      <navigator url="/pages/ask-info/index?pbid={{item.problemId}}" class="l-problem-item l-bg-white">
+        <view class="_hd l-flex-hc">
+          <text class="l-rest l-text-gray">匿名用户</text>
+          <text class="l-text-theme">¥{{item.amount}}</text>
+        </view>
+        <view class="_bd l-text-wrap2">
+          <text>{{item.problemRemarks}}</text>
+        </view>
+        <view class="_ft l-flex-hc l-text-gray">
+          <text class="l-rest">{{item.doctorName}} | {{item.hospital}}</text>
+          <text>{{item.createDate}}</text>
+        </view>
+      </navigator>
+    </block>
 
-    <navigator url="/pages/ask-info/index?pbid={{item.problemId}}" class="l-problem-item l-bg-white" wx:for="{{problem.data}}" wx:key="{{item.problemId}}">
-      <view class="_hd l-flex-hc">
-        <text class="l-rest l-text-gray">匿名用户</text>
-        <text class="l-text-theme">¥{{item.amount}}</text>
-      </view>
-      <view class="_bd l-text-wrap2">
-        <text>{{item.problemRemarks}}</text>
-      </view>
-      <view class="_ft l-flex-hc l-text-gray">
-        <text class="l-rest">{{item.doctorName}} | {{item.hospital}}</text>
-        <text>{{item.createDate}}</text>
-      </view>
-    </navigator>
-    
     <view class="weui-loadmore" hidden="{{ !problem.loading }}">
       <view class="weui-loading"></view>
       <view class="weui-loadmore__tips">正在加载</view>
     </view>
     <view class="weui-loadmore weui-loadmore_line" hidden="{{ !(problem.data.length === 0 && !problem.more) }}">
-      <view class="weui-loadmore__tips weui-loadmore__tips_in-line" >暂无数据</view>
+      <view class="weui-loadmore__tips weui-loadmore__tips_in-line">暂无数据</view>
     </view>
     <view class="weui-loadmore weui-loadmore_line" hidden="{{ !(problem.data.length > 0 && !problem.more) }}">
-      <view class="weui-loadmore__tips weui-loadmore__tips_in-line" >我是有底线的</view>
+      <view class="weui-loadmore__tips weui-loadmore__tips_in-line">我是有底线的</view>
     </view>
   </view>
 
   <!-- 医生首页 -->
   <view class="l-page-doctor" wx:if="{{userInfo.isDoctor === 1}}">
-    
+    <view class="weui-tab">
+      <view class="weui-navbar">
+        <block wx:for="{{tabs}}" wx:key="index">
+          <view id="{{index}}" class="weui-navbar__item {{activeIndex == index ? 'weui-bar__item_on' : ''}}" bindtap="tabClick">
+            <view class="weui-navbar__title">{{item.title}}</view>
+          </view>
+        </block>
+        <view class="weui-navbar__slider" style="left: {{sliderLeft}}px; transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px);"></view>
+      </view>
+      <view class="weui-tab__panel">
+        <view class="weui-tab__content" hidden="{{activeIndex != 0}}">
+          <block wx:for="{{tabs[0].data}}" wx:key="problemId">
+            <navigator url="/pages/ask-chat/index?pbid={{item.problemId}}" class="l-problem-item l-bg-white">
+              <view class="_hd l-flex-hc">
+                <text class="l-rest l-text-gray">匿名用户</text>
+              </view>
+              <view class="_bd l-text-wrap2">
+                <text>{{item.problemRemarks}}</text>
+              </view>
+              <view class="_ft l-flex-hc l-text-gray">
+                <text class="l-rest"><text class="l-text-theme">¥{{item.amount}}</text></text>
+                <text>{{item.createDate}}</text>
+              </view>
+            </navigator>
+          </block>
+
+          <view class="weui-loadmore" hidden="{{ !tabs[0].loading }}">
+            <view class="weui-loading"></view>
+            <view class="weui-loadmore__tips">正在加载</view>
+          </view>
+          <view class="weui-loadmore weui-loadmore_line" hidden="{{ !(tabs[0].data.length === 0 && !tabs[0].more) }}">
+            <view class="weui-loadmore__tips weui-loadmore__tips_in-line">暂无数据</view>
+          </view>
+          <view class="weui-loadmore weui-loadmore_line" hidden="{{ !(tabs[0].data.length > 0 && !tabs[0].more) }}">
+            <view class="weui-loadmore__tips weui-loadmore__tips_in-line">我是有底线的</view>
+          </view>
+        </view>
+        <view class="weui-tab__content" hidden="{{activeIndex != 1}}">
+          <block wx:for="{{tabs[1].data}}" wx:key="problemId">
+            <navigator url="/pages/doctor-rob/index?pbid={{item.problemId}}" class="l-problem-item l-bg-white">
+              <view class="_hd l-flex-hc">
+                <text class="l-rest l-text-gray">匿名用户</text>
+              </view>
+              <view class="_bd l-text-wrap2">
+                <text>{{item.problemRemarks}}</text>
+              </view>
+              <view class="_ft l-flex-hc l-text-gray">
+                <text class="l-rest"><text class="l-text-theme">¥{{item.amount}}</text></text>
+                <text>{{item.createDate}}</text>
+              </view>
+            </navigator>
+          </block>
+
+          <view class="weui-loadmore" hidden="{{ !tabs[1].loading }}">
+            <view class="weui-loading"></view>
+            <view class="weui-loadmore__tips">正在加载</view>
+          </view>
+          <view class="weui-loadmore weui-loadmore_line" hidden="{{ !(tabs[1].data.length === 0 && !tabs[1].more) }}">
+            <view class="weui-loadmore__tips weui-loadmore__tips_in-line">暂无数据</view>
+          </view>
+          <view class="weui-loadmore weui-loadmore_line" hidden="{{ !(tabs[1].data.length > 0 && !tabs[1].more) }}">
+            <view class="weui-loadmore__tips weui-loadmore__tips_in-line">我是有底线的</view>
+          </view>
+        </view>
+      </view>
+    </view>
   </view>
 </view>

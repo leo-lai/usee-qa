@@ -83,6 +83,7 @@ Page({
     // 发送内容
     let sendContent = {
       problemId: this.data.problemInfo.problemId,
+      problemState: this.data.problemInfo.problemState,
       fromUserRoles: this.data.userInfo.isDoctor,
       fromUserId: this.data.userInfo.userId,
       fromUserName: this.data.userInfo.userName,
@@ -115,7 +116,7 @@ Page({
       sendContent.msgState = 1
 
       // 推送到野狗
-      app.ref_problemChat.child(sendContent.problemId).set(sendContent)
+      app.ref_problemChat.child(sendContent.problemId).set(formData)
     }).catch((error) => {
       sendContent.msgState = -1
     }).finally(() => {
@@ -252,7 +253,7 @@ Page({
       page: that.data.chat.page,
       rows: that.data.chat.rows,
     }).then(({ data }) => {
-
+      // 修正一些数据
       let chatList = data.chatList.reverse().map(item => {
         if (item.msgType === 2) {
           item.imageSrc = item.msgContent
@@ -261,6 +262,8 @@ Page({
         return item
       })
       data.doctor.avatarThumb = app.utils.formatHead(data.doctor.headPortrait)
+
+      // 同步视图
       that.setData({
         'isNeedPay': data.isNeedPay,
         'problemInfo': data.problemInfo,
@@ -270,31 +273,41 @@ Page({
         'chat.page': data.page,
         'chat.more': data.total > 1
       })
-
       that.scrollToBottom()
 
       // 改变页面标题
-      if (data.problemInfo.problemState === 1) {
-        let title = 'U视问答'
-        title = `等待医生回复`
-        if (!data.doctor.doctorId){
-          title = `等待医生抢答`
-        }
-        wx.setNavigationBarTitle({
-          title
-        })
-      } else if (data.problemInfo.problemState === 2)  {
-        wx.setNavigationBarTitle({
-          title: `与${data.doctor.doctorName}交谈中` 
-        })
+      let title = ''
+      switch (data.problemInfo.problemState) {
+        case 1:
+          title = '等待医生抢答' 
+          break
+        case 2:
+          title = '等待医生回复'
+          break
+        case 3:
+          title = '交谈中'
+          break
+        default:
+          title = 'U视问答'
       }
+      wx.setNavigationBarTitle({ title })
 
       // 野狗监听节点problemChat/[problemId]
-      let ref_key = 'ref_chat_' + data.problemInfo.problemId
-      that[ref_key] = app.wilddog.sync().ref('/problemChat/' + data.problemInfo.problemId)
-      that[ref_key].on('value', function (snapshot) {
+      app.ref_problemChat.child(problemId).on('value', snapshot => {
         let value = snapshot.val()
         if (value) {
+          if (value.problemState == 4) { // 咨询已结束
+            if (that.data.userInfo.isDoctor === 0) {
+              that.setData({
+                'problemInfo.problemState': value.problemState
+              })
+              setTimeout(() => {
+                app.navigateTo(`/pages/ask-end/index?todo=evaluate&&dcid=${that.data.doctor.doctorId}&pbid=${problemId}`)
+              }, 500)
+            }
+            return
+          }
+          
           if (value.fromUserId !== that.data.userInfo.userId) {
             if (that.data.chat.data.length === 0 || 
               that.data.chat.data[that.data.chat.data.length-1].tick !== value.tick) {
@@ -305,12 +318,40 @@ Page({
             }
           }
         }
-      }, function (error) {
-        console.error(error)
       })
 
     }).finally(() => {
       wx.hideLoading()
+    })
+  },
+  // 结束交谈
+  endProblem: function () {
+    const that = this
+    wx.showModal({
+      title: '结束咨询',
+      content: '请确认是否解决了患者问题，点击取消可返回继续交谈',
+      success: res => {
+        if (res.confirm) {
+          wx.showLoading({
+            mask: true,
+            title: '正在结束中'
+          })
+          app.post(app.config.endProblem, {
+            problemId: that.data.problemInfo.problemId
+          }).then(({data}) => {
+            that.hideChatMenu()
+            // 结束问题
+            let sendContent = that.getSendContent('咨询已结束', 0)
+            sendContent.problemState = 4
+            app.ref_problemChat.child(that.data.problemInfo.problemId).set(sendContent, err => {
+              wx.hideLoading()
+              app.navigateTo('/pages/ask-end/index?todo=end&&amount=' + that.data.problemInfo.amount)
+            })
+          })
+        } else if (res.cancel) {
+          that.hideChatMenu()
+        }
+      }
     })
   }
 })

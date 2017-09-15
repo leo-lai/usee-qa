@@ -56,10 +56,10 @@ Page({
       this.problemRemarks = []
       setTimeout(() => {
         this.systemSend('请根据提示输入基本信息，系统将为您推荐最佳医生', 0)
-      }, 500)
+      }, 300)
       setTimeout(() => {
         this.systemSend('请输入患者的【年龄】', 1, 1)
-      }, 1000)
+      }, 800)
     })
   },
   // 系统发送消息

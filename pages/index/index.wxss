@@ -15,3 +15,15 @@
   padding: 15rpx 30rpx;
   border-radius: 15rpx;
 }
+
+.weui-navbar{
+  background: #ef5b45;
+  border-color: #ef5b45;
+  color: #fff;
+}
+.weui-navbar__item.weui-bar__item_on{
+  color: #fff;
+}
+.weui-navbar__slider{
+  background-color: #fff;
+}

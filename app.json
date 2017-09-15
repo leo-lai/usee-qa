@@ -21,6 +21,9 @@
     "pages/agreement/a1/index",
     "pages/agreement/a2/index",
     "pages/result/index",
+    "pages/ask-end/index",
+    "pages/doctor-rob/index",
+    "pages/invitation/index",
     "pages/test/index"
   ],
   "window": {
