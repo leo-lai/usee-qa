@@ -50,6 +50,8 @@ var config = {
   doctorList: `${baseUrl}/diagnose/doctorList`,
   // 医生详情
   doctorInfo: `${baseUrl}/diagnose/doctorInfo`,
+  // 医生更新个人信息
+  doctorInfoUpdate: `${baseUrl}/diagnose/doctorInfoUpdate`,
   // 手机验证码 phoneNumber
   phoneCode: `${baseUrl}/diagnose/phoneVerifyCode`,
   // 上传图片 img_file

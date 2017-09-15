@@ -240,15 +240,15 @@ Page({
     app.post(app.config.doctorApply, this.data.formData).then(() => {
       wx.showToast({
         title: '提交成功',
-        duration: 3000,
+        duration: 2000,
         success: res => {
-          wx.navigateBack({
-            delta: 1
-          })
+          setTimeout(() => {
+            wx.navigateBack({
+              delta: 1
+            })
+          }, 2000)
         }
       })
-    }).catch(() => {
-      wx.hideLoading()
     })
   }
 });

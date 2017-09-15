@@ -329,7 +329,9 @@ Page({
     const that = this
     wx.showModal({
       title: '结束咨询',
-      content: '请确认是否解决了患者问题，点击取消可返回继续交谈',
+      content: '请确认是否解决了患者的问题，随意结束问题将会影响您的评价与信用',
+      cancelText: '继续交谈',
+      confirmText: '结束服务',
       success: res => {
         if (res.confirm) {
           wx.showLoading({

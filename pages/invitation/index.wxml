@@ -1,5 +1,5 @@
 <!--pages/invitation/index.wxml-->
-<view class="l-page-full l-bg-white">
+<view class="l-min-full l-bg-white">
   <view class="l-banner-image">
     <image mode="widthFix" src="https://static.ushiyihao.com/xcx/applyBanner.jpg"></image>
   </view>

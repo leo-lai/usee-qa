@@ -1,1 +1,33 @@
 /* pages/me-info/doctor/index.wxss */
+.l-doctor-skill{
+  padding: 1rpx 0 30rpx;
+}
+
+.l-doctor-skill ._item{
+  border-color: #333;
+  border-radius: 0;
+  font-size: 11pt;
+  overflow: hidden;
+}
+
+.l-doctor-skill ._slted{
+  border-color: #ef5b45;
+  position: relative;
+}
+.l-doctor-skill ._slted::after{
+  font-family: 'l-iconfont' !important;
+  font-size: 12px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  content: "\e654";
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  line-height: 1;
+  color: #ef5b45;
+}
+
+.weui-textarea{
+  padding-left: 0;
+  padding-right: 0;
+}

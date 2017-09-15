@@ -2,7 +2,7 @@
   <view class="l-page-user" wx:if="{{userInfo.isDoctor === 0}}">
     <view class="l-flex-hc l-padding-xl">
       <view class="l-avatar l-margin-r" style="width: 120rpx; height: 120rpx;">
-        <image src="{{userInfo.avatarUrl || 'https://static.ushiyihao.com/xcx/avatar.jpg'}}"></image>
+        <image src="{{userInfo.avatarThumb || 'https://static.ushiyihao.com/xcx/avatar.jpg'}}"></image>
       </view>
       <text class="l-fs-16">{{userInfo.userName}}</text>
     </view>
@@ -64,7 +64,7 @@
       <view class="l-h2">钱包余额</view>
       <view class="l-flex-hc">
         <view class="l-rest l-text-theme">
-          <text class="l-fs-40 l-margin-r-s">{{userInfo.amount}}</text>元
+          <text class="l-fs-30 l-margin-r-s">{{userInfo.amount}}</text>元
         </view>
         <navigator url="/pages/wallet/withdraw/index">
           <button type="primary" style="width: 150rpx;">提现</button>
@@ -75,8 +75,8 @@
 
     <navigator class="l-flex-h l-padding" url="/pages/me-info/doctor/index">
       <view class="l-avatar l-margin-r l-rel" style="width: 120rpx; height: 120rpx;">
-        <image src="{{userInfo.avatarUrl || 'https://static.ushiyihao.com/xcx/avatar.jpg'}}"></image>
-        <text class="l-icon-6dd l-text-link" style="position:absolute; bottom: -10rpx; right:0;"></text>
+        <image src="{{userInfo.avatarThumb || 'https://static.ushiyihao.com/xcx/doctor.jpg'}}"></image>
+        <text class="l-icon-6dd l-text-link" style="position:absolute; font-size:11pt; bottom: -10rpx; right:0;"></text>
       </view>
       <view class="l-rest">
         <view class="l-fs-16">{{userInfo.doctorName}}</view>

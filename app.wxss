@@ -121,6 +121,7 @@
 
 /* text style */
 .l-fs-40{font-size: 40pt !important;}
+.l-fs-30{font-size: 30pt !important;}
 .l-fs-20{font-size: 20pt !important;}
 .l-fs-18{font-size: 18pt !important;}
 .l-fs-17{font-size: 17pt !important;}
@@ -215,8 +216,8 @@ page{
 navigator.l-text-link{display: inline;}
 navigator button{vertical-align: top;}
 image{max-width: 100%;}
-.l-page-full{min-height: 100%;}
-.l-h100{height: 100%;}
+.l-page-full, .l-h100{height: 100%;}
+.l-min-full{min-height: 100%;}
 .l-scroll{
   box-sizing: border-box;
   overflow-x: hidden;

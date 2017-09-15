@@ -163,6 +163,7 @@ App({
     
     wx.showNavigationBarLoading()
     promise.then(({ data }) => {
+      data.avatarThumb = utils.formatHead(data.avatarUrl)
       this.globalData.userInfo = data
       storage.setItem('userInfo', data)
     }).finally(() => {
