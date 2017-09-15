@@ -49,7 +49,7 @@
     </scroll-view>  
   </view>
   <view id="chat-bar" class="l-chat-bar">
-    <view class="l-flex-hc l-chat-input">
+    <view class="l-flex-hc l-chat-input" hidden="problemInfo.problemState === 1">
       <view class="l-rest">
         <view class="_ipt">
           <input value="{{send.content}}"
