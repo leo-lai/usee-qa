@@ -1,7 +1,7 @@
 <!--pages/ask-chat/index.wxml-->
 <view class="l-page-full l-flex-v">
   <view id="chat-scroll" class="l-rest l-scroll" bindtap="hideChatMenu">
-    <scroll-view scroll-y="true" scroll-into-view="{{scrollIntoView}}" style="height: {{scrollHeight}}px;" scroll-with-animation="{{true}}" enable-back-to-top="{{true}}"> 
+    <scroll-view scroll-y scroll-with-animation enable-back-to-top scroll-into-view="{{scrollIntoView}}" style="height: {{scrollHeight}}px;" > 
       <view class="l-chat-record">
         <!-- 问题详情 -->
         <view class="_tip l-text-center">{{problemInfo.createDate}}</view>

@@ -66,7 +66,7 @@ App({
     // })
   },
   // post请求
-  post: function (url = '', data = {}) {
+  post: function (url = '', data = {}, showErr = true) {
     return new Promise((resolve, reject) => {
       data.sessionId = this.globalData.userInfo ? this.globalData.userInfo.sessionId : ''
       wx.request({
@@ -97,13 +97,13 @@ App({
           }
 
           wx.hideLoading()
-          wx.showModal({
+          reject(data)
+
+          showErr && wx.showModal({
             showCancel: false,
-            content: data.message || '接口请求出错',
-            success: res => {
-              reject(data)
-            }
+            content: data.message || '接口请求出错'
           })
+          
         },
         fail: err => {
           wx.showModal({
@@ -131,6 +131,7 @@ App({
 
                 if (apiRes.data) {
                   wx.hideLoading()
+                  apiRes.data.isDoctor = apiRes.data.isDoctor === 1 ? 1 : 0
                   apiRes.data.avatarThumb = utils.formatHead(apiRes.data.avatarUrl)
                   that.globalData.userInfo = apiRes.data
                   storage.setItem('userInfo', apiRes.data)
@@ -139,10 +140,7 @@ App({
                   // 所以此处触发回调函数
                   that.runLoginCbs.call(that, apiRes.data)
                 }
-              }).catch(err => {
-                wx.hideLoading()
-                reject(err)
-              })
+              }).catch(reject)
             },
             fail: err => {
               wx.hideLoading()
@@ -164,8 +162,8 @@ App({
     wx.showNavigationBarLoading()
     promise.then(({ data }) => {
       data.avatarThumb = utils.formatHead(data.avatarUrl)
-      this.globalData.userInfo = data
-      storage.setItem('userInfo', data)
+      this.globalData.userInfo = Object.assign({}, this.globalData.userInfo, data)
+      storage.setItem('userInfo', this.globalData.userInfo)
     }).finally(() => {
       wx.hideNavigationBarLoading()
     })

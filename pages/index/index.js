@@ -31,6 +31,7 @@ Page({
   },
   onLoad: function () {
     app.onLogin(userInfo => {
+      console.warn(userInfo)
       this.setData({ userInfo })
 
       if (userInfo.isDoctor === 0) { // 用户
@@ -107,6 +108,10 @@ Page({
       page,
       problemState: 4
     }).then(({ data }) => {
+      data.problems = data.problems.map(item => {
+        item.createDateStr = app.utils.formatTime2chs(item.createDate)
+        return item
+      })
       this.setData({
         'problem.more': data.problems.length >= data.rows,
         'problem.page': data.page,
@@ -138,6 +143,10 @@ Page({
       page,
       problemStates: '2,3'
     }).then(({ data }) => {
+      data.problems = data.problems.map(item => {
+        item.createDateStr = app.utils.formatTime2chs(item.createDate, true)
+        return item
+      })
       this.setData({
         'tabs[0].more': data.problems.length >= data.rows,
         'tabs[0].page': data.page,
@@ -163,6 +172,10 @@ Page({
       page,
       problemStates: '1'
     }).then(({ data }) => {
+      data.problems = data.problems.map(item => {
+        item.createDateStr = app.utils.formatTime2chs(item.createDate, true)
+        return item
+      })
       this.setData({
         'tabs[1].more': data.problems.length >= data.rows,
         'tabs[1].page': data.page,

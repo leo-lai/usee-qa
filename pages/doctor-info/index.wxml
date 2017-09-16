@@ -2,14 +2,14 @@
   <view class="l-doctor-card l-margin-b">
     <view class="_inner">
       <view class="_avatar">
-        <image src="{{doctorInfo.headPortrait || 'https://static.ushiyihao.com/xcx/doctor.png'}}"></image>
+        <image src="{{doctorInfo.avatarThumb}}"></image>
       </view>
       <view class="l-margin-tb-m">{{doctorInfo.doctorName}}</view>
       <view class="l-margin-tb-m l-text-gray">{{doctorInfo.hospital}}</view>
       <view class="l-margin-tb-m">{{doctorInfo.introduce}}</view>
     </view>
     <view class="l-doctor-skill l-text-center">
-      <text class="_item" wx:for="{{doctorInfo.labelArr}}" wx:key="{{index}}">{{item}}</text>
+      <text class="_item" wx:for="{{doctorInfo.labelArr}}" wx:key="*this">{{item}}</text>
     </view>
     <view class="weui-flex l-text-center l-margin-t">
       <view class="weui-flex__item">

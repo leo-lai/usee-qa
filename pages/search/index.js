@@ -87,6 +87,10 @@ Page({
       problemState: 4,
       problemRemarks: this.data.searchKey
     }).then(({ data }) => {
+      data.problems = data.problems.map(item => {
+        item.createDateStr = app.utils.formatTime2chs(item.createDate)
+        return item
+      })
       this.setData({
         'problem.more': data.problems.length >= data.rows,
         'problem.page': data.page,

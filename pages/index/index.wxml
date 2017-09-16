@@ -1,7 +1,7 @@
 <!--index.wxml-->
 <view class="l-page-group">
   <!-- 用户首页 -->
-  <view class="l-page-user" wx:if="{{userInfo.isDoctor === 0}}">
+  <view class="l-page-user" wx:if="{{userInfo.isDoctor !== 1}}">
     <!-- banner -->
     <view class="banner">
       <view class="l-margin-t l-fs-20">U视问答</view>
@@ -38,7 +38,7 @@
         </view>
         <view class="_ft l-flex-hc l-text-gray">
           <text class="l-rest">{{item.doctorName}} | {{item.hospital}}</text>
-          <text>{{item.createDate}}</text>
+          <text>{{item.createDateStr}}</text>
         </view>
       </navigator>
     </block>
@@ -78,7 +78,7 @@
               </view>
               <view class="_ft l-flex-hc l-text-gray">
                 <text class="l-rest"><text class="l-text-theme">¥{{item.amount}}</text></text>
-                <text>{{item.createDate}}</text>
+                <text>{{item.createDateStr}}</text>
               </view>
             </navigator>
           </block>
@@ -105,7 +105,7 @@
               </view>
               <view class="_ft l-flex-hc l-text-gray">
                 <text class="l-rest"><text class="l-text-theme">¥{{item.amount}}</text></text>
-                <text>{{item.createDate}}</text>
+                <text>{{item.createDateStr}}</text>
               </view>
             </navigator>
           </block>

@@ -1,7 +1,7 @@
 <!--asked/ask/index.wxml-->
-<view class="l-zoom">
-  <view class="l-problem-list">
-    <navigator url="/pages/ask-chat/index?pbid={{item.problemId}}" class="l-problem-item l-margin-t l-bg-white" wx:for="{{problem.data}}" wx:key="{{item.problemId}}" wx:if="{{item.problemState > 0}}">
+<view class="l-zoom l-page-full">
+  <block wx:for="{{problem.data}}" wx:key="problemId">
+    <navigator url="/pages/ask-chat/index?pbid={{item.problemId}}" class="l-problem-item l-margin-t l-bg-white">
       <view class="_hd l-flex-hc">
         <view class="l-rest">
           <text wx:if="{{!item.doctorName}}" class="l-text-theme">等待医生抢答</text>
@@ -20,8 +20,14 @@
         <text>{{item.createDate}}</text>
       </view>
     </navigator>
+  </block>
+  <view class="weui-loadmore" hidden="{{ !problem.loading }}">
+    <view class="weui-loading"></view>
+    <view class="weui-loadmore__tips">正在加载</view>
   </view>
-
+  <view class="weui-loadmore weui-loadmore_line" hidden="{{ !(problem.data.length > 0 && !problem.more) }}">
+    <view class="weui-loadmore__tips weui-loadmore__tips_in-line" >我是有底线的</view>
+  </view>
   <!-- 没有提问 -->
   <view class="l-list-none" wx:if="{{ problem.data.length === 0 && !problem.more }}">
     <image mode="widthFix" src="https://static.ushiyihao.com/xcx/withoutAsk.jpg"></image>
@@ -29,13 +35,6 @@
     <navigator class="l-margin-t-xl l-btn-w60" url="/pages/ask/index">
       <button type="primary">去提问</button>
     </navigator>
-  </view>
-  <view class="weui-loadmore" hidden="{{ !problem.loading }}">
-    <view class="weui-loading"></view>
-    <view class="weui-loadmore__tips">正在加载</view>
-  </view>
-  <view class="weui-loadmore weui-loadmore_line" hidden="{{ !(problem.data.length > 0 && !problem.more) }}">
-    <view class="weui-loadmore__tips weui-loadmore__tips_in-line" >我是有底线的</view>
   </view>
 </view>
 

@@ -8,6 +8,9 @@
 var baseUrl = "http://api.usee1.com.cn/useeproject/eyeinterface"
 
 var config = {
+  doctorAvatar: 'https://static.ushiyihao.com/xcx/doctor.png',
+  userAvatar: 'https://static.ushiyihao.com/xcx/avatar.jpg',
+
   // 野狗配置
   wilddog: {
     syncURL: 'https://wd5822510528sjwblr.wilddogio.com',

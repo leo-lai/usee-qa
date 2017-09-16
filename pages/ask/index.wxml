@@ -25,7 +25,7 @@
             <view class="_list">
               <navigator class="_item l-flex-hc" url="/pages/ask-pay/index?pbid={{doctor.problemId}}">
                 <view class="l-avatar l-margin-r">
-                  <image src="https://static.ushiyihao.com/xcx/avatar.jpg"></image>
+                  <image src="https://static.ushiyihao.com/xcx/doctor.png"></image>
                 </view>
                 <view class="l-rest">平台认证专业医生抢答</view>
                 <text class="l-text-theme l-margin-l">¥5</text>
@@ -37,7 +37,7 @@
             <view class="_list">
               <navigator class="_item l-flex-hc" url="/pages/doctor-info/index?pbid={{doctor.problemId}}&dcid={{item.doctorId}}" wx:for="{{doctor.data}}" wx:key="index">
                 <view class="l-avatar l-margin-r">
-                  <image src="{{item.headPortrait || 'https://static.ushiyihao.com/xcx/avatar.jpg'}}"></image>
+                  <image src="{{item.avatarThumb}}"></image>
                 </view>
                 <view class="l-rest">
                   <view>{{item.doctorName}} | {{item.academicTitle}}</view>

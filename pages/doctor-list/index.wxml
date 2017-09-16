@@ -1,30 +1,32 @@
 <!--doctor-list/index.wxml-->
 <view class="l-page">
-  <navigator class="l-flex-h l-padding l-bg-white l-margin-tb" url="/pages/doctor-info/index?dcid={{item.doctorId}}" wx:for="{{doctor.data}}" wx:key="{{item.doctorId}}">
-    <view class="l-margin-r">
-      <view class="l-avatar">
-        <image src="{{item.headPortrait || 'https://static.ushiyihao.com/xcx/doctor.png'}}"></image>
+  <block wx:for="{{doctor.data}}" wx:key="doctorId">
+    <navigator class="l-flex-h l-padding l-bg-white l-margin-tb" url="/pages/doctor-info/index?dcid={{item.doctorId}}">
+      <view class="l-margin-r">
+        <view class="l-avatar">
+          <image src="{{item.avatarThumb}}"></image>
+        </view>
       </view>
-    </view>
-    <view class="l-rest">
-      <view>{{item.doctorName}} | {{item.academicTitle}}</view>
-      <view class="l-text-gray l-margin-tb-s">{{item.hospital}}</view>
-      <view class="l-doctor-skill" style="margin-top: -10rpx;">
-        <text class="_item"wx:for-item="label" wx:for-index="labelIndex" wx:for="{{item.labelArr}}" wx:key="{{labelIndex}}">{{label}}</text>
+      <view class="l-rest">
+        <view>{{item.doctorName}} | {{item.academicTitle}}</view>
+        <view class="l-text-gray l-margin-tb-s">{{item.hospital}}</view>
+        <view class="l-doctor-skill" style="margin-top: -10rpx;">
+          <text class="_item" wx:for-item="label" wx:for-index="labelIndex" wx:for="{{item.labelArr}}" wx:key="{{labelIndex}}">{{label}}</text>
+        </view>
+        <view class="l-text-gray">{{item.problemCount}}个回答</view>
       </view>
-      <view class="l-text-gray">{{item.problemCount}}个回答</view>
-    </view>
-    <text class="l-text-theme l-margin-l">¥{{item.collectFees}}</text>
-  </navigator>
+      <text class="l-text-theme l-margin-l">¥{{item.collectFees}}</text>
+    </navigator>
+  </block>
 
   <view class="weui-loadmore" hidden="{{!doctor.more || !doctor.loading}}">
     <view class="weui-loading"></view>
     <view class="weui-loadmore__tips">正在加载</view>
   </view>
   <view class="weui-loadmore weui-loadmore_line" hidden="{{ !(doctor.data.length === 0 && !doctor.more) }}">
-    <view class="weui-loadmore__tips weui-loadmore__tips_in-line" >暂无数据</view>
+    <view class="weui-loadmore__tips weui-loadmore__tips_in-line">暂无数据</view>
   </view>
   <view class="weui-loadmore weui-loadmore_line" hidden="{{ doctor.more }}">
-    <view class="weui-loadmore__tips weui-loadmore__tips_in-line" >我是有底线的</view>
+    <view class="weui-loadmore__tips weui-loadmore__tips_in-line">我是有底线的</view>
   </view>
 </view>

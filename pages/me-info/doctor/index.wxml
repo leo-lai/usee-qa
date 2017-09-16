@@ -4,7 +4,7 @@
   <view class="l-padding l-flex-hc l-bg-white l-border-b">
     <view class="l-rest"><text>头像</text></view>
     <view class="l-avatar">
-      <image src="{{userInfo.avatarThumb || 'https://static.ushiyihao.com/xcx/doctor.jpg'}}" />
+      <image src="{{userInfo.avatarThumb || 'https://static.ushiyihao.com/xcx/doctor.png'}}" />
     </view>
   </view>
   <view class="l-padding l-flex-hc l-bg-white l-border-b">

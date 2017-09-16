@@ -42,12 +42,12 @@ Page({
     this.setData({
       'doctor.loading': true
     })
-
     app.post(app.config.doctorList, {
       page
     }).then(({data}) => {
       data.list = data.list.map((item) => {
         item.labelArr = item.labelName.split(',')
+        item.avatarThumb = item.headPortrait ? app.utils.formatHead(item.headPortrait) : app.config.doctorAvatar
         return item
       })
       this.setData({

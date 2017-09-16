@@ -20,20 +20,22 @@
   </view>
 
   <!-- 搜索结果 -->
-  <view class="l-search-result" wx:if="{{problem.data.length > 0 && searchKey !== ''}}">
-    <navigator url="/pages/ask-info/index" class="l-problem-item l-bg-white" wx:for="{{problem.data}}" wx:key="{{item.problemId}}">
-      <view class="_hd l-flex-hc">
-        <text class="l-rest l-text-gray">匿名用户</text>
-        <text class="l-text-theme">¥{{item.amount}}</text>
-      </view>
-      <view class="_bd l-text-wrap2">
-        <text>{{item.problemRemarks}}</text>
-      </view>
-      <view class="_ft l-flex-hc l-text-gray">
-        <text class="l-rest">{{item.doctorName}} | {{item.hospital}}</text>
-        <text>{{item.createDate}}</text>
-      </view>
-    </navigator>
+  <view wx:if="{{problem.data.length > 0 && searchKey !== ''}}">
+    <block wx:for="{{problem.data}}" wx:key="problemId}">
+      <navigator url="/pages/ask-info/index?pbid={{item.problemId}}" class="l-problem-item l-bg-white">
+        <view class="_hd l-flex-hc">
+          <text class="l-rest l-text-gray">匿名用户</text>
+          <text class="l-text-theme">¥{{item.amount}}</text>
+        </view>
+        <view class="_bd l-text-wrap2">
+          <text>{{item.problemRemarks}}</text>
+        </view>
+        <view class="_ft l-flex-hc l-text-gray">
+          <text class="l-rest">{{item.doctorName}} | {{item.hospital}}</text>
+          <text>{{item.createDateStr}}</text>
+        </view>
+      </navigator>
+    </block>
 
     <view class="weui-loadmore" hidden="{{!problem.more || !problem.loading}}">
       <view class="weui-loading"></view>

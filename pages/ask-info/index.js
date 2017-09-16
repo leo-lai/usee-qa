@@ -7,10 +7,10 @@ Page({
    */
   data: {
     score: ['有待提高', '一般', '满意'],
-    isNeedPay: true,
-    problemInfo: {},
-    evaluate: {},
-    doctor: {},
+    isNeedPay: null,
+    problemInfo: null,
+    evaluate: null,
+    doctor: null,
     chatList: {
       loading: false,
       more: true,
@@ -33,6 +33,9 @@ Page({
     app.post(app.config.problemInfo, { 
       problemId 
     }).then(({ data }) => {
+      data.doctor.avatarThumb = data.doctor.headPortrait ? app.utils.formatHead(data.doctor.headPortrait) : app.config.doctorAvatar
+
+      data.problemInfo.createDateStr = app.utils.formatTime2chs(data.problemInfo.createDate, true)
       this.setData({
         'isNeedPay': data.isNeedPay,
         'problemInfo': data.problemInfo,

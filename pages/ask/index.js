@@ -164,6 +164,11 @@ Page({
     clearTimeout(this.systemSendTimeId)
     wx.showLoading({ mask: true })
     app.post(app.config.putQuestions, this.formData).then(({ data }) => {
+      wx.hideLoading()
+      data.doctors = data.doctors.map(item => {
+        item.avatarThumb = item.headPortrait ? app.utils.formatHead(item.headPortrait) : app.config.doctorAvatar
+        return item
+      })
       this.setData({
         'send.replyType': '',
         'doctor.isShow': true,
@@ -171,8 +176,6 @@ Page({
         'doctor.problemId': data.problemId
       })
       this.scrollToBottom()
-    }).finally(() => {
-      wx.hideLoading()
     })
   }
 })

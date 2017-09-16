@@ -31,6 +31,7 @@ Page({
       doctorId
     }).then(({ data }) => {
       data.labelArr = data.labelName.split(',')
+      data.avatarThumb = data.headPortrait ? app.utils.formatHead(data.headPortrait) : app.config.doctorAvatar
       this.setData({
         doctorInfo: data
       })
@@ -45,20 +46,17 @@ Page({
       } else {
         wx.hideLoading()
       }
-    }).catch(() => {
-      wx.hideLoading()
     })
   },
   // 创建问题订单
   createOrder: function (formData = {}) {
     app.post(app.config.createOrder, formData).then(({ data }) => {
+      wx.hideLoading()
       this.setData({
         isAllowPay: true,
         'orderInfo.orderId': data.orderId,
         'orderInfo.amount': data.amount
       })
-    }).finally(() => {
-      wx.hideLoading()
     })
   },
   // 支付
@@ -66,23 +64,24 @@ Page({
     const that = this
     wx.showLoading({ mask: true })
     app.post(app.config.payConfig, this.data.orderInfo).then(({ data }) => {
+      wx.hideLoading()
       wx.requestPayment({
         timeStamp: data.payInfo.timeStamp,
         nonceStr: data.payInfo.nonceStr,
         package: data.payInfo.package,
         signType: data.payInfo.signType,
         paySign: data.payInfo.paySign,
-        success: function (res) {
+        success: res => {
           wx.showToast({
             mask: true,
             title: '支付成功',
             icon: 'success',
-            success: function () {
+            success: () => {
               app.navigateTo('/pages/ask-chat/index?pbid=' + that.data.problemId)
             }
           })
         },
-        fail: function (res) {
+        fail: res => {
           if (res.errMsg !== 'requestPayment:fail cancel') {
             wx.showModal({
               title: '支付失败',
@@ -92,8 +91,6 @@ Page({
           }
         }
       })
-    }).finally(() => {
-      wx.hideLoading()
     })
   }
 })
