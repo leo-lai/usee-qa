@@ -103,7 +103,7 @@ Page({
       case 2: // 患者症状
         if (msgContent.trim() == 1) {
           if (this.problemRemarks.length === 0) {
-            this.systemSend('您还没描述您的问题O_O', 0, 2)
+            this.systemSend('您还没描述您的问题 >_<', 0, 2)
           } else {
             this.formData.problemRemarks = this.problemRemarks.join(',')
             this.submitProblem()

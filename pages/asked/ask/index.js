@@ -1,13 +1,32 @@
 // asked/ask/index.js
 const app = getApp()
 Page({
-
   /**
    * 页面的初始数据
    */
   data: {
     problem: {
-      state: ['未支付', '等待医生回复', '交谈中', '已解答', '已拒绝'],
+      state: [
+        {
+          cls: '',
+          msg: '未支付'
+        }, {
+          cls: 'l-text-theme',
+          msg: '等待医生抢答'
+        }, {
+          cls: 'l-text-green',
+          msg: '等待医生回复'
+        }, {
+          cls: 'l-text-blue',
+          msg: '交谈中'
+        }, {
+          cls: 'l-text-gray',
+          msg: '已完成'
+        }, {
+          cls: '',
+          msg: '已拒绝'
+        }
+      ],
       loading: false,
       more: true,
       page: 1,
@@ -47,6 +66,11 @@ Page({
     app.post(app.config.myAsks, {
       page
     }).then(({data}) => {
+      data.list = data.list.map(item => {
+        item.createDateStr = app.utils.formatTime2chs(item.createDate)
+        return item
+      })
+
       this.setData({
         'problem.more': data.list.length >= data.rows,
         'problem.page': data.page,

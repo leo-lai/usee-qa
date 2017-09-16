@@ -1,28 +1,37 @@
-<!--index.wxml-->
-<view class="l-page-full">
+<!--asked/see/index.wxml-->
+<view class="l-zoom l-page-full">
+  <block wx:for="{{problem.data}}" wx:key="problemId">
+    <navigator url="/pages/ask-info/index?pbid={{item.problemId}}" class="l-problem-item l-margin-t l-bg-white">
+      <view class="_hd l-flex-hc">
+        <view class="l-rest">
+          <text class="l-text-gray">匿名用户</text>
+        </view>
+        <text class="l-text-theme">¥{{item.amount}}</text>
+      </view>
+      <view class="_bd l-text-wrap2">
+        <text>{{item.problemRemarks}}</text>
+      </view>
+      <view class="_ft l-flex-hc l-text-gray">
+        <view class="l-rest">
+          <text wx:if="{{item.doctorName}}">{{item.doctorName}} | {{item.hospital}}</text>
+        </view>
+        <text>{{item.createDateStr}}</text>
+      </view>
+    </navigator>
+  </block>
+  <view class="weui-loadmore" hidden="{{ !problem.loading }}">
+    <view class="weui-loading"></view>
+    <view class="weui-loadmore__tips">正在加载</view>
+  </view>
+  <view class="weui-loadmore weui-loadmore_line" hidden="{{ !(problem.data.length > 0 && !problem.more) }}">
+    <view class="weui-loadmore__tips weui-loadmore__tips_in-line" >我是有底线的</view>
+  </view>
   <!-- 没有提问 -->
-  <view class="l-list-none" wx:if="{{true}}">
+  <view class="l-list-none" wx:if="{{ problem.data.length === 0 && !problem.more }}">
     <image mode="widthFix" src="https://static.ushiyihao.com/xcx/withoutAsk.jpg"></image>
-    <view class="l-margin-t">您还没有看过任何问题</view>
-    <navigator open-type="switchTab" class="l-margin-t-xl l-btn-w60" url="/pages/index/index">
+    <view class="l-margin-t">您还没有提问过任何问题</view>
+    <navigator class="l-margin-t-xl l-btn-w60" url="/pages/index/index" open-type="switchTab">
       <button type="primary">去看看</button>
     </navigator>
   </view>
-
-  <view class="l-problem-list" wx:if="{{false}}">
-    <navigator url="/pages/ask-info/index" class="l-problem-item l-bg-white" wx:for="{{[1,2,3,4,5,6]}}" wx:key="index">
-      <view class="_hd l-flex-hc">
-        <text class="l-rest">进度状态</text>
-        <text class="l-text-theme">¥10</text>
-      </view>
-      <view class="_bd l-text-wrap2">
-        <text>小孩5岁，左眼近视度数100，右眼近视度数70，能否有什么方法，比如通过调理的方式，可以不佩戴眼镜可以不佩戴眼镜</text>
-      </view>
-      <view class="_ft l-flex-hc l-text-gray">
-        <text class="l-rest">胡杨树 | U视一号眼科专家</text>
-        <text>2016-12-12</text>
-      </view>
-    </navigator>
-  </view>
 </view>
-

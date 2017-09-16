@@ -23,5 +23,5 @@
   <view class="l-margin" style="margin-top: 60rpx;">
     <button disabled="{{!isAllowPay}}" type="primary" bindtap="payOrder">支付</button>
   </view>
-  <view class="l-text-center l-text-gray">支付则视为同意《线上咨询协议》</view>
+  <navigator class="l-text-center l-text-gray" url="/pages/agreenment/a2/index">支付则视为同意《线上咨询协议》</navigator>
 </view>

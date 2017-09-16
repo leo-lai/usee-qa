@@ -4,9 +4,7 @@
     <navigator url="/pages/ask-chat/index?pbid={{item.problemId}}" class="l-problem-item l-margin-t l-bg-white">
       <view class="_hd l-flex-hc">
         <view class="l-rest">
-          <text wx:if="{{!item.doctorName}}" class="l-text-theme">等待医生抢答</text>
-          <text wx:if="{{item.problemState === 1 && item.doctorName}}" class="l-text-green">{{problem.state[item.problemState]}}</text>
-          <text wx:if="{{item.problemState === 2}}" class="l-text-theme">{{problem.state[item.problemState]}}</text>
+          <text class="{{problem.state[item.problemState].cls}}">{{problem.state[item.problemState].msg}}</text>
         </view>
         <text class="l-text-theme">¥{{item.amount}}</text>
       </view>
@@ -17,7 +15,7 @@
         <view class="l-rest">
           <text wx:if="{{item.doctorName}}">{{item.doctorName}} | {{item.hospital}}</text>
         </view>
-        <text>{{item.createDate}}</text>
+        <text>{{item.createDateStr}}</text>
       </view>
     </navigator>
   </block>

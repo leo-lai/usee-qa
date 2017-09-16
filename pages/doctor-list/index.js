@@ -19,6 +19,9 @@ Page({
    */
   onLoad: function (options) {
     app.onLogin(userInfo => {
+      this.setData({
+        problemId: options.pbid
+      })
       this.getDoctorList(1)
     })
   },

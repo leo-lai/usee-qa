@@ -61,9 +61,10 @@ var config = {
   uploadImage: `${baseUrl}/diagnose/uploadImage`,
   // 发送消息
   sendMessage: `${baseUrl}/diagnose/sendMessage`,
+  // 聊天记录
+  messageList: `${baseUrl}/diagnose/messageList`,
   // 评价
   evaluate: `${baseUrl}/diagnose/evaluate`,
-
 
   // 下面的地址配合云端 Server 工作
   baseUrl

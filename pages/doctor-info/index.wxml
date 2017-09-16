@@ -2,7 +2,7 @@
   <view class="l-doctor-card l-margin-b">
     <view class="_inner">
       <view class="_avatar">
-        <image src="{{doctorInfo.avatarThumb}}"></image>
+        <image wx:if="{{doctorInfo.avatarThumb}}" src="{{doctorInfo.avatarThumb}}"></image>
       </view>
       <view class="l-margin-tb-m">{{doctorInfo.doctorName}}</view>
       <view class="l-margin-tb-m l-text-gray">{{doctorInfo.hospital}}</view>
