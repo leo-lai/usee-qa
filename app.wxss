@@ -257,6 +257,15 @@ image{max-width: 100%;}
   line-height: 1.4;
   margin: 30rpx 0;
 }
+
+.l-chat-record ._date{
+  font-size:10pt;
+  color:#fff;
+  background:#ccc;
+  border-radius:6rpx;
+  padding:6rpx 12rpx;
+}
+
 .l-chat-item{
   display: flex;
   align-items: center;

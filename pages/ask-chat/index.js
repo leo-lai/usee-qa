@@ -81,6 +81,7 @@ Page({
   // 获取发送消息体
   getSendContent: function (content = '', msgType = 1) {
     // 发送内容
+    let sendDate = new Date()
     let sendContent = {
       problemId: this.data.problemInfo.problemId,
       problemState: this.data.problemInfo.problemState,
@@ -90,10 +91,22 @@ Page({
       fromUserAvatar: this.data.userInfo.avatarUrl,
       msgType,
       msgState: 0,
-      msgDatetime: (new Date()).format('yyyy-MM-dd hh:mm:ss'),
+      msgDatetime: sendDate.format('yyyy-MM-dd HH:mm:ss'),
       msgContent: content.trim(),
-      tick: Date.now()
+      tick: sendDate.getTime(),
+      showDate: false
     }
+    // 两条信息时间相差半小时则显示时间
+    if (this.data.chat.data.length > 0) {
+      let time1 = this.data.chat.data[this.data.chat.data.length - 1].tick
+      let time2 = sendContent.tick
+      if (time2 - time1 >= 1000 * 60 * 10) {
+        sendContent.showDate = true
+      }
+    } else {
+      sendContent.showDate = true
+    }
+    sendContent.msgDateStr = sendDate.format('HH:mm')
 
     // 用户发给医生
     if (this.data.userInfo.isDoctor === 0) {
@@ -189,6 +202,10 @@ Page({
       }
     })
   },
+  // 重新发送
+  sendAgain: function () {
+
+  },
   // 预览图片
   previewImage: function (e) {
     let urls = []
@@ -254,15 +271,26 @@ Page({
       rows: that.data.chat.rows,
     }).then(({ data }) => {
       // 修正一些数据
-      let chatList = data.chatList.reverse().map(item => {
+      let chatList = data.chatList.reverse().map((item,index) => {
         if (item.msgType === 2) {
           item.imageSrc = item.msgContent
           item.msgContent = app.utils.formatThumb(item.msgContent, 100)
         }
+        
+        // 两条信息时间相差半小时则显示时间
+        if (index === 0) {
+          item.showDate = true
+        } else if (data.chatList[index - 1]) {
+          if (item.tick - data.chatList[index - 1].tick >= 1000 * 60 * 10) {
+            item.showDate = true
+          }
+        }
+
+        item.msgDateStr = app.utils.formatTime2chs(item.msgDatetime, true)
         return item
       })
       data.doctor.avatarThumb = app.utils.formatHead(data.doctor.headPortrait)
-
+      data.problemInfo.createDateStr = app.utils.formatTime2chs(data.problemInfo.createDate, true)
       // 同步视图
       that.setData({
         'isNeedPay': data.isNeedPay,

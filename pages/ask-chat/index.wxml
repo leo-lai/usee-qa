@@ -4,52 +4,59 @@
     <scroll-view scroll-y scroll-with-animation enable-back-to-top scroll-into-view="{{scrollIntoView}}" style="height: {{scrollHeight}}px;" > 
       <view class="l-chat-record">
         <!-- 问题详情 -->
-        <view class="_tip l-text-center">{{problemInfo.createDate}}</view>
-        <view class="l-chat-item {{userInfo.isDoctor === 0 ? '_self' : ''}}">
-          <view class="_who">
-              <image src="{{userInfo.avatarThumb}}"></image> 
+        <block wx:if="{{problemInfo.problemId}}">
+          <view class="l-margin-tb l-text-center">
+            <text class="_date">{{problemInfo.createDateStr}}</text>
           </view>
-          <view class="_msg">
-            <view>{{'年龄：' + problemInfo.age}}</view>
+          <view class="l-chat-item {{userInfo.isDoctor === 0 ? '_self' : ''}}">
+            <view class="_who">
+                <image src="{{userInfo.avatarThumb}}"></image> 
+            </view>
+            <view class="_msg">
+              <view>{{'年龄：' + problemInfo.age}}</view>
+            </view>
+            <view class="_state">
+            </view>
           </view>
-          <view class="_state">
+          <view class="l-chat-item {{userInfo.isDoctor === 0 ? '_self' : ''}}">
+            <view class="_who">
+                <image src="{{userInfo.avatarThumb}}"></image> 
+            </view>
+            <view class="_msg">
+              <view>{{'问题描述：' + problemInfo.problemRemarks}}</view>
+            </view>
+            <view class="_state">
+            </view>
           </view>
-        </view>
-        <view class="l-chat-item {{userInfo.isDoctor === 0 ? '_self' : ''}}">
-          <view class="_who">
-              <image src="{{userInfo.avatarThumb}}"></image> 
-          </view>
-          <view class="_msg">
-            <view>{{'问题描述：' + problemInfo.problemRemarks}}</view>
-          </view>
-          <view class="_state">
-          </view>
-        </view>
-        <view class="_tip" wx:if="{{problemInfo.problemState < 2}}">等待医生回复，一般会在1-3小时内回复，如果超过48小时无人回复将全额退款至您的微信，回复将会第一时间通知您。</view>
+          <view class="_tip" wx:if="{{userInfo.isDoctor === 0 && problemInfo.problemState < 2}}">等待医生回复，一般会在1-3小时内回复，如果超过48小时无人回复将全额退款至您的微信，回复将会第一时间通知您。</view>
+        </block>
         
         <!-- 对话列表 -->
-        <view class="_tip l-text-center" wx:if="{{chat.data.length > 0}}">{{chat.data[0].msgDatetime}}</view>
-        <view class="l-chat-item {{item.fromUserId === userInfo.userId ? '_self' : ''}}" wx:for="{{chat.data}}" wx:key="{{index}}">
-          <view class="_who">
-              <image src="{{item.fromUserId === userInfo.userId ? item.fromUserAvatar : item.toUserAvatar}}"></image> 
+        <block wx:for="{{chat.data}}" wx:key="tick">
+          <view class="l-margin-tb l-text-center" wx:if="{{item.showDate}}">
+            <text class="_date">{{item.msgDateStr}}</text>
           </view>
-          <view class="_msg" wx:if="{{item.msgType == 1}}">{{item.msgContent}}</view>
-          <view class="_msg-img" wx:if="{{item.msgType == 2}}" id="{{item.imageSrc}}" bindtap="previewImage">
-            <image mode="widthFix" src="{{item.msgContent}}"></image>
+          <view class="l-chat-item {{item.fromUserId === userInfo.userId ? '_self' : ''}}">
+            <view class="_who">
+                <image src="{{item.fromUserId === userInfo.userId ? item.fromUserAvatar : item.toUserAvatar}}"></image> 
+            </view>
+            <view class="_msg" wx:if="{{item.msgType == 1}}">{{item.msgContent}}</view>
+            <view class="_msg-img" wx:if="{{item.msgType == 2}}" id="{{item.imageSrc}}" bindtap="previewImage">
+              <image mode="widthFix" src="{{item.msgContent}}"></image>
+            </view>
+            <view class="_state">
+              <button loading="{{item.msgState === 0}}"></button> 
+              <icon type="warn" wx:if="{{item.msgState === -1}}" id="{{item.tick}}" bindtap="sendAgain"/> 
+            </view>
           </view>
-
-          <view class="_state">
-            <button loading="{{item.msgState === 0}}"></button> 
-            <icon type="warn" wx:if="{{item.msgState === -1}}" /> 
-          </view>
-        </view>
-        
+        </block>
+        <!-- 对话列表 end-->
       </view>
       <view id="scroll-bottom"></view>
     </scroll-view>  
   </view>
   <view id="chat-bar" class="l-chat-bar">
-    <view class="l-flex-hc l-chat-input" hidden="problemInfo.problemState === 1">
+    <view class="l-flex-hc l-chat-input" hidden="{{problemInfo.problemState === 1 && userInfo.isDoctor === 0}}">
       <view class="l-rest">
         <view class="_ipt">
           <input value="{{send.content}}"

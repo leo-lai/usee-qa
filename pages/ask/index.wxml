@@ -5,7 +5,7 @@
       <view class="l-chat-record">
         
         <!-- 对话列表 -->
-        <block wx:for="{{chat.data}}" wx:key="{{index}}">
+        <block wx:for="{{chat.data}}" wx:key="tick">
           <view wx:if="{{item.msgType === 0}}" class="_tip">{{item.msgContent}}</view>
           <view wx:if="{{item.msgType !== 0}}" class="l-chat-item {{item.fromUserId === userInfo.userId ? '_self' : ''}}" >
             <view class="_who">

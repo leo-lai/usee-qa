@@ -74,8 +74,10 @@ Page({
       msgType,  // 0提示 1文本 2图片 3语音
       msgState: 2, // -1未发送成功 0发送中 1已发送并未读 2已读
       msgContent,
-      msgDatetime: new Date().format('yyyy-MM-dd hh:mm:ss')
+      msgDatetime: new Date().format('yyyy-MM-dd HH:mm:ss')
     }
+
+    sendContent.msgDateStr = app.utils.formatTime2chs(sendContent.msgDatetime, true)
     
     this.setData({
       'send.replyType': replyType,
@@ -132,9 +134,10 @@ Page({
       toUserAvatar: '',
       msgType: 1,
       msgState: 2,
-      msgDatetime: new Date().format('yyyy-MM-dd hh:mm:ss'),
+      msgDatetime: new Date().format('yyyy-MM-dd HH:mm:ss'),
       msgContent: this.data.send.content
     }
+    sendContent.msgDateStr = app.utils.formatTime2chs(sendContent.msgDatetime, true)
 
     this.setData({
       'send.content': '',

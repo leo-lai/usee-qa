@@ -77,8 +77,9 @@ const formatTime2chs = (dateStr = '', fmt) => {
   // 将时间字符串转化成毫秒ms
   let date = str2date(dateStr)
   let dateMs = date.getTime()
+  let nowDate = new Date()
   
-  let diffMs = new Date().getTime() - dateMs
+  let diffMs = nowDate.getTime() - dateMs
   let minute = 1000 * 60
   let hour = minute * 60
   let day = hour * 24
@@ -91,10 +92,15 @@ const formatTime2chs = (dateStr = '', fmt) => {
   let minC = diffMs / minute
 
   if (fmt) {
-    if ( date.format('yyyy-MM-dd') === new Date().format('yyyy-MM-dd') ) {
-      return '今天 ' + date.format('HH:mm')
-    } else {
+    if (dayC > 2) {
       return date.format('yyyy年M月d日 HH:mm')
+    } else {
+      let diffDay = nowDate.getDate() - date.getDate()
+      if (diffDay === 0) {
+        return date.format('HH:mm')
+      } else {
+        return '昨天 ' + date.format('HH:mm')
+      }
     }
   }
 
