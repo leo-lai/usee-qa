@@ -1,5 +1,5 @@
-<!--index.wxml-->
-<view class="l-page-about">
+<!-- pages/about/index.wxml-->
+<view class="l-min-full l-bg-white l-text-justify">
   <view class="l-padding">
     <view class="l-h3">公司简介</view>
     <view class="l-margin-t l-text-justify">

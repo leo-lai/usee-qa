@@ -3,11 +3,10 @@
   <view id="chat-scroll" class="l-rest l-scroll">
     <scroll-view scroll-y scroll-into-view="{{scrollIntoView}}" style="height: {{scrollHeight}}px;">
       <view class="l-chat-record">
-        
         <!-- 对话列表 -->
         <block wx:for="{{chat.data}}" wx:key="tick">
           <view wx:if="{{item.msgType === 0}}" class="_tip">{{item.msgContent}}</view>
-          <view wx:if="{{item.msgType !== 0}}" class="l-chat-item {{item.fromUserId === userInfo.userId ? '_self' : ''}}" >
+          <view wx:else class="l-chat-item {{item.fromUserId === userInfo.userId ? '_self' : ''}}" >
             <view class="_who">
               <image src="{{item.fromUserId === userInfo.userId ? item.fromUserAvatar : item.toUserAvatar}}"></image>
             </view>
@@ -33,18 +32,20 @@
             </view>
           </view>
           <view class="l-doctor-recommend">
-            <view class="_hd">指定医生回答 | 指定专业医生1对1答复</view>
+            <view class="_hd">指定医生解答 | 指定专业医生1对1服务</view>
             <view class="_list">
-              <navigator class="_item l-flex-hc" url="/pages/doctor-info/index?pbid={{doctor.problemId}}&dcid={{item.doctorId}}" wx:for="{{doctor.data}}" wx:key="index">
-                <view class="l-avatar l-margin-r">
-                  <image src="{{item.avatarThumb}}"></image>
-                </view>
-                <view class="l-rest">
-                  <view>{{item.doctorName}} | {{item.academicTitle}}</view>
-                  <view class="l-text-gray">{{item.hospital}}</view>
-                </view>
-                <text class="l-text-theme l-margin-l">¥{{item.collectFees}}</text>
-              </navigator>
+              <block wx:for="{{doctor.data}}" wx:key="doctorId">
+                <navigator class="_item l-flex-hc" url="/pages/doctor-info/index?pbid={{doctor.problemId}}&dcid={{item.doctorId}}" >
+                  <view class="l-avatar l-margin-r">
+                    <image src="{{item.avatarThumb}}"></image>
+                  </view>
+                  <view class="l-rest">
+                    <view>{{item.doctorName}} | {{item.academicTitle}}</view>
+                    <view class="l-text-gray">{{item.hospital}}</view>
+                  </view>
+                  <text class="l-text-theme l-margin-l">¥{{item.collectFees}}</text>
+                </navigator>
+              </block>
             </view>
             <navigator class="l-text-center l-padding-btn l-text-gray" url="/pages/doctor-list/index?pbid={{doctor.problemId}}">更多专业医生</navigator>
           </view>
@@ -57,8 +58,13 @@
     <view class="l-flex-hc l-chat-input">
       <view class="l-rest">
         <view class="_ipt">
-          <input value="{{send.content}}" disabled="{{chat.disabled}}" cursor-spacing="20" confirm-type="send" confirm-hold="{{true}}" auto-height="{{true}}" focus="{{chat.inputFocus}}" bindtap="bindInputFocus" bindinput="bindInputChange" bindconfirm="sendChat"
-          />
+          <input auto-height cursor-spacing="20" confirm-hold confirm-type="send"
+            value="{{send.content}}" 
+            disabled="{{chat.disabled}}"  
+            focus="{{chat.inputFocus}}" 
+            bindtap="bindInputFocus" 
+            bindinput="bindInputChange" 
+            bindconfirm="sendChat" />
         </view>
       </view>
       <button style="padding: 8rpx 30rpx;" class="l-margin-l-s l-btn-blue" size="mini" bindtap="sendChat">发送</button>

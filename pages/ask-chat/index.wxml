@@ -1,7 +1,8 @@
 <!--pages/ask-chat/index.wxml-->
 <view class="l-page-full l-flex-v">
   <view id="chat-scroll" class="l-rest l-scroll" bindtap="hideChatMenu">
-    <scroll-view scroll-y scroll-with-animation enable-back-to-top scroll-into-view="{{scrollIntoView}}" style="height: {{scrollHeight}}px;" > 
+    <scroll-view scroll-y scroll-with-animation enable-back-to-top 
+      scroll-into-view="{{scrollIntoView}}" style="height: {{scrollHeight}}px;" > 
       <view class="l-chat-record">
         <!-- 问题详情 -->
         <block wx:if="{{problemInfo.problemId}}">
@@ -59,23 +60,13 @@
     <view class="l-flex-hc l-chat-input" hidden="{{problemInfo.problemState === 1 && userInfo.isDoctor === 0}}">
       <view class="l-rest">
         <view class="_ipt">
-          <input value="{{send.content}}"
+          <input auto-height cursor-spacing="20" confirm-hold confirm-type="send"
             disabled="{{chat.disabled}}"
-            cursor-spacing="20"
-            confirm-type="send" 
-            confirm-hold="{{true}}" 
-            auto-height="{{true}}" 
+            value="{{send.content}}"
             focus="{{chat.inputFocus}}" 
             bindtap="bindInputFocus"
-            bindblur="bindInputBlur"
             bindinput="bindInputChange" 
-            bindconfirm="sendChat" />  
-           <!-- <textarea maxlength="500" auto-height="{{true}}" 
-            focus="{{chat.inputFocus}}" 
-            bindfocus="bindInputFocus" 
-            bindblur="bindInputBlur" 
-            bindinput="bindInputChange" 
-            bindconfirm="sendChat" />  -->
+            bindconfirm="sendChat" /> 
         </view>
       </view>
       <text class="l-icon-63c l-fs-18 l-margin-l-s l-text-gray" bindtap="toggleHideChatMenu"></text>

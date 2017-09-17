@@ -63,7 +63,7 @@ Page({
       'problem.loading': true
     })
 
-    app.post(app.config.myAsks, {
+    app.post(app.config.mySees, {
       page
     }).then(({ data }) => {
       data.list = data.list.map(item => {

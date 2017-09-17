@@ -27,7 +27,7 @@ Page({
       disabled: false,
       inputFocus: false
     },
-    userInfo: null
+    userInfo: {}
   },
   // 聊天记录数据同步视图
   chatSyncView: function (objectItem = {}, key = 'tick') {
@@ -239,9 +239,6 @@ Page({
     //     scrollHeight: systemInfo.windowHeight - 200
     //   })
     // }, 500)
-  },
-  bindInputBlur: function () {
-    // setTimeout(this.scrollHeightFix, 500)
   },
   // 打开隐藏功能菜单
   toggleHideChatMenu: function () {
