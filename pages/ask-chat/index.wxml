@@ -2,7 +2,17 @@
 <view class="l-page-full l-flex-v">
   <view id="chat-scroll" class="l-rest l-scroll" bindtap="hideChatMenu">
     <scroll-view scroll-y scroll-with-animation enable-back-to-top 
-      scroll-into-view="{{scrollIntoView}}" style="height: {{scrollHeight}}px;" > 
+      bindscrolltoupper="bindPullDownRefresh"
+      scroll-into-view="{{scrollIntoView}}" 
+      style="height: {{scrollHeight}}px;" >
+      <view class="weui-loadmore" hidden="{{ !chat.loading }}">
+        <view class="weui-loading"></view>
+        <view class="weui-loadmore__tips">正在加载</view>
+      </view>
+      <view class="weui-loadmore weui-loadmore_line" hidden="{{ !(chat.total > 1 && !chat.more) }}">
+        <view class="weui-loadmore__tips weui-loadmore__tips_in-line">没有更多了</view>
+      </view>
+
       <view class="l-chat-record">
         <!-- 问题详情 -->
         <block wx:if="{{problemInfo.problemId}}">

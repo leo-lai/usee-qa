@@ -1,7 +1,28 @@
 // pages/ask-chat/index.js
 const app = getApp()
-Page({
+// 处理一下聊天记录
+const reverseChatList = (list = []) => {
+  let chatList = list.reverse().map((item, index) => {
+    if (item.msgType === 2) {
+      item.imageSrc = item.msgContent
+      item.msgContent = app.utils.formatThumb(item.msgContent, 100)
+    }
 
+    // 两条信息时间相差半小时则显示时间
+    if (index === 0) {
+      item.showDate = true
+    } else if (list[index - 1]) {
+      if (item.tick - list[index - 1].tick >= 1000 * 60 * 10) {
+        item.showDate = true
+      }
+    }
+    item.msgDateStr = app.utils.formatTime2chs(item.msgDatetime, true)
+
+    return item
+  })
+  return chatList
+}
+Page({
   /**
    * 页面的初始数据
    */
@@ -76,6 +97,40 @@ Page({
 
       // 获取问题详情
       this.getProblemInfo(options.pbid)
+    })
+  },
+  // 下拉获取更多聊天记录
+  bindPullDownRefresh: function () {
+    if (this.data.problemInfo.problemId) {
+      this.getChatList(this.data.chat.page + 1)
+    }
+  },
+  // 获取聊天记录
+  getChatList: function (page = 1, callback = app.noop) {
+    if (!this.data.chat.more || this.data.chat.loading) {
+      callback(this.data.chat.data)
+      return
+    }
+    this.setData({
+      'chat.loading': true
+    })
+    app.post(app.config.messageList, {
+      rows: 20,
+      page,
+      problemId: this.data.problemInfo.problemId,
+      sort: 'asc'
+    }).then(({ data }) => {
+      data.list = reverseChatList(data.list)
+      this.setData({
+        'chat.more': data.list.length >= data.rows,
+        'chat.page': data.page,
+        'chat.data': data.page === 1 ? data.list : [...data.list, ...this.data.chat.data]
+      })
+    }).finally(() => {
+      this.setData({
+        'chat.loading': false
+      })
+      callback(this.data.chat.data)
     })
   },
   // 获取发送消息体
@@ -232,13 +287,6 @@ Page({
       'chat.inputFocus': true,
       'chat.hideMenu': true
     })
-
-    // setTimeout(() => {
-    //   let systemInfo  = wx.getSystemInfoSync()
-    //   this.setData({
-    //     scrollHeight: systemInfo.windowHeight - 200
-    //   })
-    // }, 500)
   },
   // 打开隐藏功能菜单
   toggleHideChatMenu: function () {
@@ -259,42 +307,25 @@ Page({
   // 获取问题详情
   getProblemInfo: function (problemId = '') {
     let that = this
-    wx.showLoading({
-      mask: true
-    })
+    wx.showLoading()
     app.post(app.config.problemInfo, {
       problemId,
       page: that.data.chat.page,
       rows: that.data.chat.rows,
     }).then(({ data }) => {
+      wx.hideLoading()
       // 修正一些数据
-      let chatList = data.chatList.reverse().map((item,index) => {
-        if (item.msgType === 2) {
-          item.imageSrc = item.msgContent
-          item.msgContent = app.utils.formatThumb(item.msgContent, 100)
-        }
-        
-        // 两条信息时间相差半小时则显示时间
-        if (index === 0) {
-          item.showDate = true
-        } else if (data.chatList[index - 1]) {
-          if (item.tick - data.chatList[index - 1].tick >= 1000 * 60 * 10) {
-            item.showDate = true
-          }
-        }
-
-        item.msgDateStr = app.utils.formatTime2chs(item.msgDatetime, true)
-        return item
-      })
-      data.doctor.avatarThumb = app.utils.formatHead(data.doctor.headPortrait)
+      data.chatList = reverseChatList(data.chatList)
       data.problemInfo.createDateStr = app.utils.formatTime2chs(data.problemInfo.createDate, true)
+      data.doctor.avatarThumb = data.doctor.headPortrait ? app.utils.formatHead(data.doctor.headPortrait) : app.config.doctorAvatar
+      
       // 同步视图
       that.setData({
         'isNeedPay': data.isNeedPay,
         'problemInfo': data.problemInfo,
         'evaluate': data.evaluate,
         'doctor': data.doctor,
-        'chat.data': chatList,
+        'chat.data': data.chatList,
         'chat.page': data.page,
         'chat.more': data.total > 1
       })
@@ -312,16 +343,35 @@ Page({
         case 3:
           title = '交谈中'
           break
+        case 4:
+          title = '咨询已结束'
+          break
         default:
           title = 'U视问答'
       }
       wx.setNavigationBarTitle({ title })
 
+      // 等待抢答不监听回复
+      if (data.problemInfo.problemState === 1) {
+        return
+      }
+
       // 野狗监听节点problemChat/[problemId]
       app.ref_problemChat.child(problemId).on('value', snapshot => {
         let value = snapshot.val()
         if (value) {
-          if (value.problemState == 4) { // 咨询已结束
+          if (value.fromUserId !== that.data.userInfo.userId) {
+            if (that.data.chat.data.length === 0 ||
+              that.data.chat.data[that.data.chat.data.length - 1].tick !== value.tick) {
+              that.setData({
+                'chat.data': that.data.chat.data.concat(value)
+              })
+              that.scrollToBottom()
+            }
+          }
+
+          // 如果咨询已结束并未评价
+          if (value.problemState == 4 && that.data.problemInfo.isEvaluate === 0) { 
             if (that.data.userInfo.isDoctor === 0) {
               that.setData({
                 'problemInfo.problemState': value.problemState
@@ -330,23 +380,10 @@ Page({
                 app.navigateTo(`/pages/ask-end/index?todo=evaluate&&dcid=${that.data.doctor.doctorId}&pbid=${problemId}`)
               }, 500)
             }
-            return
-          }
-          
-          if (value.fromUserId !== that.data.userInfo.userId) {
-            if (that.data.chat.data.length === 0 || 
-              that.data.chat.data[that.data.chat.data.length-1].tick !== value.tick) {
-              that.setData({
-                'chat.data': that.data.chat.data.concat(value)
-              })
-              that.scrollToBottom()
-            }
           }
         }
       })
 
-    }).finally(() => {
-      wx.hideLoading()
     })
   },
   // 结束交谈
@@ -360,7 +397,6 @@ Page({
       success: res => {
         if (res.confirm) {
           wx.showLoading({
-            mask: true,
             title: '正在结束中'
           })
           app.post(app.config.endProblem, {
@@ -368,7 +404,7 @@ Page({
           }).then(({data}) => {
             that.hideChatMenu()
             // 结束问题
-            let sendContent = that.getSendContent('咨询已结束', 0)
+            let sendContent = that.getSendContent('咨询已结束')
             sendContent.problemState = 4
             app.ref_problemChat.child(that.data.problemInfo.problemId).set(sendContent, err => {
               wx.hideLoading()

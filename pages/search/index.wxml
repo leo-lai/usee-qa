@@ -1,62 +1,53 @@
-<view class="l-page-full">
-  <!-- 搜索框 -->
-  <view class="l-search-bar l-sticky">
-    <view class="l-flex-hvc">
-      <view class="l-rest">
-        <input focus="true" bindinput="bindKeyInput" confirm-type="search" bindconfirm="search" placeholder="搜索问题/答案关键字" value="{{searchKey}}"/>
+<!-- search/index.wxml -->
+<import src="../../template/loadmore.wxml"/>
+<!-- 搜索框 -->
+<view class="l-search-bar l-sticky">
+  <view class="l-flex-hvc">
+    <view class="l-rest">
+      <input focus="true" bindinput="bindKeyInput" confirm-type="search" bindconfirm="search" placeholder="搜索问题/答案关键字" value="{{searchKey}}"/>
+    </view>
+    <icon hidden="{{searchKey === ''}}" type="clear" class="l-margin-r-m" size="18" bindtap="clearInput"></icon>
+    <icon type="search" size="20" bindtap="search"></icon>
+  </view>
+</view>
+
+<!-- 没有搜索结果 -->
+<view class="l-list-none l-padding-tb" wx:if="{{searchKey !== '' && problem.ajax && problem.data.length === 0}}">
+  <image src="https://static.ushiyihao.com/xcx/sorryNonePic.png" mode="aspectFit"></image>
+  <view>抱歉，暂时没有找到您要找的问题！</view>
+  <navigator class="l-text-center l-btn-w60 l-margin-t-xl" url="/pages/ask/index">
+    <button type="primary">去提问</button>
+  </navigator>
+</view>
+
+<!-- 搜索结果 -->
+<view wx:if="{{problem.data.length > 0 && searchKey !== ''}}">
+  <block wx:for="{{problem.data}}" wx:key="problemId}">
+    <navigator url="/pages/ask-info/index?pbid={{item.problemId}}" class="l-problem-item l-bg-white">
+      <view class="_hd l-flex-hc">
+        <text class="l-rest l-text-gray">匿名用户</text>
+        <text class="l-text-theme">¥{{item.amount}}</text>
       </view>
-      <icon hidden="{{searchKey === ''}}" type="clear" class="l-margin-r-m" size="18" bindtap="clearInput"></icon>
-      <icon type="search" size="20" bindtap="search"></icon>
-    </view>
-  </view>
-
-  <!-- 没有搜索结果 -->
-  <view class="l-list-none l-padding-tb" wx:if="{{searchKey !== '' && problem.ajax && problem.data.length === 0}}">
-    <image src="https://static.ushiyihao.com/xcx/sorryNonePic.png" mode="aspectFit"></image>
-    <view>抱歉，暂时没有找到您要找的问题！</view>
-    <navigator class="l-text-center l-btn-w60 l-margin-t-xl" url="/pages/ask/index">
-      <button type="primary">去提问</button>
+      <view class="_bd l-text-wrap2">
+        <text>{{item.problemRemarks}}</text>
+      </view>
+      <view class="_ft l-flex-hc l-text-gray">
+        <text class="l-rest">{{item.doctorName}} | {{item.hospital}}</text>
+        <text>{{item.createDateStr}}</text>
+      </view>
     </navigator>
+  </block>
+
+  <template is="loadmore" data="{{...problem, hideNone: true}}" />
+</view>
+
+<!-- 历史记录 -->
+<view class="l-search-history" wx:if="{{searchKey === '' && history.data.length > 0}}">
+  <view>
+    <text class="l-fr l-icon-627 l-fs-m" bindtap="clear"></text>
+    <text class="l-fs-m">历史搜索</text>
   </view>
-
-  <!-- 搜索结果 -->
-  <view wx:if="{{problem.data.length > 0 && searchKey !== ''}}">
-    <block wx:for="{{problem.data}}" wx:key="problemId}">
-      <navigator url="/pages/ask-info/index?pbid={{item.problemId}}" class="l-problem-item l-bg-white">
-        <view class="_hd l-flex-hc">
-          <text class="l-rest l-text-gray">匿名用户</text>
-          <text class="l-text-theme">¥{{item.amount}}</text>
-        </view>
-        <view class="_bd l-text-wrap2">
-          <text>{{item.problemRemarks}}</text>
-        </view>
-        <view class="_ft l-flex-hc l-text-gray">
-          <text class="l-rest">{{item.doctorName}} | {{item.hospital}}</text>
-          <text>{{item.createDateStr}}</text>
-        </view>
-      </navigator>
-    </block>
-
-    <view class="weui-loadmore" hidden="{{!problem.more || !problem.loading}}">
-      <view class="weui-loading"></view>
-      <view class="weui-loadmore__tips">正在加载</view>
-    </view>
-    <view class="weui-loadmore weui-loadmore_line" hidden="{{ !(problem.data.length === 0 && !problem.more) }}">
-      <view class="weui-loadmore__tips weui-loadmore__tips_in-line" >暂无数据</view>
-    </view>
-    <view class="weui-loadmore weui-loadmore_line" hidden="{{ problem.more }}">
-      <view class="weui-loadmore__tips weui-loadmore__tips_in-line" >我是有底线的</view>
-    </view>
-  </view>
-
-  <!-- 历史记录 -->
-  <view class="l-search-history" wx:if="{{searchKey === '' && history.data.length > 0}}">
-    <view>
-      <text class="l-fr l-icon-627 l-fs-m" bindtap="clear"></text>
-      <text class="l-fs-m">历史搜索</text>
-    </view>
-    <view class="_list">
-      <text bindtap="historySearch" data-val="{{item}}" class="l-text-wrap" wx:for="{{history.data}}" wx:key="{{index}}">{{item}}</text>
-    </view>
+  <view class="_list">
+    <text bindtap="historySearch" data-val="{{item}}" class="l-text-wrap" wx:for="{{history.data}}" wx:key="{{index}}">{{item}}</text>
   </view>
 </view>

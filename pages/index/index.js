@@ -106,6 +106,7 @@ Page({
     })
     app.post(app.config.problemList, {
       page,
+      isIndex: true,
       problemState: 4
     }).then(({ data }) => {
       data.problems = data.problems.map(item => {

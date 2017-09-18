@@ -62,7 +62,7 @@ var config = {
   // 发送消息
   sendMessage: `${baseUrl}/diagnose/sendMessage`,
   // 聊天记录
-  messageList: `${baseUrl}/diagnose/messageList`,
+  messageList: `${baseUrl}/diagnose/getMessage`,
   // 评价
   evaluate: `${baseUrl}/diagnose/evaluate`,
 

@@ -1,126 +1,98 @@
 <!--index.wxml-->
-<view class="l-page-group">
-  <!-- 用户首页 -->
-  <view class="l-page-user" wx:if="{{userInfo.isDoctor === 0}}">
-    <!-- banner -->
-    <view class="banner">
-      <view class="l-margin-t l-fs-20">U视问答</view>
-      <text>专业视力健康问答平台</text>
-      <view class="l-margin-b"></view>
-    </view>
-    <!-- 搜索 -->
-    <view class="l-sticky l-search-input">
-      <navigator class="l-flex-hvc" url="/pages/search/index">
-        <text class="l-rest l-text-gray">搜索感兴趣的问题</text>
-        <icon type="search" size="20"></icon>
-      </navigator>
-    </view>
-    <!-- 提问 -->
-    <view class="l-margin-b l-text-center l-bg-white l-padding-xl">
-      <view>权威认证三甲医院医生</view>
-      <view class="l-fs-14">为您解答视力健康问题</view>
-      <navigator class="l-text-center l-margin-t l-btn-w60" url="/pages/ask/index">
-        <button type="primary">去提问</button>
-      </navigator>
-    </view>
-    <!-- 已回答 -->
-    <view class="l-text-center l-bg-white l-padding-tb-s">
-      <text class="l-h4">已解答</text>
-    </view>
-    <block wx:for="{{problem.data}}" wx:key="problemId">
-      <navigator url="/pages/ask-info/index?pbid={{item.problemId}}" class="l-problem-item l-bg-white">
-        <view class="_hd l-flex-hc">
-          <text class="l-rest l-text-gray">匿名用户</text>
-          <text class="l-text-theme">¥{{item.amount}}</text>
-        </view>
-        <view class="_bd l-text-wrap2">
-          <text>{{item.problemRemarks}}</text>
-        </view>
-        <view class="_ft l-flex-hc l-text-gray">
-          <text class="l-rest">{{item.doctorName}} | {{item.hospital}}</text>
-          <text>{{item.createDateStr}}</text>
-        </view>
-      </navigator>
-    </block>
-
-    <view class="weui-loadmore" hidden="{{ !problem.loading }}">
-      <view class="weui-loading"></view>
-      <view class="weui-loadmore__tips">正在加载</view>
-    </view>
-    <view class="weui-loadmore weui-loadmore_line" hidden="{{ !(problem.data.length === 0 && !problem.more) }}">
-      <view class="weui-loadmore__tips weui-loadmore__tips_in-line">暂无数据</view>
-    </view>
-    <view class="weui-loadmore weui-loadmore_line" hidden="{{ !(problem.data.length > 0 && !problem.more) }}">
-      <view class="weui-loadmore__tips weui-loadmore__tips_in-line">我是有底线的</view>
-    </view>
+<import src="../../template/loadmore.wxml"/>
+<!-- 用户首页 -->
+<view class="l-page-full" wx:if="{{userInfo.isDoctor === 0}}">
+  <!-- banner -->
+  <view class="banner">
+    <view class="l-margin-t l-fs-20">U视问答</view>
+    <text>专业视力健康问答平台</text>
+    <view class="l-margin-b"></view>
   </view>
-
-  <!-- 医生首页 -->
-  <view class="l-page-doctor" wx:if="{{userInfo.isDoctor === 1}}">
-    <view class="weui-tab">
-      <view class="weui-navbar">
-        <block wx:for="{{tabs}}" wx:key="*this">
-          <view id="{{index}}" class="weui-navbar__item {{activeIndex == index ? 'weui-bar__item_on' : ''}}" bindtap="tabClick">
-            <view class="weui-navbar__title">{{item.title}}</view>
-          </view>
-        </block>
-        <view class="weui-navbar__slider" style="left: {{sliderLeft}}px; transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px);"></view>
+  <!-- 搜索 -->
+  <view class="l-sticky l-search-input">
+    <navigator class="l-flex-hvc" url="/pages/search/index">
+      <text class="l-rest l-text-gray">搜索感兴趣的问题</text>
+      <icon type="search" size="20"></icon>
+    </navigator>
+  </view>
+  <!-- 提问 -->
+  <view class="l-margin-b l-text-center l-bg-white l-padding-xl">
+    <view>权威认证三甲医院医生</view>
+    <view class="l-fs-14">为您解答视力健康问题</view>
+    <navigator class="l-text-center l-margin-t l-btn-w60" url="/pages/ask/index">
+      <button type="primary">去提问</button>
+    </navigator>
+  </view>
+  <!-- 已回答 -->
+  <view class="l-text-center l-bg-white l-padding-tb-s">
+    <text class="l-h4">已解答</text>
+  </view>
+  <block wx:for="{{problem.data}}" wx:key="problemId">
+    <navigator url="/pages/ask-info/index?pbid={{item.problemId}}" class="l-problem-item l-bg-white">
+      <view class="_hd l-flex-hc">
+        <text class="l-rest l-text-gray">匿名用户</text>
+        <text class="l-text-theme">¥{{item.amount}}</text>
       </view>
-      <view class="weui-tab__panel">
-        <view class="weui-tab__content" hidden="{{activeIndex != 0}}">
-          <block wx:for="{{tabs[0].data}}" wx:key="problemId">
-            <navigator url="/pages/ask-chat/index?pbid={{item.problemId}}" class="l-problem-item l-bg-white">
-              <view class="_hd l-flex-hc">
-                <text class="l-rest l-text-gray">匿名用户</text>
-              </view>
-              <view class="_bd l-text-wrap2">
-                <text>{{item.problemRemarks}}</text>
-              </view>
-              <view class="_ft l-flex-hc l-text-gray">
-                <text class="l-rest"><text class="l-text-theme">¥{{item.amount}}</text></text>
-                <text>{{item.createDateStr}}</text>
-              </view>
-            </navigator>
-          </block>
+      <view class="_bd l-text-wrap2">
+        <text>{{item.problemRemarks}}</text>
+      </view>
+      <view class="_ft l-flex-hc l-text-gray">
+        <text class="l-rest">{{item.doctorName}} | {{item.hospital}}</text>
+        <text>{{item.createDateStr}}</text>
+      </view>
+    </navigator>
+  </block>
 
-          <view class="weui-loadmore" hidden="{{ !tabs[0].loading }}">
-            <view class="weui-loading"></view>
-            <view class="weui-loadmore__tips">正在加载</view>
-          </view>
-          <view class="weui-loadmore weui-loadmore_line" hidden="{{ !(tabs[0].data.length === 0 && !tabs[0].more) }}">
-            <view class="weui-loadmore__tips weui-loadmore__tips_in-line">暂无数据</view>
-          </view>
-          <view class="weui-loadmore weui-loadmore_line" hidden="{{ !(tabs[0].data.length > 0 && !tabs[0].more) }}">
-            <view class="weui-loadmore__tips weui-loadmore__tips_in-line">我是有底线的</view>
-          </view>
-        </view>
-        <view class="weui-tab__content" hidden="{{activeIndex != 1}}">
-          <block wx:for="{{tabs[1].data}}" wx:key="problemId">
-            <navigator url="/pages/doctor-rob/index?pbid={{item.problemId}}" class="l-problem-item l-bg-white">
-              <view class="_hd l-flex-hc">
-                <text class="l-rest l-text-gray">匿名用户</text>
-              </view>
-              <view class="_bd l-text-wrap2">
-                <text>{{item.problemRemarks}}</text>
-              </view>
-              <view class="_ft l-flex-hc l-text-gray">
-                <text class="l-rest"><text class="l-text-theme">¥{{item.amount}}</text></text>
-                <text>{{item.createDateStr}}</text>
-              </view>
-            </navigator>
-          </block>
+  <template is="loadmore" data="{{...problem}}" />
+</view>
 
-          <view class="weui-loadmore" hidden="{{ !tabs[1].loading }}">
-            <view class="weui-loading"></view>
-            <view class="weui-loadmore__tips">正在加载</view>
-          </view>
-          <view class="weui-loadmore weui-loadmore_line" hidden="{{ !(tabs[1].data.length === 0 && !tabs[1].more) }}">
-            <view class="weui-loadmore__tips weui-loadmore__tips_in-line">暂无数据</view>
-          </view>
-          <view class="weui-loadmore weui-loadmore_line" hidden="{{ !(tabs[1].data.length > 0 && !tabs[1].more) }}">
-            <view class="weui-loadmore__tips weui-loadmore__tips_in-line">我是有底线的</view>
-          </view>
+<!-- 医生首页 -->
+<view class="l-page-full" wx:if="{{userInfo.isDoctor === 1}}">
+  <view class="weui-tab">
+    <view class="weui-navbar">
+      <block wx:for="{{tabs}}" wx:key="*this">
+        <view id="{{index}}" class="weui-navbar__item {{activeIndex == index ? 'weui-bar__item_on' : ''}}" bindtap="tabClick">
+          <view class="weui-navbar__title">{{item.title}}</view>
         </view>
+      </block>
+      <view class="weui-navbar__slider" style="left: {{sliderLeft}}px; transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px);"></view>
+    </view>
+    <view class="weui-tab__panel">
+      <view class="weui-tab__content" hidden="{{activeIndex != 0}}">
+        <block wx:for="{{tabs[0].data}}" wx:key="problemId">
+          <navigator url="/pages/ask-chat/index?pbid={{item.problemId}}" class="l-problem-item l-bg-white">
+            <view class="_hd l-flex-hc">
+              <text class="l-rest l-text-gray">匿名用户</text>
+            </view>
+            <view class="_bd l-text-wrap2">
+              <text>{{item.problemRemarks}}</text>
+            </view>
+            <view class="_ft l-flex-hc l-text-gray">
+              <text class="l-rest"><text class="l-text-theme">¥{{item.amount}}</text></text>
+              <text>{{item.createDateStr}}</text>
+            </view>
+          </navigator>
+        </block>
+
+        <template is="loadmore" data="{{...tabs[0]}}" />
+      </view>
+      <view class="weui-tab__content" hidden="{{activeIndex != 1}}">
+        <block wx:for="{{tabs[1].data}}" wx:key="problemId">
+          <navigator url="/pages/doctor-rob/index?pbid={{item.problemId}}" class="l-problem-item l-bg-white">
+            <view class="_hd l-flex-hc">
+              <text class="l-rest l-text-gray">匿名用户</text>
+            </view>
+            <view class="_bd l-text-wrap2">
+              <text>{{item.problemRemarks}}</text>
+            </view>
+            <view class="_ft l-flex-hc l-text-gray">
+              <text class="l-rest"><text class="l-text-theme">¥{{item.amount}}</text></text>
+              <text>{{item.createDateStr}}</text>
+            </view>
+          </navigator>
+        </block>
+        
+        <template is="loadmore" data="{{...tabs[1]}}" />
       </view>
     </view>
   </view>

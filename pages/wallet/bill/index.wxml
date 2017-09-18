@@ -1,4 +1,5 @@
 <!--pages/wallet/details/index.wxml-->
+<import src="../../../template/loadmore.wxml"/>
 <view class="l-page-full">
   <view class="weui-tab">
     <view class="weui-navbar">
@@ -12,29 +13,20 @@
     <view class="weui-tab__panel">
       <!-- 余额明细 -->
       <view class="weui-tab__content" hidden="{{activeIndex != 0}}">
-        <view class="l-flex-hc l-padding l-border-t l-bg-white" wx:for="{{balance.data}}" wx:key="{{index}}">
+        <view class="l-flex-hc l-padding l-border-t l-bg-white" wx:for="{{balance.data}}" wx:key="*this">
           <view class="l-rest">
             <view class="l-h4">答题所得</view>
-            <view class="l-text-gray">{{item.createDate}}</view>
+            <view class="l-text-gray">{{item.payDate}}</view>
           </view>
           <view class="l-margin-l">
             <text class="l-h3 l-text-green">{{item.amount > 0 ? '+' : '-'}}{{item.money}}</text>          
           </view>
         </view>
-        <view class="weui-loadmore" hidden="{{ !balance.loading }}">
-          <view class="weui-loading"></view>
-          <view class="weui-loadmore__tips">正在加载</view>
-        </view>
-        <view class="weui-loadmore weui-loadmore_line" hidden="{{ !(balance.data.length === 0 && !balance.more) }}">
-          <view class="weui-loadmore__tips weui-loadmore__tips_in-line" >暂无数据</view>
-        </view>
-        <view class="weui-loadmore weui-loadmore_line" hidden="{{ !(balance.data.length > 0 && !balance.more) }}">
-          <view class="weui-loadmore__tips weui-loadmore__tips_in-line" >我是有底线的</view>
-        </view>
+        <template is="loadmore" data="{{...balance}}" />
       </view>
       <!-- 提现记录 -->
       <view class="weui-tab__content" hidden="{{activeIndex != 1}}">
-        <view class="l-flex-hc l-padding l-border-t l-bg-white" wx:for="{{withdrawa.data}}" wx:key="{{index}}">
+        <view class="l-flex-hc l-padding l-border-t l-bg-white" wx:for="{{withdrawa.data}}" wx:key="*this">
           <view class="l-rest">
             <view class="l-h4">{{'提现' || item.withdrawalCode}}</view>
             <view class="l-text-gray">{{item.createDate}}</view>
@@ -43,16 +35,7 @@
             <text class="l-h3">-{{item.money}}</text>
           </view>
         </view>
-        <view class="weui-loadmore" hidden="{{ !withdrawa.loading }}">
-          <view class="weui-loading"></view>
-          <view class="weui-loadmore__tips">正在加载</view>
-        </view>
-        <view class="weui-loadmore weui-loadmore_line" hidden="{{ !(withdrawa.data.length === 0 && !withdrawa.more) }}">
-          <view class="weui-loadmore__tips weui-loadmore__tips_in-line" >暂无数据</view>
-        </view>
-        <view class="weui-loadmore weui-loadmore_line" hidden="{{ !(withdrawa.data.length > 0 && !withdrawa.more) }}">
-          <view class="weui-loadmore__tips weui-loadmore__tips_in-line" >我是有底线的</view>
-        </view>
+        <template is="loadmore" data="{{...withdrawa}}" />
       </view>
     </view>
   </view>

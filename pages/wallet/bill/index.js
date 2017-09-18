@@ -100,11 +100,9 @@ Page({
       callback(this.data.withdrawa.data)
       return
     }
-
     this.setData({
       'withdrawa.loading': true
     })
-
     app.post(app.config.withdrawList, {
       page
     }).then(({data}) => {

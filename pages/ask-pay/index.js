@@ -45,13 +45,14 @@ Page({
     const that = this
     wx.showLoading({ mask: true })
     app.post(app.config.payConfig, this.data.orderInfo).then(({ data }) => {
+      wx.hideLoading()
       wx.requestPayment({
         timeStamp: data.payInfo.timeStamp,
         nonceStr: data.payInfo.nonceStr,
         package: data.payInfo.package,
         signType: data.payInfo.signType,
         paySign: data.payInfo.paySign,
-        success: function (res) {
+        success: res => {
           wx.showToast({
             mask: true,
             title: '支付成功',
@@ -61,7 +62,7 @@ Page({
             }
           })
         },
-        fail: function (res) {
+        fail: res => {
           if (res.errMsg !== 'requestPayment:fail cancel') {
             wx.showModal({
               title: '支付失败',
@@ -71,8 +72,6 @@ Page({
           }
         }
       })
-    }).finally(() => {
-      wx.hideLoading()
     })
   }
 })

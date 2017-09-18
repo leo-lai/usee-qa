@@ -1,5 +1,6 @@
 <!--asked/ask/index.wxml-->
-<view class="l-zoom l-page-full">
+<import src="../../../template/loadmore.wxml"/>
+<view class="l-zoom" wx:if="{{problem.data.length > 0}}">
   <block wx:for="{{problem.data}}" wx:key="problemId">
     <navigator url="/pages/ask-chat/index?pbid={{item.problemId}}" class="l-problem-item l-margin-t l-bg-white">
       <view class="_hd l-flex-hc">
@@ -19,20 +20,15 @@
       </view>
     </navigator>
   </block>
-  <view class="weui-loadmore" hidden="{{ !problem.loading }}">
-    <view class="weui-loading"></view>
-    <view class="weui-loadmore__tips">正在加载</view>
-  </view>
-  <view class="weui-loadmore weui-loadmore_line" hidden="{{ !(problem.data.length > 0 && !problem.more) }}">
-    <view class="weui-loadmore__tips weui-loadmore__tips_in-line" >我是有底线的</view>
-  </view>
-  <!-- 没有提问 -->
-  <view class="l-list-none" wx:if="{{ problem.data.length === 0 && !problem.more }}">
-    <image mode="widthFix" src="https://static.ushiyihao.com/xcx/withoutAsk.jpg"></image>
-    <view class="l-margin-t">您还没有提问过任何问题</view>
-    <navigator class="l-margin-t-xl l-btn-w60" url="/pages/ask/index">
-      <button type="primary">去提问</button>
-    </navigator>
-  </view>
+
+  <template is="loadmore" data="{{...problem}}" />
+</view>
+<!-- 没有提问 -->
+<view class="l-list-none" wx:if="{{ problem.data.length === 0 && !problem.more }}">
+  <image mode="widthFix" src="https://static.ushiyihao.com/xcx/withoutAsk.jpg"></image>
+  <view class="l-margin-t">您还没有提问过任何问题</view>
+  <navigator class="l-margin-t-xl l-btn-w60" url="/pages/ask/index">
+    <button type="primary">去提问</button>
+  </navigator>
 </view>
 

@@ -1,86 +1,98 @@
-<!--index.wxml-->
-<view class="l-page">
-  <!-- 问题详情 -->
-  <view class="l-problem-item l-bg-white l-margin-b">
-    <view class="_hd l-flex-hc">
-      <text class="l-rest l-text-gray">匿名用户</text>
-      <text class="l-text-theme">¥{{problemInfo.amount}}</text>
-    </view>
-    <view class="_bd">{{problemInfo.problemRemarks}}</view>
-    <view class="_ft l-flex-hc l-text-gray">
-      <view class="l-rest"></view>
-      <text>{{problemInfo.createDateStr}}</text>
+<!--ask-info/index.wxml-->
+<import src="../../template/loadmore.wxml"/>
+
+<!-- 问题详情 -->
+<view class="l-problem-item l-bg-white l-margin-b" wx:if="{{problemInfo.problemId}}">
+  <view class="_hd l-flex-hc">
+    <text class="l-rest l-text-gray">匿名用户</text>
+    <text class="l-text-theme">¥{{problemInfo.amount}}</text>
+  </view>
+  <view class="_bd">{{problemInfo.problemRemarks}}</view>
+  <view class="_ft l-flex-hc l-text-gray">
+    <view class="l-rest"></view>
+    <text>{{problemInfo.createDateStr}}</text>
+  </view>
+</view>
+
+<!-- 偷偷看答案 -->
+<block wx:if="{{isNeedPay === true}}">
+  <view class="l-answer l-bg-white l-flex-h l-margin-b">
+    <image class="_avatar" src="{{doctor.avatarThumb}}" />
+    <view class="l-rest l-margin-l">
+      <view class="l-text-gray">{{doctor.doctorName}} | {{doctor.hospital}}</view>
+      <view class="_answer l-margin-tb-m" bindtap="seeAnswer">
+        <text class="l-icon-638"></text>
+        <text space="true" decode="true">&nbsp;&nbsp;1元偷偷查看答案</text>
+      </view>
+      <view class="l-text-gray">{{evaluate.checkNumber}}人听过</view>
     </view>
   </view>
-  
-  <!-- 偷偷看答案 -->
-  <block wx:if="{{isNeedPay === true}}">
-    <view class="l-answer l-bg-white l-flex-h l-margin-b">
-      <image class="_avatar" src="{{doctor.avatarThumb}}" />
-      <view class="l-rest l-margin-l">
-        <view class="l-text-gray">{{doctor.doctorName}} | {{doctor.hospital}}</view>
-        <view class="_answer l-margin-tb-m">
-          <text class="l-icon-638"></text>
-          <text space="true" decode="true">&nbsp;&nbsp;1元偷偷查看答案</text>
-        </view>
-        <view class="l-text-gray">{{evaluate.checkNumber}}人听过</view>
-      </view>
-    </view>
-  </block>
+</block>
 
-  <!-- 医生对话记录 -->
-  <block wx:if="{{isNeedPay === false}}">
-    <view class="l-scroll" style="margin-top: -30rpx;" >
-      <scroll-view scroll-y style="max-height: 1000rpx;">
-        <view class="l-chat-record">
-          <view class="_tip">医生的回答只能作为咨询建议，不能作为诊断和治疗的依据，咨询建议不能代替医生面诊。</view>
-          <view class="l-chat-item {{index % 2 === 0 ? '_self' : ''}}" wx:for="{{[1,2]}}" wx:key="*this">
+<!-- 医生对话记录 -->
+<block wx:if="{{isNeedPay === false}}">
+  <view id="chat-scroll" class="l-scroll" style="margin-top: -30rpx;" >
+    <scroll-view scroll-y scroll-with-animation 
+      bindscrolltolower="bindReachBottom"
+      style="max-height: 1000rpx;">
+      <view class="l-chat-record">
+        <view class="_tip">医生的回答只能作为咨询建议，不能作为诊断和治疗的依据，咨询建议不能代替医生面诊。</view>
+        <!-- 对话列表 -->
+        <block wx:for="{{chat.data}}" wx:key="tick">
+          <view class="l-margin-tb l-text-center" wx:if="{{item.showDate}}">
+            <text class="_date">{{item.msgDateStr}}</text>
+          </view>
+          <view class="l-chat-item {{item.fromUserId === problemInfo.interrogationId ? '_self' : ''}}">
             <view class="_who">
-              <image src="https://static.ushiyihao.com/xcx/avatar.jpg" />
+              <image src="{{item.fromUserId === problemInfo.interrogationId ? item.fromUserAvatar : item.toUserAvatar}}" />
             </view>
-            <view class="_msg">
-              医生的回答只能作为咨询建议，不能作为诊断和治疗的依据。
+            <view class="_msg" wx:if="{{item.msgType == 1}}">{{item.msgContent}}</view>
+            <view class="_msg-img" wx:if="{{item.msgType == 2}}" id="{{item.imageSrc}}" bindtap="previewImage">
+              <image mode="widthFix" src="{{item.msgContent}}"></image>
             </view>
           </view>
-        </view>
-      </scroll-view>
-    </view>
-    <!-- 医生名片 -->
-    <view class="l-doctor-card">
-      <view class="_inner">
-        <view class="_avatar">
-          <image src="{{doctor.avatarThumb}}" />
-        </view>
-        <view class="l-margin-tb-m">{{doctor.doctorName}}</view>
-        <view class="l-margin-tb-m l-text-gray">{{doctor.hospital}}</view>
-        <view class="l-margin-tb-m">{{doctor.introduce}}</view>
-        <view class="_zan">
-          <text class="l-icon-600 l-margin-r-s"></text>
-          <text>有用</text>
-        </view>
+        </block>
+        <!-- 对话列表 end-->
       </view>
-      <view class="l-margin-t-m">{{evaluate.checkNumber}}人觉得有用</view>
+      <template is="loadmore" data="{{...chat}}"/>
+    </scroll-view>
+    <view id="scroll-bottom"></view>
+  </view>
+  <!-- 医生名片 -->
+  <view class="l-doctor-card">
+    <view class="_inner">
+      <view class="_avatar">
+        <image src="{{doctor.avatarThumb}}" />
+      </view>
+      <view class="l-margin-tb-m">{{doctor.doctorName}}</view>
+      <view class="l-margin-tb-m l-text-gray">{{doctor.hospital}}</view>
+      <view class="l-margin-tb-m">{{doctor.introduce}}</view>
+      <view class="_zan">
+        <text class="l-icon-600 l-margin-r-s"></text>
+        <text>有用</text>
+      </view>
     </view>
-  </block>
+    <view class="l-margin-t-m">{{evaluate.checkNumber}}人觉得有用</view>
+  </view>
+</block>
 
-  <!-- 用户评价 -->
-  <block wx:if="{{evaluate.satisfactionDegree !== ''}}">
-    <view class="l-text-center l-bg-white l-padding-t">
-      <text class="l-h4">用户评价</text>
-    </view>
-    <view class="l-evaluate l-bg-white l-flex-h l-margin-b">
-      <image class="_avatar" src="https://static.ushiyihao.com/xcx/avatar.jpg" /> 
-      <view class="l-rest l-margin-l">
-        <view class="l-text-gray">
-          <text class="l-fr">{{evaluate.createDate}}</text>
-          <text>匿名用户</text>
-        </view>
-        <view class="l-margin-tb-m">
-          <text class="l-text-gray">评价</text>
-          <text class="l-text-theme l-margin-l-s">{{score[evaluate.satisfactionDegree]}}</text>
-        </view>
-        <view class="l-margin-tb-m">{{evaluate.evaluate}}</view>
+<!-- 用户评价 -->
+<block wx:if="{{evaluate.satisfactionDegree !== ''}}">
+  <view class="l-text-center l-bg-white l-padding-t">
+    <text class="l-h4">用户评价</text>
+  </view>
+  <view class="l-evaluate l-bg-white l-flex-h l-margin-b">
+    <image class="_avatar" src="https://static.ushiyihao.com/xcx/avatar.jpg" /> 
+    <view class="l-rest l-margin-l">
+      <view class="l-text-gray">
+        <text class="l-fr">{{evaluate.evaluateDateStr}}</text>
+        <text>匿名用户</text>
       </view>
+      <view class="l-margin-tb-m">
+        <text class="l-text-gray">满意度</text>
+        <text class="l-text-theme l-margin-l-s">{{score[evaluate.satisfactionDegree]}}</text>
+      </view>
+      <view class="l-margin-tb-m">{{evaluate.evaluate}}</view>
     </view>
-  </block>
-</view>
+  </view>
+</block>

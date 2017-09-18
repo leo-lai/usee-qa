@@ -85,7 +85,7 @@ Page({
   // 选择标签
   sltDoctorLabel: function (e) {
     let index = e.target.dataset.index
-    if (index !== '') {
+    if (this.data.doctorLabels[index]) {
       this.data.doctorLabels[index].slted = !this.data.doctorLabels[index].slted
       let labelIds = [], labelName = []
       this.data.doctorLabels.forEach((item) => {
@@ -117,9 +117,7 @@ Page({
       return
     }
 
-    wx.showLoading({
-      mask: true
-    })
+    wx.showLoading()
     app.post(app.config.doctorInfoUpdate, this.data.formData).then(() => {
       wx.showToast({
         title: '提交成功',

@@ -82,16 +82,15 @@ Page({
   },
   // 提交评价
   submitEvaluate: function () {
-    if (this.data.formData.evaluate.length < 10) {
+    if (this.data.formData.evaluate.length <= 0) {
       this.showTopTips('请输入评价内容')
       return
     }
     
     wx.showLoading({
-      mask: true,
       title: '提交中...'
     })
-    app.post(app.config.evaluate, that.data.formData).then(({data}) => {
+    app.post(app.config.evaluate, this.data.formData).then(({data}) => {
       wx.showToast({
         title: '评价成功',
         duration: 2000,

@@ -46,9 +46,9 @@ Page({
     app.post(app.config.withdrawal, {
       amount: parseFloat(this.data.formData.amount)
     }).then(() => {
+      wx.hideLoading()
       app.navigateTo('/pages/result/index?type=withdraw')
     }).finally(() => {
-      wx.hideLoading()
       this.setData({
         disabled: false
       })
